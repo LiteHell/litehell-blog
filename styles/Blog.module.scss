@@ -1,0 +1,92 @@
+@import 'variables';
+
+.header {
+    padding-left: 15px;
+    border-bottom: 1px solid black;
+    .title {
+        & > * {
+            display: inline-block;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 20px 0px 0px 0px;
+            padding: 0px;
+        }
+        h2 {
+            font-size: 1.1em;
+            font-weight: normal;
+            margin: 0px 0px 0px 10px;
+            padding: 0px;
+        }
+    }
+    p {
+        margin: 0px 0px 10px 0px;
+        color: rgb(116, 116, 116);
+        a {
+            @include add-dark-link-color();
+        }
+        .tag + .tag::before {
+            content: ', '
+        }
+    }
+}
+.article {
+    @mixin headerProperty($size) {
+        font-size: $size;
+        margin: $size 0px;
+    }
+    padding: 10px 10px;
+    font-size: 1rem;
+
+    pre {
+        overflow-x: auto;
+    }
+    a {
+        @include add-link-color();
+    }
+    h1 {
+        @include headerProperty(1.8rem);
+    }
+    h2 {
+        @include headerProperty(1.6rem);
+    }
+    h3 {
+        @include headerProperty(1.4rem);
+    }
+    h4 {
+        @include headerProperty(1.2rem);
+    }
+    h5 {
+        @include headerProperty(1.15rem);
+    }
+    h6 {
+        @include headerProperty(1.1rem);
+    }
+    img {
+        max-width: 100%;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-collapse: collapse;
+        td, tr, th {
+            border: 1px gray solid;
+        }
+        th {
+            font-weight: bold;
+        }
+        th, td {
+            padding: 5px 10px;
+        }
+        thead {
+            background: rgb(216, 216, 216);
+        }
+    }
+    blockquote {
+        background: rgb(194, 194, 194);
+        margin: 25px 10px 25px 30px;
+        padding: 10px 50px;
+        border-left: 5px solid rgb(78, 78, 78);
+    }
+}

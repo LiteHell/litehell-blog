@@ -1,0 +1,42 @@
+@import 'variables';
+
+.postListHeader {
+    padding: 5px 10px 15px 10px;
+    h1 {
+        font-size: 1.8rem;
+        margin: 0px;
+    }   
+    .backLink {
+        @include add-link-color();
+    }
+}
+
+.postList {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    li {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    li:hover {
+        color: gray;
+    }
+}
+.postItem {
+    .postTitle {
+        font-size: 1.5rem;
+    }
+    .postSubtitle {
+        font-size: 0.9rem;
+    }
+}
+.postNav {
+    padding: 5px 10px;
+    a {
+        @include add-link-color();
+    }
+    .next {
+        float: right;
+    }
+}
