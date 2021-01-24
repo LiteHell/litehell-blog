@@ -18,7 +18,11 @@ jobs:
         run: |
           yarn install
           yarn build
-          
+      
+      - name: Create .nojekyll file 📝
+        run: |
+          touch out/.nojekyll
+                
       - name: Install SSH Client 🔑
         uses: webfactory/ssh-agent@v0.4.1
         with:
