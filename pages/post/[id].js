@@ -8,7 +8,7 @@ export default function Post({ article }) {
   return (
     <Layout>
       <Head>
-        <title>블로그</title>
+        <title>LiteHell의 블로그 - { article.metadata.title || '무제' }</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/vs2015.min.css" />
       </Head>
       
