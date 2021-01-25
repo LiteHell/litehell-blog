@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import Layout from '../../components/layout';
-import Blog from '../../modules/blog';
 import React from 'react';
+import Layout from '../../components/layout';
 import TagList from '../../components/tagList';
-import PropTypes from 'prop-types';
+import Blog from '../../modules/blog';
 
 export default class Tags extends React.Component {
   render() {
@@ -24,7 +23,7 @@ export default class Tags extends React.Component {
   }
 }
 Tags.propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  tags: TagList.propTypes.tags,
 };
 
 export async function getStaticProps() {
