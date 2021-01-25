@@ -31,7 +31,7 @@ export async function getStaticProps({ params }) {
   const { category } = params;
   const blog = await new Blog();
   const articles = await blog.getArticleList();
-  
+
   return {
     props: {
       posts: articles.filter(

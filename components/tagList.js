@@ -48,16 +48,19 @@ TagList.propTypes = {
   backLink: PropTypes.string,
   backLinkText: PropTypes.string,
   prefix: PropTypes.string,
-  tags: function(props, propName, componentName) {
-    const err = new Error('Invalid prop `' + propName + '` supplited to `' + componentName + '`. Validation failed.');
-    if(!props[propName])
-      throw err;
+  tags: function (props, propName, componentName) {
+    const err = new Error(
+      'Invalid prop `' +
+        propName +
+        '` supplited to `' +
+        componentName +
+        '`. Validation failed.'
+    );
+    if (!props[propName]) throw err;
     const entries = Object.entries(props[propName]);
-    for(const entry of entries) {
-      if (typeof entry[0] !== 'string')
-        throw err;
-      else if (typeof entry[1] !== 'number')
-        throw err;
+    for (const entry of entries) {
+      if (typeof entry[0] !== 'string') throw err;
+      else if (typeof entry[1] !== 'number') throw err;
     }
-  }
+  },
 };

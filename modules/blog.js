@@ -54,7 +54,10 @@ export default class Blog {
       }, {});
     else
       return articles.reduce((prev, cur) => {
-        if (typeof cur.metadata.category === 'string' && !prev.includes(cur.metadata.category))
+        if (
+          typeof cur.metadata.category === 'string' &&
+          !prev.includes(cur.metadata.category)
+        )
           prev.push(cur.metadata.category);
         return prev;
       }, []);
