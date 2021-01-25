@@ -95,4 +95,9 @@
         display: inline-block;
         border-radius: 4px;
     }
+    ul, ol {
+        li {
+            margin: 6px 0px;
+        }
+    }
 }
