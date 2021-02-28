@@ -9,9 +9,9 @@ tags:
     - 'React'
 ---
 # 발단
-[전 글](/post/oauth2_and_oidc)에서 동아리 인증 시스템을 만들 때, 동아리 소개 홈페이지도 같이 만들었다. 동아리 홈페이지를 만들어두면 나중에 홍보할 때 써먹을 수 있겠다는 판단이 들어서였다. 그래서 그때 당시(2019년 초)에 [GitHub Pages](https://pages.github.com/)와 [Creative 템플릿](https://startbootstrap.com/theme/creative)을 이용해 간단히 제작했다.
+[전 글](/post/oauth2_and_oidc)에서 동아리 인증 시스템을 만들 때, 동아리 소개 홈페이지도 같이 만들었다. 동아리 홈페이지를 만들어두면 나중에 홍보할 때 써먹을 수 있겠다는 판단이 들어서였다. 그래서 그때 당시(2020년 초)에 [GitHub Pages](https://pages.github.com/)와 [Creative 템플릿](https://startbootstrap.com/theme/creative)을 이용해 간단히 제작했다.
 
-그 다음 연도(2020년 초)에 회장이 바뀌고 회장 전화번호를 수정하면서 [Bootstrap](https://getbootstrap.com) 의존성을 걷어내고 순수 CSS와 HTML, JS(+jQuery)로만 재작성했다. 그 때 당시에는 1페이지의 홈페이지로, 간단한 동아리 소개와 회장단 연락처, 동아리 가입신청 링크만 있었다.
+그 다음 연도(2021년 초)에 회장이 바뀌고 회장 전화번호를 수정하면서 [Bootstrap](https://getbootstrap.com) 의존성을 걷어내고 순수 CSS와 HTML, JS(+jQuery)로만 재작성했다. 그 때 당시에는 1페이지의 홈페이지로, 간단한 동아리 소개와 회장단 연락처, 동아리 가입신청 링크만 있었다.
 
 이때 당시에는, 홈페이지 수정이 1년에 한 두번만 있을 것이라고 생각했었다. 그래서 그냥 간단하게 GitHub Pages를 이용해서 게시했다. 어처피 내가 곧 군대를 가게 될지라도 수정해주고 가면 될 것이라 판단도 있었다.
 
