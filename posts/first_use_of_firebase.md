@@ -2,7 +2,7 @@
 title: 'Firebase 처음 써본 이야기'
 subtitle: '데이터베이스 스카마 설계하기 귀찮을 때'
 author: 'LiteHell'
-date: '2020-02-28T22:40:29+09:00'
+date: '2021-02-28T22:40:29+09:00'
 category: 'Dev'
 tags:
     - 'Firebase'

@@ -2,7 +2,7 @@
 title: 'OAuth 2.0과 OpenID Connect Core 1.0'
 subtitle: '동아리 홈페이지와 통합 인증에 관한 이야기'
 author: 'LiteHell'
-date: '2020-01-25T18:27:00+09:00'
+date: '2021-01-25T18:27:00+09:00'
 category: 'Dev'
 tags:
     - 'SSO'
