@@ -11,7 +11,7 @@ export default function Comments() {
     const attributes = {
       src: 'https://utteranc.es/client.js',
       repo: 'LiteHell/litehell-blog',
-      'issue-term': 'pathname',
+      'issue-term': 'og:title',
       label: 'blog comment',
       theme: 'github-light',
       crossorigin: 'anonymous',
