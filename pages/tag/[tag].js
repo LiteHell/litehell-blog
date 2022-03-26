@@ -8,7 +8,16 @@ import Blog from '../../modules/blog';
 export default class TaggedPostList extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl:
+            'https://blog.litehell.info/tag/' +
+            encodeURIComponent(this.props.tag),
+          title: `LiteHell의 블로그 - ${this.props.tag} 태그`,
+          description: `LiteHell의 블로그에서 ${this.props.tag} 태그를 가진 글들`,
+          withSiteName: true,
+        }}
+      >
         <Head>
           <title>LiteHell의 블로그 - {this.props.tag} 태그</title>
         </Head>

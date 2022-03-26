@@ -7,7 +7,14 @@ import Blog from '../../modules/blog';
 export default class Categories extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl: 'https://blog.litehell.info/category',
+          title: 'LiteHell의 블로그 - 카테고리 목록',
+          description: 'LiteHell의 블로그의 카테고리 목록',
+          withSiteName: true,
+        }}
+      >
         <Head>
           <title>LiteHell의 블로그 - 카테고리 목록</title>
         </Head>

@@ -8,7 +8,16 @@ import Blog from '../../modules/blog';
 export default class CategoriedPostList extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl:
+            'https://blog.litehell.info/category' +
+            encodeURIComponent(this.props.category),
+          title: `LiteHell의 블로그 - ${this.props.category} 카테고리`,
+          description: `LiteHell의 블로그에서 ${this.props.category} 카테고리에 속하는 글들`,
+          withSiteName: true,
+        }}
+      >
         <Head>
           <title>LiteHell의 블로그 - {this.props.category} 카테고리</title>
         </Head>

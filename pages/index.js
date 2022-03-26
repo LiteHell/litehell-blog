@@ -7,7 +7,11 @@ import PostList from '../components/postList';
 export default class Home extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl: 'https://blog.litehell.info',
+        }}
+      >
         <Head>
           <title>LiteHell의 블로그</title>
         </Head>

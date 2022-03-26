@@ -7,7 +7,14 @@ import Blog from '../../modules/blog';
 export default class Tags extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl: 'https://blog.litehell.info/tag',
+          title: 'LiteHell의 블로그 태그 목록',
+          description: 'LiteHell의 블로그 태그 목록',
+          withSiteName: true,
+        }}
+      >
         <Head>
           <title>LiteHell의 블로그 - 태그 목록</title>
         </Head>
