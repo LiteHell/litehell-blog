@@ -46,27 +46,33 @@ export default class Layout extends React.Component {
           />
         </Head>
         <header className={styles.header}>
-          <h1>
-            <Link href='/'>LiteHell의 블로그</Link>
-          </h1>
-          <div className={styles.outLinks}>
-            외부고리 :&nbsp;
-            <a href='https://github.com/LiteHell'>GitHub</a>
-            <a href='https://linkedin.com/in/LiteHell'>LinkedIn</a>
-            <a href='https://keybase.io/LiteHell'>Keybase</a>
-            <a href='mailto:litehell@litehell.info'>Email</a>
-          </div>
-          <div className={styles.inLinks}>
-            내부고리 :&nbsp;
-            <Link href='/category'>카테고리</Link>
-            <Link href='/tag'>태그</Link>
+          <div className={styles.container}>
+            <h1>
+              <Link href='/'>LiteHell의 블로그</Link>
+            </h1>
+            <div className={styles.outLinks}>
+              외부고리 :&nbsp;
+              <a href='https://github.com/LiteHell'>GitHub</a>
+              <a href='https://linkedin.com/in/LiteHell'>LinkedIn</a>
+              <a href='https://keybase.io/LiteHell'>Keybase</a>
+              <a href='mailto:litehell@litehell.info'>Email</a>
+            </div>
+            <div className={styles.inLinks}>
+              내부고리 :&nbsp;
+              <Link href='/category'>카테고리</Link>
+              <Link href='/tag'>태그</Link>
+            </div>
           </div>
         </header>
-        <main className={styles.mainContainer}>{this.props.children}</main>
+        <main className={styles.mainContainer}>
+          <div className={styles.container}>{this.props.children}</div>
+        </main>
         <footer className={styles.footer}>
-          Copyrights (C) 2020 LiteHell, All rights reserved.
-          <br />
-          Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist Association
+          <div className={styles.container}>
+            Copyrights (C) 2020 LiteHell, All rights reserved.
+            <br />
+            Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist Association
+          </div>
         </footer>
       </div>
     );

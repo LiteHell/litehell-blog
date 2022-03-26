@@ -42,3 +42,13 @@
         color: rgb(200, 200, 200);
     }
 }
+
+.container {
+    margin: 0px auto;
+    @media (min-width: 1024px) {
+        max-width: 960px;
+    }
+    @media (min-width: 1216px) {
+        max-width: 1152px;
+    }
+}
