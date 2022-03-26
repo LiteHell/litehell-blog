@@ -14,9 +14,16 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install and Build 🔧
+      - name: Install Dependencies 🔧
         run: |
           yarn install
+
+      - name: Genereate Feeds 🔧
+        run: |
+          yarn generateFeeds
+
+      - name: Build blog 🔧
+        run: |
           yarn build
       
       - name: Create .nojekyll file 📝
