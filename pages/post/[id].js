@@ -4,12 +4,28 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from '../../components/layout';
 import Blog from '../../modules/blog';
-import Comments from '../../components/comments'
+import Comments from '../../components/comments';
 import styles from '../../styles/Blog.module.scss';
+import cheerio from 'cheerio';
 
 export default class Post extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  canonicalUrl() {
+    return 'https://blog.litehell.info/post/' + this.props.articleId;
+  }
+
+  canonicalImage() {
+    const $ = cheerio.load(this.props.article.rendered);
+
+    const imgs = $('img');
+    if (imgs.length === 0)
+      return 'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1';
+
+    const url = new URL(imgs.eq(0).attr('src'), 'https://blog.litehell.info');
+    return url.href;
   }
 
   render() {
@@ -23,6 +39,20 @@ export default class Post extends React.Component {
             rel='stylesheet'
             href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/vs2015.min.css'
           />
+          <link rel='canonical' href={this.canonicalUrl()} />
+          <meta
+            property='og:title'
+            content={this.props.article.metadata.title || '무제'}
+          />
+          <meta
+            property='og:description'
+            content={this.props.article.metadata.subtitle || '블로그 글'}
+          />
+          <meta property='og:locale' content='ko_KR' />
+          <meta property='og:type' content='website' />
+          <meta property='og:site_name' content='LiteHell의 블로그' />
+          <meta property='og:url' content={this.canonicalUrl()} />
+          <meta property='og:image' content={this.canonicalImage()} />
         </Head>
 
         <div className={styles.header}>
@@ -85,13 +115,14 @@ Post.propTypes = {
     }),
     rendered: PropTypes.string.isRequired,
   }),
+  articleId: PropTypes.string,
 };
 
 export async function getStaticProps({ params }) {
   const blog = new Blog();
   const article = await blog.readArticle(params.id);
 
-  return { props: { article } };
+  return { props: { article, articleId: params.id } };
 }
 
 export async function getStaticPaths() {
