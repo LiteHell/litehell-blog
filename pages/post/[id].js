@@ -28,36 +28,35 @@ export default class Post extends React.Component {
     return url.href;
   }
 
+  titleForDisplay() {
+    return this.props.article.metadata.title || '무제';
+  }
+
   render() {
     return (
-      <Layout>
+      <Layout
+        openGraph={{
+          canonicalUrl: this.canonicalUrl(),
+          title: this.titleForDisplay(),
+          description:
+            this.props.article.metadata.subtitle ||
+            'LiteHell의 개인블로그에 작성된 글',
+          type: 'article',
+          withSiteName: true,
+          image: this.canonicalImage(),
+        }}
+      >
         <Head>
-          <title>
-            LiteHell의 블로그 - {this.props.article.metadata.title || '무제'}
-          </title>
+          <title>LiteHell의 블로그 - {this.titleForDisplay()}</title>
           <link
             rel='stylesheet'
             href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/vs2015.min.css'
           />
-          <link rel='canonical' href={this.canonicalUrl()} />
-          <meta
-            property='og:title'
-            content={this.props.article.metadata.title || '무제'}
-          />
-          <meta
-            property='og:description'
-            content={this.props.article.metadata.subtitle || '블로그 글'}
-          />
-          <meta property='og:locale' content='ko_KR' />
-          <meta property='og:type' content='website' />
-          <meta property='og:site_name' content='LiteHell의 블로그' />
-          <meta property='og:url' content={this.canonicalUrl()} />
-          <meta property='og:image' content={this.canonicalImage()} />
         </Head>
 
         <div className={styles.header}>
           <div className={styles.title}>
-            <h1>{this.props.article.metadata.title || '무제'}</h1>
+            <h1>{this.titleForDisplay()}</h1>
             <h2>{this.props.article.metadata.subtitle || ''}</h2>
           </div>
           <p>

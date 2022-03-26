@@ -17,6 +17,33 @@ export default class Layout extends React.Component {
             rel='icon'
             href='https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1'
           />
+          <link rel='canonical' href={this.props.openGraph.canonicalUrl} />
+          <meta
+            property='og:title'
+            content={this.props.openGraph.title || 'LiteHell의 블로그'}
+          />
+          <meta
+            property='og:description'
+            content={
+              this.props.openGraph.description || 'LiteHell의 개인블로그'
+            }
+          />
+          <meta property='og:locale' content='ko_KR' />
+          <meta
+            property='og:type'
+            content={this.props.openGraph.type || 'blog'}
+          />
+          {this.props.openGraph.withSiteName && (
+            <meta property='og:site_name' content='LiteHell의 블로그' />
+          )}
+          <meta property='og:url' content={this.props.openGraph.canonicalUrl} />
+          <meta
+            property='og:image'
+            content={
+              this.props.openGraph.image ||
+              'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1'
+            }
+          />
         </Head>
         <header className={styles.header}>
           <h1>
@@ -35,9 +62,7 @@ export default class Layout extends React.Component {
             <Link href='/tag'>태그</Link>
           </div>
         </header>
-        <main className={styles.mainContainer}>
-            {this.props.children}
-        </main>
+        <main className={styles.mainContainer}>{this.props.children}</main>
         <footer className={styles.footer}>
           Copyrights (C) 2020 LiteHell, All rights reserved.
           <br />
@@ -50,4 +75,12 @@ export default class Layout extends React.Component {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  openGraph: {
+    canonicalUrl: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    type: PropTypes.string,
+    withSiteName: PropTypes.boolean,
+    image: PropTypes.string,
+  },
 };
