@@ -7,6 +7,7 @@ import Blog from '../../modules/blog';
 import Comments from '../../components/comments';
 import styles from '../../styles/Blog.module.scss';
 import cheerio from 'cheerio';
+import getFirstImageFromHtml from '../../modules/getFirstImageFromHtml.js';
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -18,14 +19,10 @@ export default class Post extends React.Component {
   }
 
   canonicalImage() {
-    const $ = cheerio.load(this.props.article.rendered);
-
-    const imgs = $('img');
-    if (imgs.length === 0)
-      return 'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1';
-
-    const url = new URL(imgs.eq(0).attr('src'), 'https://blog.litehell.info');
-    return url.href;
+    return (
+      getFirstImageFromHtml(this.props.article.rendered) ||
+      'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1'
+    );
   }
 
   titleForDisplay() {
