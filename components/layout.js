@@ -18,6 +18,25 @@ export default class Layout extends React.Component {
             href='https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1'
           />
           <link rel='canonical' href={this.props.openGraph.canonicalUrl} />
+          <link
+            rel='alternate'
+            type='application/rss+xml'
+            title='RSS 2.0 Feed for blog.litehell.info'
+            href='https://blog.litehell.info/feed/rss'
+          />
+          <link
+            rel='alternate'
+            type='	application/atom+xml'
+            title='Atom 1.0 Feed for blog.litehell.info'
+            href='https://blog.litehell.info/feed/atom'
+          />
+          <link
+            rel='alternate'
+            type='application/feed+json'
+            title='Json 1.0 Feed for blog.litehell.info'
+            href='https://blog.litehell.info/feed/json'
+          />
+
           <meta
             property='og:title'
             content={this.props.openGraph.title || 'LiteHell의 블로그'}
@@ -72,6 +91,9 @@ export default class Layout extends React.Component {
             Copyrights (C) 2020 LiteHell, All rights reserved.
             <br />
             Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist Association
+            <br />
+            Feeds : <a href='/feed/rss'>RSS 2.0</a>,{' '}
+            <a href='/feed/atom'>Atom 1.0</a>, <a href='/feed/json'>Json 1.0</a>
           </div>
         </footer>
       </div>
