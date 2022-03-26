@@ -75,12 +75,12 @@ export default class Layout extends React.Component {
 
 Layout.propTypes = {
   children: PropTypes.node,
-  openGraph: {
+  openGraph: PropTypes.shape({
     canonicalUrl: PropTypes.string.isRequired,
     title: PropTypes.string,
     description: PropTypes.string,
     type: PropTypes.string,
     withSiteName: PropTypes.boolean,
     image: PropTypes.string,
-  },
+  }),
 };
