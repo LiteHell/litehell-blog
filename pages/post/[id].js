@@ -6,7 +6,6 @@ import Layout from '../../components/layout';
 import Blog from '../../modules/blog';
 import Comments from '../../components/comments';
 import styles from '../../styles/Blog.module.scss';
-import cheerio from 'cheerio';
 import getFirstImageFromHtml from '../../modules/getFirstImageFromHtml.js';
 
 export default class Post extends React.Component {
