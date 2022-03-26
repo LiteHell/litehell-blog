@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Layout from '../../components/layout';
 import Blog from '../../modules/blog';
+import Comments from '../../components/comments'
 import styles from '../../styles/Blog.module.scss';
 
 export default class Post extends React.Component {
@@ -67,6 +68,7 @@ export default class Post extends React.Component {
           className={styles.article}
           dangerouslySetInnerHTML={{ __html: this.props.article.rendered }}
         ></section>
+        <Comments />
       </Layout>
     );
   }

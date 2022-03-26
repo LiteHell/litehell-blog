@@ -1,0 +1,9 @@
+@import 'variables';
+
+.blogComments {
+  :global(.utterances) {
+    margin: 0px;
+    width: 100%;
+    max-width: initial;
+  }
+}
