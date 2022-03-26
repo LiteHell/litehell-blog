@@ -35,7 +35,9 @@ export default class Layout extends React.Component {
             <Link href='/tag'>태그</Link>
           </div>
         </header>
-        <main className={styles.mainContainer}>{this.props.children}</main>
+        <main className={styles.mainContainer}>
+            {this.props.children}
+        </main>
         <footer className={styles.footer}>
           Copyrights (C) 2020 LiteHell, All rights reserved.
           <br />
