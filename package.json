@@ -7,12 +7,14 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "eslint --fix **/*.js",
-    "generateFeeds": "webpack --progress --config webpack.rss.config.js && node ./generateFeeds.compiled.js"
+    "generateFeeds": "webpack --progress --config webpack.rss.config.js && node ./generateFeeds.compiled.js",
+    "createPost": "node ./createPost.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
     "feed": "^4.2.2",
     "highlight.js": "^10.5.0",
+    "inquirer": "^8.2.2",
     "js-yaml": "^4.0.0",
     "marked": "^1.2.7",
     "next": "12.1.1",
