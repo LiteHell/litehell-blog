@@ -3,6 +3,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const { join } = require('path');
 const postDirectory = path.join(process.cwd(), 'posts');
+const draftDirectory = path.join(process.cwd(), 'drafts');
 
 const updateOrCreateFrontMatter = (post, targetName, value) => {
   const lines = post.replace(/\r\n/g, '\n').split('\n');
@@ -33,7 +34,8 @@ const updateOrCreateFrontMatter = (post, targetName, value) => {
 };
 
 (async () => {
-  const posts = await fs.readdir(postDirectory);
+  const drafts = await fs.readdir(draftDirectory);
+  const posts = (await fs.readdir(postDirectory)).concat(drafts);
   const { selectedPost, whatToTouch } = await inquirer.prompt([
     {
       name: 'selectedPost',
@@ -52,7 +54,11 @@ const updateOrCreateFrontMatter = (post, targetName, value) => {
     },
   ]);
 
-  const postPath = join(postDirectory, selectedPost);
+  const isDraftSelected = drafts.includes(selectedPost);
+  const postPath = join(
+    isDraftSelected ? draftDirectory : postDirectory,
+    selectedPost
+  );
   const post = await fs.readFile(postPath, {
     encoding: 'utf8',
   });
@@ -61,6 +67,24 @@ const updateOrCreateFrontMatter = (post, targetName, value) => {
     whatToTouch,
     new Date().toISOString()
   );
+
   await fs.writeFile(postPath, touchedPost, { encoding: 'utf8' });
+  console.log('Touched!');
+
+  if (isDraftSelected) {
+    const { moveToPost } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'moveToPost',
+        message: 'Move from draft to post?',
+        default: false,
+      },
+    ]);
+    if (moveToPost) {
+      const newPostPath = join(postDirectory, selectedPost);
+      await fs.rename(postPath, newPostPath);
+      console.log('Moved!');
+    }
+  }
   console.log('Done!');
 })();

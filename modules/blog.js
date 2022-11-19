@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import { existsSync, promises as fs } from 'fs';
 import highlightJs from 'highlight.js';
 import yaml from 'js-yaml';
 import marked from 'marked';
@@ -7,6 +7,7 @@ import path from 'path';
 export default class Blog {
   constructor() {
     this._pageDirectory = path.join(process.cwd(), 'posts');
+    this._draftDirectory = path.join(process.cwd(), 'drafts');
     marked.use({
       highlight: (code, lang) => {
         if (lang !== '') return highlightJs.highlight(lang, code).value;
@@ -17,10 +18,23 @@ export default class Blog {
   }
 
   async getArticleNames() {
-    const names = await fs.readdir(this._pageDirectory, 'utf8');
+    let names = await fs.readdir(this._pageDirectory, 'utf8');
+    if (process.env.NODE_ENV === 'development') {
+      names = names.concat(await fs.readdir(this._draftDirectory));
+    }
     return names
       .filter((i) => i.endsWith('.md'))
       .map((i) => path.parse(i).name);
+  }
+
+  async _isDraft(articleName) {
+    if (
+      process.env.NODE_ENV !== 'development' ||
+      existsSync(path.join(this._pageDirectory, articleName + '.md'))
+    )
+      return false;
+    else if (existsSync(path.join(this._draftDirectory, articleName + '.md')))
+      return true;
   }
 
   async getArticleList() {
@@ -84,7 +98,12 @@ export default class Blog {
   }
 
   async readSource(articleName) {
-    const articlePath = path.join(this._pageDirectory, articleName + '.md');
+    const articlePath = path.join(
+      (await this._isDraft(articleName))
+        ? this._draftDirectory
+        : this._pageDirectory,
+      articleName + '.md'
+    );
     const source = await fs.readFile(articlePath, { encoding: 'utf8' });
 
     return source.replace(/\r\n/g, '\n');

@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 const postDirectory = path.join(process.cwd(), 'posts');
+const draftDirectory = path.join(process.cwd(), 'drafts');
 
 inquirer
   .prompt([
@@ -11,7 +12,10 @@ inquirer
       required: true,
       message: 'Post id?',
       validate: (input) => {
-        if (fs.existsSync(path.join(postDirectory, input + '.md'))) {
+        if (
+          fs.existsSync(path.join(postDirectory, input + '.md')) ||
+          fs.existsSync(path.join(draftDirectory, input + '.md'))
+        ) {
           return 'Id already exists!';
         } else if (/[^a-zA-z0-9_]/.test(input)) {
           return 'Id should be conistsed of alphabets, numbers and underscore!';
@@ -52,6 +56,12 @@ inquirer
       filter: (input) =>
         input === '' ? null : input.split(',').map((i) => i.trim()),
     },
+    {
+      name: 'draft',
+      type: 'confirm',
+      message: 'Create as draft?',
+      default: true,
+    },
   ])
   .then((answers) => {
     let template = `---\n`;
@@ -64,7 +74,10 @@ inquirer
       for (const tag of answers.tags) template += `    - '${tag}'\n`;
     }
     template += '---\nWrite something here';
-    const filename = path.join(postDirectory, answers.id + '.md');
+    const filename = path.join(
+      answers.draft ? draftDirectory : postDirectory,
+      answers.id + '.md'
+    );
     fs.writeFile(filename, template, { encoding: 'utf8' }, (err) => {
       if (err) {
         console.error('Error while writing file!');
