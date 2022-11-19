@@ -2,11 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Comments from '../../components/comments';
 import Layout from '../../components/layout';
 import Blog from '../../modules/blog';
-import Comments from '../../components/comments';
-import styles from '../../styles/Blog.module.scss';
 import getFirstImageFromHtml from '../../modules/getFirstImageFromHtml.js';
+import styles from '../../styles/Blog.module.scss';
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -60,7 +60,12 @@ export default class Post extends React.Component {
               ? new Date(this.props.article.metadata.date).toLocaleString()
               : '어떤 공기 좋은 날'}
             에&nbsp;
-            {this.props.article.metadata.author || '누군가'}이(가) 작성함.
+            {this.props.article.metadata.author || '누군가'}이(가) 작성
+            {this.props.article.metadata.last_modified_at
+              ? `하고 ${new Date(
+                  this.props.article.metadata.last_modified_at
+                ).toLocaleString()}에 수정함`
+              : '함'}
             <br />
             {this.props.article.metadata.category && (
               <span>
@@ -106,6 +111,7 @@ Post.propTypes = {
       author: PropTypes.string,
       date: PropTypes.string,
       category: PropTypes.string,
+      last_modified_at: PropTypes.string,
       tags: PropTypes.arrayOf(PropTypes.string),
     }),
     rendered: PropTypes.string.isRequired,
