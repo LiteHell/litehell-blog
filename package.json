@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --fix **/*.js",
     "generateFeeds": "webpack --progress --config webpack.rss.config.js && node ./generateFeeds.compiled.js",
-    "createPost": "node ./createPost.js"
+    "createPost": "node ./createPost.js",
+    "touchPost": "node ./touchPost.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
