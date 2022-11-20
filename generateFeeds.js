@@ -25,7 +25,7 @@ const func = async () => {
     updated: new Date(articles[0].metadata.date),
     feedLinks: {
       json: 'https://blog.litehell.info/feed/json',
-      atom: 'https://litehell.info/feed/atom',
+      atom: 'https://blog.litehell.info/feed/atom',
     },
     author: {
       name: 'Yeonjin Shin',
@@ -40,7 +40,7 @@ const func = async () => {
     feed.addItem({
       title: article.metadata.title || '무제',
       id: article.name,
-      link: `https://blog.litehell.info/blog/${encodeURIComponent(
+      link: `https://blog.litehell.info/post/${encodeURIComponent(
         article.name
       )}`,
       description: article.subtitle || '',
