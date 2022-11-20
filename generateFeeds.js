@@ -5,12 +5,9 @@ import { Feed } from 'feed';
 import getFirstImageFromHtml from './modules/getFirstImageFromHtml.js';
 
 const func = async () => {
-  // Get article list
+  // Get article list, Only ~10 articles in feed
   const blog = new Blog();
-  const articles = await blog.getArticleList();
-
-  // Only ~10 items in feed
-  if (articles.length > 10) articles = articles.slice(0, 10);
+  const articles = await (await blog.getArticleList()).slice(0, 10);
 
   // Create feed
   const feed = new Feed({
