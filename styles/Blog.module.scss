@@ -3,6 +3,9 @@
 .header {
     padding-left: 15px;
     border-bottom: 1px solid black;
+    @media print {
+        border-bottom: 3px solid black;
+    }
     .title {
         & > * {
             display: inline-block;

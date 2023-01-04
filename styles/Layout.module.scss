@@ -9,6 +9,9 @@
     @media (max-width: 800px) {
         padding: 80px 40px;
     }
+    @media print {
+        display: none;
+    }
 }
 .mainContainer {
     padding: 20px 30px;
@@ -27,6 +30,22 @@
     margin: 0px 0px;
 }
 .footer {
+    .visibleOnPrintOnly {
+        display: none;
+    }
+    @media print {
+        .invisibleOnPrint {
+            display: none;
+        }
+        .visibleOnPrintOnly {
+            display: block;
+        }
+        color: black;
+        background: unset;
+        margin-top: 5px;
+        border-top: 3px solid black;
+        padding: 20px 0px 0px 0px;
+    }
     color: white;
     background: linear-gradient(rgba(202, 184, 150, 1.0), rgba(202, 184, 150, 0.6));
     background-position-y: bottom;

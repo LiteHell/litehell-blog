@@ -90,10 +90,25 @@ export default class Layout extends React.Component {
           <div className={styles.container}>
             Copyrights (C) 2020 LiteHell, All rights reserved.
             <br />
-            Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist Association
-            <br />
-            Feeds : <a href='/feed/rss'>RSS 2.0</a>,{' '}
-            <a href='/feed/atom'>Atom 1.0</a>, <a href='/feed/json'>Json 1.0</a>
+            <div className={styles.visibleOnPrintOnly}>
+              LiteHell&apos;s Blog -&nbsp;
+              <a href='https://blog.litehell.info'>
+                https://blog.litehell.info
+              </a>
+              <br />
+              Url of this article:&nbsp;
+              <a href={this.props.openGraph.canonicalUrl}>
+                {this.props.openGraph.canonicalUrl}
+              </a>
+            </div>
+            <div className={styles.invisibleOnPrint}>
+              Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist
+              Association
+              <br />
+              Feeds : <a href='/feed/rss'>RSS 2.0</a>,{' '}
+              <a href='/feed/atom'>Atom 1.0</a>,{' '}
+              <a href='/feed/json'>Json 1.0</a>
+            </div>
           </div>
         </footer>
       </div>

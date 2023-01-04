@@ -1,6 +1,9 @@
 @import 'variables';
 
 .blogComments {
+  @media print {
+    display: none;
+  }
   :global(.utterances) {
     margin: 0px;
     width: 100%;
