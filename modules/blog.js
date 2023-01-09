@@ -10,6 +10,7 @@ export default class Blog {
     this._draftDirectory = path.join(process.cwd(), 'drafts');
     marked.use({
       highlight: (code, lang) => {
+        if (lang === 'tsx') lang = 'ts';
         if (lang !== '') return highlightJs.highlight(lang, code).value;
         else return code;
       },
