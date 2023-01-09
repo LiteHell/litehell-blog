@@ -28,6 +28,32 @@ export default class Post extends React.Component {
     return this.props.article.metadata.title || '무제';
   }
 
+  seriesContainer() {
+    if (this.props.series) {
+      return (
+        <div className={styles.seriesContainer}>
+          <div className={styles.seriesTitle}>
+            (시리즈) {this.props.seriesName}
+          </div>
+          <ul>
+            {this.props.series.map((i) => (
+              <li
+                key={i.articleId}
+                className={
+                  i.articleId === this.props.articleId ? styles.now : undefined
+                }
+              >
+                <Link href={`/post/${i.articleId}`}>{i.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <Layout
@@ -94,6 +120,8 @@ export default class Post extends React.Component {
           </p>
         </div>
 
+        {this.seriesContainer()}
+
         <section
           className={styles.article}
           dangerouslySetInnerHTML={{ __html: this.props.article.rendered }}
@@ -116,6 +144,13 @@ Post.propTypes = {
     }),
     rendered: PropTypes.string.isRequired,
   }),
+  seriesName: PropTypes.string,
+  series: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      articleId: PropTypes.string,
+    })
+  ),
   articleId: PropTypes.string,
 };
 
@@ -123,7 +158,22 @@ export async function getStaticProps({ params }) {
   const blog = new Blog();
   const article = await blog.readArticle(params.id);
 
-  return { props: { article, articleId: params.id } };
+  const series = {};
+  if (article.metadata.series) {
+    const seriesId = article.metadata.series;
+    const seriesArticles = await (await blog.getArticleList())
+      .filter((i) => i.metadata.series === seriesId)
+      .reverse();
+    series.series = seriesArticles.map((i) => ({
+      title: i.metadata.title,
+      articleId: i.name,
+    }));
+    series.seriesName = seriesArticles
+      .filter((i) => Date.parse(i.metadata.date) <= Date.parse(i.metadata.date))
+      .pop().metadata.seriesName;
+  }
+
+  return { props: { article, articleId: params.id, ...series } };
 }
 
 export async function getStaticPaths() {
