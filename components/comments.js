@@ -1,13 +1,11 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import styles from '../styles/Comments.module.scss';
 
 export default function Comments() {
-  const commentRef = createRef();
+  const commentRef = useCallback((comment) => {
+    if (comment?.querySelector('script') !== null) return;
 
-  useEffect(() => {
-    if (commentRef.current.querySelector('script') !== null) return;
-
-    const script = document.createElement('script');
+    const scriptTag = document.createElement('script');
     const attributes = {
       src: 'https://utteranc.es/client.js',
       repo: 'LiteHell/litehell-blog',
@@ -18,10 +16,10 @@ export default function Comments() {
       async: 'async',
     };
 
-    for (const i in attributes) script.setAttribute(i, attributes[i]);
+    for (const i in attributes) scriptTag.setAttribute(i, attributes[i]);
 
-    commentRef.current.appendChild(script);
-  });
+    comment.appendChild(scriptTag);
+  }, []);
 
   return <div className={styles.blogComments} ref={commentRef}></div>;
 }
