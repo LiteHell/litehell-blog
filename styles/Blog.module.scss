@@ -125,3 +125,33 @@
         }
     }
 }
+.postNav {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    a {
+        @include add-link-color();
+        .postDescription {
+            display: inline-block;
+            vertical-align: top;
+            .title {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+            .subtitle {
+                font-size: 0.9em;
+            }
+        }
+    }
+    .nothing {
+        color: rgb(48, 48, 48);
+    }
+    .leftAnchor a::before {
+        content: '❮ ';
+        font-size: 1.2em;
+    }
+    .rightAnchor a::after {
+        content: ' ❯';
+        font-size: 1.2em;
+    }
+}

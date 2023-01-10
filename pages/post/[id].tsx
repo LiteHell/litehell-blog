@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Comments from '../../components/comments';
 import Layout from '../../components/layout';
+import { BlogPost } from '../../components/postList';
 import Blog, { BlogPostMetadata } from '../../modules/blog';
 import getFirstImageFromHtml from '../../modules/getFirstImageFromHtml';
 import styles from '../../styles/Blog.module.scss';
@@ -11,15 +12,21 @@ type seriesPropTypes = {
   seriesName?: string;
 };
 
+type postNavigationPropTypes = {
+  previousPost?: BlogPost;
+  nextPost?: BlogPost;
+};
+
 type propTypes = {
   articleId: string;
   article: {
     metadata: BlogPostMetadata;
     rendered: string;
   };
-} & seriesPropTypes;
+} & seriesPropTypes &
+  postNavigationPropTypes;
 
-function createSeriesContainer(props: propTypes) {
+function SeriesContainer(props: propTypes) {
   return (
     <div className={styles.seriesContainer}>
       <div className={styles.seriesTitle}>(시리즈) {props.seriesName}</div>
@@ -37,13 +44,42 @@ function createSeriesContainer(props: propTypes) {
   );
 }
 
+function PostNavigation({ previousPost, nextPost }: postNavigationPropTypes) {
+  const PostLink = ({ post, left }: { post: BlogPost; left: boolean }) => {
+    return (
+      <div className={left ? styles.leftAnchor : styles.rightAnchor}>
+        <Link href={`/post/${encodeURIComponent(post.name)}`}>
+          <div className={styles.postDescription}>
+            <div className={styles.title}>{post.metadata.title}</div>
+            <div className={styles.subtitle}>{post.metadata.subtitle}</div>
+          </div>
+        </Link>
+      </div>
+    );
+  };
+
+  return (
+    <nav className={styles.postNav}>
+      {previousPost ? (
+        <PostLink post={previousPost} left={true}></PostLink>
+      ) : (
+        <div className={styles.nothing}>(첫 글입니다.)</div>
+      )}
+      {nextPost ? (
+        <PostLink post={nextPost} left={false}></PostLink>
+      ) : (
+        <div className={styles.nothing}>(마지막 글입니다.)</div>
+      )}
+    </nav>
+  );
+}
+
 export default function Post(props: propTypes) {
   const cannonicalUrl = 'https://blog.litehell.info/post/' + props.articleId;
   const canonicalImage =
     getFirstImageFromHtml(props.article.rendered) ||
     'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1';
   const titleForDisplay = props.article.metadata.title || '무제';
-  const seriesContainer = props.series ? createSeriesContainer(props) : null;
 
   return (
     <Layout
@@ -110,21 +146,54 @@ export default function Post(props: propTypes) {
         </p>
       </div>
 
-      {seriesContainer}
+      {props.series && <SeriesContainer {...props}></SeriesContainer>}
 
       <section
         className={styles.article}
         dangerouslySetInnerHTML={{ __html: props.article.rendered }}
       ></section>
+
       <Comments key={props.articleId} />
+
+      <PostNavigation {...props} />
     </Layout>
   );
+}
+
+async function getNearPostIds(
+  articleId: string
+): Promise<[BlogPost | undefined, BlogPost | undefined]> {
+  const blog = new Blog();
+  const posts = (
+    await Promise.all(
+      (await blog.getArticleNames()).map(async (i) => {
+        const article = await blog.readArticle(i);
+        return { name: i, ...article };
+      })
+    )
+  ).sort((a, b) => Date.parse(a.metadata.date) - Date.parse(b.metadata.date));
+  const postIndex = posts.map((i) => i.name).indexOf(articleId);
+
+  // Get near ids
+  const prevPost = postIndex != 0 ? posts[postIndex - 1] : undefined;
+  const nextPost =
+    postIndex + 1 < posts.length ? posts[postIndex + 1] : undefined;
+
+  // Return them
+  return [prevPost, nextPost];
 }
 
 export async function getStaticProps({ params }) {
   const blog = new Blog();
   const article = await blog.readArticle(params.id);
 
+  // Get near posts for bottom post nav
+  const [previousPost, nextPost] = await getNearPostIds(params.id);
+  const postNavProps: postNavigationPropTypes = {};
+  if (previousPost) postNavProps.previousPost = previousPost;
+  if (nextPost) postNavProps.nextPost = nextPost;
+
+  // Get series info if it's series
   const series: seriesPropTypes = {};
   if (article.metadata.series) {
     const seriesId = article.metadata.series;
@@ -141,7 +210,9 @@ export async function getStaticProps({ params }) {
       .pop().metadata.seriesName;
   }
 
-  return { props: { article, articleId: params.id, ...series } };
+  return {
+    props: { article, articleId: params.id, ...series, ...postNavProps },
+  };
 }
 
 export async function getStaticPaths() {
