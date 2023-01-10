@@ -1,5 +1,4 @@
-import React from 'react';
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Head, Html, Main, NextScript } from 'next/document';
 import TrackingId from '../modules/gaTrackingId';
 
 export default function Document() {

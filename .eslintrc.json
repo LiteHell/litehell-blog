@@ -4,11 +4,12 @@
         "es2021": true,
         "node": true
     },
-    
+    "parser": "@typescript-eslint/parser",
     "extends": [
         "eslint:recommended",
         "plugin:prettier/recommended",
-        "plugin:react/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@next/next/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,6 +19,7 @@
         "sourceType": "module"
     },
     "plugins": [
+        "@typescript-eslint",
         "react"
     ]
 }

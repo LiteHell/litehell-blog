@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 
-export default function (html, baseUrl = 'https://blog.litehell.info') {
+export default function (html, baseUrl = 'https://blog.litehell.info'): string {
   const $ = cheerio.load(html);
 
   const imgs = $('img');

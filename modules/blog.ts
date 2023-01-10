@@ -4,10 +4,25 @@ import yaml from 'js-yaml';
 import marked from 'marked';
 import path from 'path';
 
+export type BlogPostMetadata = Partial<{
+  title: string;
+  subtitle: string;
+  author: string;
+  date: string;
+  series: string;
+  seriesName: string;
+  category: string;
+  tags: string[];
+  last_modified_at: string;
+}>;
+
 export default class Blog {
+  private pageDirectory: string;
+  private draftDirectory: string;
+
   constructor() {
-    this._pageDirectory = path.join(process.cwd(), 'posts');
-    this._draftDirectory = path.join(process.cwd(), 'drafts');
+    this.pageDirectory = path.join(process.cwd(), 'posts');
+    this.draftDirectory = path.join(process.cwd(), 'drafts');
     marked.use({
       highlight: (code, lang) => {
         if (lang === 'tsx') lang = 'ts';
@@ -19,26 +34,28 @@ export default class Blog {
   }
 
   async getArticleNames() {
-    let names = await fs.readdir(this._pageDirectory, 'utf8');
+    let names = await fs.readdir(this.pageDirectory, 'utf8');
     if (process.env.NODE_ENV === 'development') {
-      names = names.concat(await fs.readdir(this._draftDirectory));
+      names = names.concat(await fs.readdir(this.draftDirectory));
     }
     return names
       .filter((i) => i.endsWith('.md'))
       .map((i) => path.parse(i).name);
   }
 
-  async _isDraft(articleName) {
+  private async isDraft(articleName) {
     if (
       process.env.NODE_ENV !== 'development' ||
-      existsSync(path.join(this._pageDirectory, articleName + '.md'))
+      existsSync(path.join(this.pageDirectory, articleName + '.md'))
     )
       return false;
-    else if (existsSync(path.join(this._draftDirectory, articleName + '.md')))
+    else if (existsSync(path.join(this.draftDirectory, articleName + '.md')))
       return true;
   }
 
-  async getArticleList() {
+  async getArticleList(): Promise<
+    { name: string; metadata: BlogPostMetadata }[]
+  > {
     const names = await this.getArticleNames();
     const posts = await Promise.all(
       names.map(async (name) => {
@@ -57,6 +74,8 @@ export default class Blog {
     );
   }
 
+  async getCategories(withCount?: false): Promise<string[]>;
+  async getCategories(withCount: true): Promise<{ [key: string]: number }>;
   async getCategories(withCount = false) {
     const articles = await this.getArticleList();
     if (withCount)
@@ -78,6 +97,8 @@ export default class Blog {
       }, []);
   }
 
+  async getTags(withCount?: false): Promise<string[]>;
+  async getTags(withCount: true): Promise<{ [key: string]: number }>;
   async getTags(withCount = false) {
     const articles = await this.getArticleList();
     if (withCount)
@@ -100,9 +121,9 @@ export default class Blog {
 
   async readSource(articleName) {
     const articlePath = path.join(
-      (await this._isDraft(articleName))
-        ? this._draftDirectory
-        : this._pageDirectory,
+      (await this.isDraft(articleName))
+        ? this.draftDirectory
+        : this.pageDirectory,
       articleName + '.md'
     );
     const source = await fs.readFile(articlePath, { encoding: 'utf8' });
@@ -110,7 +131,9 @@ export default class Blog {
     return source.replace(/\r\n/g, '\n');
   }
 
-  async readMetadata(source) {
+  async readMetadata(
+    source
+  ): Promise<{ source: string; metadata: BlogPostMetadata }> {
     if (!source.startsWith('---\n')) {
       return {
         metadata: {},
@@ -125,7 +148,9 @@ export default class Blog {
     };
   }
 
-  async readArticle(articleName) {
+  async readArticle(
+    articleName
+  ): Promise<{ rendered: string; metadata: BlogPostMetadata }> {
     const sourceWithMetadata = await this.readSource(articleName);
     const { metadata, source } = await this.readMetadata(sourceWithMetadata);
     const rendered = marked(source);
