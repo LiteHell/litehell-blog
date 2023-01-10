@@ -1,6 +1,6 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const path = require('path');
+import inquirer from 'inquirer';
+import fs from 'fs';
+import path from 'path';
 const postDirectory = path.join(process.cwd(), 'posts');
 const draftDirectory = path.join(process.cwd(), 'drafts');
 

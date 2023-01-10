@@ -1,8 +1,8 @@
+import { Feed } from 'feed';
 import fs from 'fs/promises';
 import path from 'path';
-import Blog from './modules/blog.js';
-import { Feed } from 'feed';
-import getFirstImageFromHtml from './modules/getFirstImageFromHtml.js';
+import Blog from './modules/blog';
+import getFirstImageFromHtml from './modules/getFirstImageFromHtml';
 
 const func = async () => {
   // Get article list, Only ~10 articles in feed
@@ -19,7 +19,7 @@ const func = async () => {
     language: 'ko-KR',
     image: 'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1',
     copyright: 'All rights reserved 2020 © Yeonjin Shin',
-    updated: new Date(articles[0].metadata.date),
+    updated: new Date(articles[0].metadata.date ?? ''),
     feedLinks: {
       json: 'https://blog.litehell.info/feed/json',
       atom: 'https://blog.litehell.info/feed/atom',
@@ -40,9 +40,9 @@ const func = async () => {
       link: `https://blog.litehell.info/post/${encodeURIComponent(
         article.name
       )}`,
-      description: article.subtitle || '',
+      description: article.metadata.subtitle || '',
       content,
-      date: new Date(article.metadata.date),
+      date: new Date(article.metadata.date ?? ''),
       image:
         getFirstImageFromHtml(content) ||
         'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1',
