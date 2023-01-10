@@ -169,6 +169,7 @@ export async function getStaticProps({ params }) {
       articleId: i.name,
     }));
     series.seriesName = seriesArticles
+      .filter((i) => typeof i.metadata.seriesName !== 'undefined')
       .filter((i) => Date.parse(i.metadata.date) <= Date.parse(i.metadata.date))
       .pop().metadata.seriesName;
   }
