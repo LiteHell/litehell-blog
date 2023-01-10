@@ -126,7 +126,7 @@ export default class Post extends React.Component {
           className={styles.article}
           dangerouslySetInnerHTML={{ __html: this.props.article.rendered }}
         ></section>
-        <Comments />
+        <Comments key={this.props.articleId} />
       </Layout>
     );
   }
