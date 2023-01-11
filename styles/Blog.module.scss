@@ -129,6 +129,9 @@
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
+    > * {
+        flex: 1;
+    }
     a {
         @include add-link-color();
         .postDescription {
@@ -150,8 +153,11 @@
         content: '❮ ';
         font-size: 1.2em;
     }
-    .rightAnchor a::after {
-        content: ' ❯';
-        font-size: 1.2em;
+    .rightAnchor{
+        text-align: right;
+        a::after {
+            content: ' ❯';
+            font-size: 1.2em;
+        }
     }
 }
