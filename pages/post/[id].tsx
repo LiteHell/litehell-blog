@@ -58,17 +58,20 @@ function PostNavigation({ previousPost, nextPost }: postNavigationPropTypes) {
     );
   };
 
+  const navClassNames = [styles.postNav];
+  if (previousPost && nextPost) navClassNames.push(styles.hasBoth);
+
   return (
-    <nav className={styles.postNav}>
+    <nav className={navClassNames.join(' ')}>
       {previousPost ? (
         <PostLink post={previousPost} left={true}></PostLink>
       ) : (
-        <div className={styles.nothing}>(첫 글입니다.)</div>
+        <div className={styles.nothing}></div>
       )}
       {nextPost ? (
         <PostLink post={nextPost} left={false}></PostLink>
       ) : (
-        <div className={styles.nothing}>(마지막 글입니다.)</div>
+        <div className={styles.nothing}></div>
       )}
     </nav>
   );

@@ -129,7 +129,7 @@
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
-    > * {
+    &.hasBoth > * {
         flex: 1;
     }
     a {
