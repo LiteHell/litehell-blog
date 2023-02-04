@@ -6,7 +6,13 @@ date: '2023-01-30T17:03:29.886Z'
 category: 'Dev'
 tags:
     - 'Web'
+last_modified_at: '2023-02-04T06:23:15.268Z'
 ---
+# 2023-02-04 수정사항
+현재는 해당 버그가 고쳐졌다.
+
+<del>
+
 # 들어가는 글
 사람에 따라서는, 해외여행을 가기위해선 PCR 검사를 해야하는 경우가 있다. 이런 사람들은 민간병원이나 [인천국제공항 코로나19 검사센터](https://www.airport.kr/ap_cnt/ko/svc/covid19/medical/medical.do)에서 검사를 받아야 한다. 인천국제공항 코로나19 검사센터에서 검사를 예약하려면 [Safe2GO PASS](https://safe2gopass.com/)라는 웹사이트를 이용해야 한다.
 
@@ -42,3 +48,4 @@ document.querySelector('.s-container').__vue__.start.date = "2023-06-01";
 
 # 마무리
 웹사이트내에는 버그 제보를 받는 곳이 딱히 안 보여서, 아마도 담당자의 메일 주소인 것 같은 곳으로 버그 제보 메일을 보냈다. 어서 빨리 이 버그가 수정됐으면 좋겠다.
+</del>
