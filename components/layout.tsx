@@ -89,19 +89,49 @@ export default function Layout(props: propTypes) {
       </main>
       <footer className={styles.footer}>
         <div className={styles.container}>
+          <a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>
+            <img
+              alt='GNU Affero General License Version 3'
+              src='https://www.gnu.org/graphics/agplv3-with-text-100x42.png'
+              style={{ height: '31px' }}
+            ></img>
+          </a>
+          &nbsp;
+          <a
+            rel='license'
+            href='http://creativecommons.org/licenses/by-sa/4.0/'
+          >
+            <img
+              alt='Creative Commons License'
+              style={{ borderWidth: 0 }}
+              src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png'
+            />
+          </a>
+          <br />
           Copyrights (C) 2020 LiteHell, All rights reserved.
           <br />
           <div className={styles.visibleOnPrintOnly}>
             LiteHell&apos;s Blog -&nbsp;
             <a href='https://blog.litehell.info'>https://blog.litehell.info</a>
             <br />
+            This work is licensed under a Creative Commons
+            Attribution-ShareAlike 4.0 International License.
+            <br />
+            <br />
             Url of this article:&nbsp;
             <a href={props.openGraph.canonicalUrl}>
               {props.openGraph.canonicalUrl}
             </a>
+            <br />
           </div>
           <div className={styles.invisibleOnPrint}>
             Fox Image : Copyrights (C) 2004 Shiretoko-Shari Torurist Association
+            <br />
+            <Link href='/license'>
+              This blog is free software; For source code and more informations
+              on license and copyrights, Click here.
+            </Link>
+            <br />
             <br />
             Feeds : <a href='/feed/rss'>RSS 2.0</a>,{' '}
             <a href='/feed/atom'>Atom 1.0</a>, <a href='/feed/json'>Json 1.0</a>
