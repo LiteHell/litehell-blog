@@ -72,6 +72,7 @@ export default function Layout(props: propTypes) {
           </h1>
           <div className={styles.outLinks}>
             외부고리 :&nbsp;
+            <a href='https://litehell.info'>Homepage</a>
             <a href='https://github.com/LiteHell'>GitHub</a>
             <a href='https://linkedin.com/in/LiteHell'>LinkedIn</a>
             <a href='https://keybase.io/LiteHell'>Keybase</a>
