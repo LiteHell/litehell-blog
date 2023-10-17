@@ -5,11 +5,12 @@ author: 'LiteHell'
 date: '2023-10-17T12:34:16.790Z'
 category: 'Linux'
 tags:
-    - 'Kinux'
+    - 'Linux'
     - 'Korean'
     - 'Hangul'
     - 'IM'
     - 'KDE'
+last_modified_at: '2023-10-17T14:32:47.687Z'
 ---
 # 서론
 필자는 초창기에 [ibus](https://github.com/ibus/ibus)를 썼었다. ibus는 웬만한 프로그램에서 아무 버그없이 잘 작동한다. 딱 한가지, 리브레오피스에서 공백 입력이 안 된다는 치명적인 버그만 빼면 말이다.
