@@ -3,7 +3,7 @@ title: '삼성 노트북(950XBE) 우분투에서 소리 안 들리는 버그 고
 subtitle: '한 줄로 고치는 버그'
 author: 'LiteHell'
 date: '2023-03-18T10:21:27.090Z'
-category: 'Dev'
+category: 'Linux'
 tags:
     - 'Linux'
     - 'Ubuntu'
