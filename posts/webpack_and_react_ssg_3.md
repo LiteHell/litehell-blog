@@ -5,7 +5,7 @@ author: 'LiteHell'
 date: '2023-07-23T17:25:47.907Z'
 series: 'webpack_and_react_ssg'
 seriesName: 'Webpack과 React를 이용한 정적 웹사이트 만들기'
-category: 'dev'
+category: 'Dev'
 tags:
     - 'React'
 ---
