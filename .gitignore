@@ -38,4 +38,5 @@ yarn-error.log*
 
 # Generated Feeds and compiled scripts
 public/feed
+public/sitemap.xml
 /*.compiled.js*

@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: {generateFeeds: './generateFeeds.ts', createPost: './createPost.ts', touchPost: './touchPost.ts'},
+  entry: {generateFeeds: './generateFeeds.ts', generateSitemap: './generateSitemap.ts', createPost: './createPost.ts', touchPost: './touchPost.ts'},
   target: 'node',
   output: {
     filename: '[name].compiled.js',
