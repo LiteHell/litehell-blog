@@ -3,6 +3,7 @@ title: 'FSF에 편지 보내서 GPL 받아보기'
 subtitle: '그러나 편지는 오지 않았다'
 author: 'LiteHell'
 date: '2023-12-07T14:19:37.603Z'
+category: 'Dev'
 tags:
     - 'GPL'
 ---
