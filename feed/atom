@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.litehell.info</id>
     <title>LiteHell의 블로그</title>
-    <updated>2024-02-05T15:55:48.396Z</updated>
+    <updated>2024-03-06T08:33:00.099Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Yeonjin Shin</name>
@@ -14,6 +14,67 @@
     <subtitle>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</subtitle>
     <logo>https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1</logo>
     <rights>All rights reserved 2020 © Yeonjin Shin</rights>
+    <entry>
+        <title type="html"><![CDATA[PPTX 파일 모든 슬라이드 숨김 해제하고 PDF 변환 일괄 작업하기]]></title>
+        <id>show_all_slides_of_pptx_and_convert_to_pdf_batch_operation</id>
+        <link href="https://blog.litehell.info/post/show_all_slides_of_pptx_and_convert_to_pdf_batch_operation"/>
+        <updated>2024-03-06T08:33:00.099Z</updated>
+        <summary type="html"><![CDATA[Python과 LibreOffice를 이용한 pptx 일괄 처리]]></summary>
+        <content type="html"><![CDATA[<h1 id="서문">서문</h1>
+<p>이번 학기에 데이터베이스시스템 과목을 수강하게 됐다. 이 과목의 강의자료는 교재 홈페이지에서 제공하는 pptx 파일을 이용하는데, 숨김 처리된 슬라이드도 모두 활용한다. 따라서 숨겨진 슬라이드를 모두 숨김 해제해야 했다.</p>
+<p>파일이 한두개면 그냥 직접 숨겨진 슬라이드를 숨김 해제하면 된다. 하지만 강의가 시작되는 Chapter 12이후의 파일은 약 20개 정도였다. 물론 그 pptx들을 다 강의하진 않겠지만, 한두개의 파일이 아닐 것임은 확실했다.</p>
+<p>이걸 어떻게 하면 일괄처리할 수 있을까?</p>
+<h1 id="해결">해결</h1>
+<h2 id="pptx-파일의-구조">pptx 파일의 구조</h2>
+<p>pptx 파일은 zip 파일이다. pptx파일을 압축 프로그램을 열면 다음과 같은 구조를 볼 수 있다.</p>
+<p><img src="/img/show_all_slides_of_pptx_and_convert_to_pdf_batch_operation/pptx_zip_structure.png" alt="pptx파일을 압축 프로그램 KDE Ark로 연 화면"></p>
+<p><code>ppt/slides</code> 디렉토리 내의 xml 파일들이 슬라이드를 나타내는 xml 파일이다. 숨김 처리된 슬라이드의 xml 파일을 보면 다음과 같이 루트 요소의 <code>show</code> 속성이 <code>0</code>으로 설정되어 있음을 확인할 수 있다.</p>
+<p><img src="/img/show_all_slides_of_pptx_and_convert_to_pdf_batch_operation/hidden_slide_xml.png" alt="숨겨진 slide를 나타내는 xml 파일의 상단"></p>
+<p>그렇다면 <code>ppt/slides</code> 디렉토리 내의 xml 파일의 루트 요소에서 <code>show</code> 속성만 제거하면 되지 않을까?</p>
+<h2 id="python-스크립팅">Python 스크립팅</h2>
+<p>python을 이용하면 기본으로 제공되는 라이브러리만으로 간단히 해결할 수 있다.</p>
+<pre><code class="hljs language-python"><span class="hljs-comment">#!/bin/python3</span>
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">from</span> os <span class="hljs-keyword">import</span> listdir
+<span class="hljs-keyword">from</span> os.path <span class="hljs-keyword">import</span> isfile, join
+<span class="hljs-keyword">from</span> zipfile <span class="hljs-keyword">import</span> ZipFile
+<span class="hljs-keyword">import</span> xml.etree.ElementTree <span class="hljs-keyword">as</span> ET
+
+pptx_dir = <span class="hljs-string">&quot;.&quot;</span>
+<span class="hljs-comment"># pptx_dir 디렉토리 내에서 파일명이 .pptx로 끝나는 파일의 목록을 가져온다.</span>
+pptx_files = [f <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> listdir(pptx_dir) <span class="hljs-keyword">if</span> isfile(join(pptx_dir, f)) <span class="hljs-keyword">and</span> f.endswith(<span class="hljs-string">&quot;.pptx&quot;</span>)]
+<span class="hljs-comment"># ppt/slides/*.xml 패턴을 검사하기 위한 정규표현식</span>
+slide_xml_filename_pattern = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">&quot;ppt/slides/[^/]+\\.xml&quot;</span>)
+
+<span class="hljs-keyword">for</span> pptx_file <span class="hljs-keyword">in</span> pptx_files:
+    print(<span class="hljs-string">&quot;Processing pptx %s &quot;</span> % pptx_file)
+    <span class="hljs-comment"># pptx파일을 zip 파일로 연다.</span>
+    <span class="hljs-keyword">with</span> ZipFile(pptx_file, <span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">as</span> zipfile:
+        <span class="hljs-comment"># ppt/slides/*.xml 형태의 파일 목록을 가져온다.</span>
+        slide_xml_filenames = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> zipfile.namelist() <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> slide_xml_filename_pattern.fullmatch(i) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>]
+        <span class="hljs-keyword">for</span> slide_xml_filename <span class="hljs-keyword">in</span> slide_xml_filenames:
+            print(<span class="hljs-string">&quot;Processing xml %s&quot;</span> % slide_xml_filename)
+            xml = <span class="hljs-literal">None</span>
+            <span class="hljs-comment"># xml을 파싱한다.</span>
+            <span class="hljs-keyword">with</span> zipfile.<span class="hljs-built_in">open</span>(slide_xml_filename, mode = <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:
+                xml = ET.parse(file)
+            <span class="hljs-comment"># 루트 요소에 show 속성이 있다면 제거한다.</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;show&quot;</span> <span class="hljs-keyword">in</span> xml.getroot().attrib:
+                xml.getroot().attrib.pop(<span class="hljs-string">&quot;show&quot;</span>)
+            <span class="hljs-comment"># 수정된 xml을 pptx 파일 내에 쓴다.</span>
+            <span class="hljs-keyword">with</span> zipfile.<span class="hljs-built_in">open</span>(slide_xml_filename, mode = <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> file:
+                xml.write(file)</code></pre>
+<p>위 스크립트는 디렉토리내의 pptx 파일을 열고, pptx 파일 내에서 파일명이 <code>ppt/slides/*.xml</code> 형태인 파일을 xml로 파상한 뒤, 루트 요소에서 <code>show</code> 속성을 삭제하고 다시 쓰는 것을 일괄 반복하는 스크립트이다.</p>
+<p>사용 시에는 <code>pptx_dir</code> 변수값만 필요에 따라 수정하여 쓰면 된다. 위 스크립트를 실행하면 <code>pptx_dir</code> 변수에 설정된 디렉토리 내에 있는 pptx 파일들에서 숨김 처리된 슬라이드를 모두 숨김 해제한다.</p>
+<h2 id="pptx-➡️-pdf-일괄-변환">pptx ➡️ pdf 일괄 변환</h2>
+<p>필자는 OneNote를 쓰는데 OneNote는 인쇄물 삽입을 pdf나 docx로만 해야한다. 따라서 모든 pptx를 pdf로 변환할 필요가 있다.</p>
+<p>이건 쉽다. 그냥 <a href="https://www.libreoffice.org/">LibreOffice</a> 명령어 한 줄이면 끝난다.</p>
+<pre><code class="hljs language-bash">libreoffice --headless --convert-to pdf *.pptx</code></pre>
+<h1 id="결론">결론</h1>
+<p>이상으로 여러개의 pptx 파일에서 숨김 처리된 슬라이드를 모두 일괄 숨김 해제하고 pdf로 일괄 변환하는 방법에 대해 알아보았다.</p>
+<p>다른 사람들에게 도움이 됐으면 좋겠다.</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2023년의 회고]]></title>
         <id>retrospective_of_2023</id>
@@ -41,7 +102,7 @@
 </ol>
 <p>-arto</p>
 <hr>
-<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#x6c;&#x69;&#116;&#x65;&#104;&#101;&#108;&#108;&#x40;&#x6c;&#x69;&#116;&#101;&#104;&#101;&#x6c;&#108;&#x2e;&#x69;&#110;&#102;&#x6f;">&#x6c;&#x69;&#116;&#x65;&#104;&#101;&#108;&#108;&#x40;&#x6c;&#x69;&#116;&#101;&#104;&#101;&#x6c;&#108;&#x2e;&#x69;&#110;&#102;&#x6f;</a> wrote ---</p>
+<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#108;&#x69;&#116;&#101;&#x68;&#101;&#108;&#x6c;&#64;&#108;&#105;&#x74;&#x65;&#104;&#x65;&#x6c;&#108;&#46;&#105;&#x6e;&#x66;&#x6f;">&#108;&#x69;&#116;&#101;&#x68;&#101;&#108;&#x6c;&#64;&#108;&#105;&#x74;&#x65;&#104;&#x65;&#x6c;&#108;&#46;&#105;&#x6e;&#x66;&#x6f;</a> wrote ---</p>
 <blockquote>
 <p>Dear artomizer:</p>
 <p>I’m Yeonjin Shin, an user of SketchDaily reference site.</p>
@@ -54,7 +115,7 @@ Yeonjin Shin</p>
 CSE Student; Rookie software engineer</p>
 <p>Homepage: <a href="https://litehell.info">https://litehell.info</a><br>
 GitHub: <a href="https://github.com/litehell">https://github.com/litehell</a><br>
-Email: <a href="mailto:&#x6c;&#105;&#116;&#101;&#x68;&#x65;&#108;&#108;&#64;&#108;&#x69;&#116;&#x65;&#104;&#x65;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;">&#x6c;&#105;&#116;&#101;&#x68;&#x65;&#108;&#108;&#64;&#108;&#x69;&#116;&#x65;&#104;&#x65;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;</a></p>
+Email: <a href="mailto:&#108;&#x69;&#x74;&#101;&#104;&#101;&#108;&#108;&#64;&#108;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x2e;&#x69;&#x6e;&#102;&#x6f;">&#108;&#x69;&#x74;&#101;&#104;&#101;&#108;&#108;&#64;&#108;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x2e;&#x69;&#x6e;&#102;&#x6f;</a></p>
 </blockquote>
 </blockquote>
 <p>2022년 12월 1일에 위와 같이 허락을 받고 개발을 시작했다. 그리고 2022년 6월 중에 개발을 마무리하고 그 다음 달에 첫 프로덕션 버전을 배포했다.</p>
@@ -1216,39 +1277,6 @@ RAILS_ENV=production ./bin/tootctl preview_cards remove --days=0</code></pre>
 <pre><code># audio fix
 options snd-hda-intel model=alc298-samsung-amp</code></pre>
 <p>결과는? 해결됐다. 이어폰도 스피커도 매우 잘 작동한다. 커널 버그라서 복잡하게 해결할 줄 알았는데 문제가 손쉽게 해결되서 다행이었다, 메데타시 메데타시.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Safe2GO PASS 출발지 날짜 선택 안되는 버그 우회하기]]></title>
-        <id>bypassing_safe2go_datepicker_bug</id>
-        <link href="https://blog.litehell.info/post/bypassing_safe2go_datepicker_bug"/>
-        <updated>2023-01-30T17:03:29.886Z</updated>
-        <summary type="html"><![CDATA[인천국제공항 코로나19 검사예약하려는 사람들을 위하여]]></summary>
-        <content type="html"><![CDATA[<h1 id="2023-02-04-수정사항">2023-02-04 수정사항</h1>
-<p>현재는 해당 버그가 고쳐졌다.</p>
-<del>
-
-<h1 id="들어가는-글">들어가는 글</h1>
-<p>사람에 따라서는, 해외여행을 가기위해선 PCR 검사를 해야하는 경우가 있다. 이런 사람들은 민간병원이나 <a href="https://www.airport.kr/ap_cnt/ko/svc/covid19/medical/medical.do">인천국제공항 코로나19 검사센터</a>에서 검사를 받아야 한다. 인천국제공항 코로나19 검사센터에서 검사를 예약하려면 <a href="https://safe2gopass.com/">Safe2GO PASS</a>라는 웹사이트를 이용해야 한다.</p>
-<h1 id="safe2go-pass의-버그">Safe2GO Pass의 버그</h1>
-<p>그런데 Safe2GO PASS에는 버그가 있다. (적어도 지금 글을 쓰는 2023-01-31 새벽에는 있었다.) 이 버그는 Chrome, Firefox, Edge, 데스크톱, 모바일에서 똑같이 발생했다.</p>
-<p>Safe2GO PASS에서는 코로나19 검사를 예약하려면 여행일정을 추가해야 한다. 그런데 무슨 이유에선지 이 웹사이트는 출발지 날짜를 선택하려고 클릭하면 아무것도 뜨지 않고 입력할 수도 없었다. (참고로 도착일은 선택이 잘 된다.)</p>
-<p><img src="/img/safe2go_pass_departure_date_click.png" alt="Safe2GO PASS의 출발일 날짜란을 클릭하였으나 아무 일도 일어나지 않는 모습"></p>
-<p>(이 상태에서 출발일 날짜를 선택할 수 없었다.)</p>
-<p>인천국제공항에서 출발하는 여행일정이라면 출발일 날짜를 지정해야 하는데 위와 같이 지정을 할 수가 없으니 코로나19 검사를 예약할 방법이 없다. 그렇다면 우리는 어떻게 해야할까?</p>
-<h2 id="해결방법">해결방법</h2>
-<p>버그가 언제 수정될 지는 알 수 없으니, 일단 임시방편으로 버그를 우회해야 한다.</p>
-<p>먼저, 해당 화면에서 F12키를 눌러 개발자 도구를 킨다. 그리고 콘솔(혹은 Console) 탭을 연다.</p>
-<p>그 다음, 다음 스크립트에서 날짜 부분(<code>2023-06-01</code>)을 원하는 출발일 날짜로 바꿔 복사-붙여넣기한다.</p>
-<pre><code class="hljs language-js"><span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.s-container&#x27;</span>).__vue__.start.date = <span class="hljs-string">&quot;2023-06-01&quot;</span>;</code></pre>
-<p>이때, 위에서 날짜부분은 <code>YYYY-MM-DD</code> 형식을 정확하게 지켜야 한다. 즉, 예시를 들어 2020년 1월 1일이라면 <code>2020-1-1</code>이 아닌 <code>2020-01-01</code>로 바꿔야 한다. 혹시나하는 마음에 덧붙이자면, <code>2020-01-01</code>이 아닌 <code>2020.01.01</code>은 당연히 안 된다.</p>
-<p>복사-붙여넣기를 하면 아래 사진과 같이 맨 하단에 스크립트가 입력되어 있을 것이다. 참고로 아래 사진은 Firefox 웹 브라우저를 이용한 모습이다. (어처피 Chrome도 개발자도구 콘솔은 비슷하게 생겼으므로 참고하는 데 큰 어려움은 없을 것이다.)</p>
-<p><img src="/img/safe2go_pass_dev_console.png" alt="Firefox 개발자도구에서 스크립트를 복사 붙여넣기한 모습"></p>
-<p>이제 위 상태에서 엔터 키를 누르면 아래와 같이 출발일이 잘 입력된 것을 확인할 수 있다. 이제 나머지 정보를 입력해서 여행일정을 추가하면 된다.
-<img src="/img/safe2go_pass_start_date_entered.png" alt="Safe2GO Pass 여행일정 추가 화면에서 출발일 날짜가 입력된 모습"></p>
-<h1 id="마무리">마무리</h1>
-<p>웹사이트내에는 버그 제보를 받는 곳이 딱히 안 보여서, 아마도 담당자의 메일 주소인 것 같은 곳으로 버그 제보 메일을 보냈다. 어서 빨리 이 버그가 수정됐으면 좋겠다.
-</del></p>
 ]]></content>
     </entry>
 </feed>
