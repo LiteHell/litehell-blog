@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.litehell.info</id>
     <title>LiteHell의 블로그</title>
-    <updated>2024-03-06T08:33:00.099Z</updated>
+    <updated>2024-07-19T12:53:12.021Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Yeonjin Shin</name>
@@ -14,6 +14,156 @@
     <subtitle>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</subtitle>
     <logo>https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1</logo>
     <rights>All rights reserved 2020 © Yeonjin Shin</rights>
+    <entry>
+        <title type="html"><![CDATA[쿠킹호일과 트랜지스터로 리듬게임 컨트롤러 만들기]]></title>
+        <id>bidrum_and_janggu_controller_prototyping</id>
+        <link href="https://blog.litehell.info/post/bidrum_and_janggu_controller_prototyping"/>
+        <updated>2024-07-19T12:53:12.021Z</updated>
+        <summary type="html"><![CDATA[학교 캡스톤디자인 작품으로 장구 리듬게임 만든 이야기]]></summary>
+        <content type="html"><![CDATA[<h1 id="서문">서문</h1>
+<p>문득 장구를 이용한 리듬 게임을 만들고 싶었다. 태고의 달인도 있는데 장구의 달인이 안 될 이유가 있을까? 그래서 군대 있을 때 계속 장구 게임을 상상만 하다가 복학하고 3학년 2학기에 캡스톤디자인 과목을 듣게 됐다.</p>
+<p>3학년 2학기 캡스톤디자인 과목에서 게임 아이디어를 제시했지만, 다른 팀원들은 리스크가 너무 크다고 반대했다. 지금 막 개강했는데 하드웨어 개발부터 시작하면 십중팔구 프로젝트가 망할 것이라는 지적이였다. 반박하기에는 너무나도 맞는 말이였다. 그래서 그냥 받아들이고 &quot;알고모여&quot;라는 웹 어플리케이션 프로젝트를 하게 됐다. 의외로 교수님의 평가가 계속 호평이여서 손쉽게 A+를 받았다.</p>
+<p>중앙대학교는 캡스톤디자인을 2번 해야 졸업이 가능하다. 그래서 4학년 1학기에도 캡스톤디자인을 해야 했는데, 이때 게임 아이디어를 다시 꺼내고 싶었다. 그러나 하드웨어도 없이 빈손으로 아이디어를 꺼낸다면 또다시 팀원들로부터 리스크 우려를 받을 것 같았다. 그래서 일단 프로토타이핑을 해서 설득해야 되겠단 판단이 들었다. 판단이 이루어졌으면 바로 실천해야 하지 않겠는가? 바로 당근마켓으로 45,000원짜리 어린이 장구를 샀고, 곧이어 아두이노랑 쿠킹호일, 그리고 몇가지 부품을 구매했다.</p>
+<h1 id="프로토타이핑">프로토타이핑</h1>
+<h2 id="유선과-무선">유선과 무선</h2>
+<p>내가 만드는 게임은 단순히 타격 여부만을 인식하지 않는다. &quot;어떤 채로 어떤 면이 타격됐는가&quot;를 인식한다. 즉, 다시 말해 열편으로 궁편을 친다면 &quot;궁편이 타격됐다&quot;라는 정보가 아닌 &quot;열편으로 궁편이 타격됐다&quot;라는 정보가 인식된다.</p>
+<p>이를 구현하려면 채에도 센서가 있어야 된다. 그리고 이 센서는 게임 본체랑 연결되어야 한다. 어떻게 연결한 것인가? 무선과 유선 두가지 방법이 있다.</p>
+<p>무선과 유선 각 두 가지 방법의 장단점은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>무선</th>
+<th>유선</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>장점</td>
+<td>선이 걸리지 않음</td>
+<td>정확도가 매우 높고 딜레이가 낮음</td>
+</tr>
+<tr>
+<td>단점</td>
+<td>너무 낮은 정확도 및 높은 딜레이</td>
+<td>선이 걸리적거림</td>
+</tr>
+</tbody></table>
+<p>무선 통신은 정확도가 너무 낮다는 단점이 있다. 무선으로 채의 위치를 측정한다고 가정해보자. <a href="https://www.inpixon.com/technology/standards/ultra-wideband">Inpixion</a>의 자료에서의 무선 위치 측정 시스템의 정확도와 레어턴시는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>UWB</th>
+<th>Chirp (CSS)</th>
+<th>BLE</th>
+<th>Wi-Fi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>정확도</td>
+<td>10~50 cm</td>
+<td>1~2m</td>
+<td>&lt; 5 m</td>
+<td>10 m</td>
+</tr>
+<tr>
+<td>레이턴시</td>
+<td>&lt; 1 ms</td>
+<td>&lt; 1 ms</td>
+<td>3~5s</td>
+<td>3~5s</td>
+</tr>
+</tbody></table>
+<p>정확도가 너무 낮아서 무선 위치 측정 시스템은 쓸 수가 없다. 블루투스와 와이파이는 레이턴시때문에 리듬게임 컨트롤러로 쓸 수조차 없다.</p>
+<p>&#39;그렇다면 무선이되 다른 방법을 쓰면 되는 것 아닌가?&#39;라는 생각이 들 수도 있는데, 내 머리로는 그렇게 할 수 있는 방법이 딱히 떠오르지 않았다. 그래서 그냥 유선으로 연결하기로 하고, 걸리적거리는 문제는 나중에 해결하기로 했다.</p>
+<h2 id="시분할">시분할</h2>
+<p>자, 이제 유선으로 채의 종류를 인식하기로 했다. 장구는 두 개의 채와 두 개의 접촉면이 있다. 이 경우 가능한 경우의 수는 총 몇 가지인가? 답은 아래 표에서 볼 수 있듯 9가지이다. 두 개의 채로 하나의 접촉면을 동시에 치는 경우(아래 표에서 5번, 9번)도 고려해야 하므로 9가지이다.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>궁채</th>
+<th>북채</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>2</td>
+<td>궁면</td>
+<td>X</td>
+</tr>
+<tr>
+<td>3</td>
+<td>북면</td>
+<td>X</td>
+</tr>
+<tr>
+<td>4</td>
+<td>X</td>
+<td>궁면</td>
+</tr>
+<tr>
+<td>5</td>
+<td>궁면</td>
+<td>궁면</td>
+</tr>
+<tr>
+<td>6</td>
+<td>북면</td>
+<td>궁면</td>
+</tr>
+<tr>
+<td>7</td>
+<td>X</td>
+<td>북면</td>
+</tr>
+<tr>
+<td>8</td>
+<td>궁면</td>
+<td>북면</td>
+</tr>
+<tr>
+<td>9</td>
+<td>북면</td>
+<td>북면</td>
+</tr>
+</tbody></table>
+<p>전기는 색깔이 없다. 접촉면에서 흐르는 전기가 궁채에서 흐르는 전기인지 북채에서 흐르는 전기인지 알 수 없다. 그렇다면 접촉면에 닿은 채가 어떤 채인지 어떻게 구분해야 할까? 필자는 FDM(주파수 분할)과 TDM(시분할)을 생각했다. 처음엔 FDM을 생각했었는데, 아두이노로 구현하기에는 난이도가 높을 것 같아 비교적 구현이 손쉬운 TDM으로 결정했다.</p>
+<h3 id="알고리즘">알고리즘</h3>
+<p>시분할 알고리즘은 매우 단순하다.</p>
+<ol>
+<li>궁채에 전기를 흘리고 북채에 전기를 흘리지 않는다.</li>
+<li>북면에 전기가 흐르는 지 확인한다. 북면에 전기가 흐르면 궁채는 북면에 접촉하고 있다.</li>
+<li>궁면에 전기가 흐르는 지 확인한다. 궁면에 전기가 흐르면 궁채는 궁면에 접촉하고 있다.</li>
+<li>북채에 전기를 흘리고 궁채에 전기를 흘리지 않는다.</li>
+<li>북면에 전기가 흐르는 지 확인한다. 북면에 전기가 흐르면 북채는 북면에 접촉하고 있다.</li>
+<li>궁면에 전기가 흐르는 지 확인한다. 궁면에 전기가 흐르면 북채는 궁면에 접촉하고 있다.</li>
+<li>2, 3, 5, 6번에서의 정보를 종합하면 어떤 채가 어떤 접촉면에 접촉하고 있는 지 알 고 있다.</li>
+</ol>
+<p>이를 도식도로 나타내면 다음과 같다.</p>
+<p><img src="/img/bidrum/controller-algorithm.png" alt="알고리즘의 도식도"></p>
+<p>위를 실제 회로로 구현하기 위해서는 특정 회로를 신호로 열거나 닫을 수 있어야 한다.</p>
+<h3 id="릴레이">릴레이</h3>
+<p>특정 회로를 신호로 열거나 닫는 대표적인 부품은 릴레이이다. 릴레이는 일종의 스위치 역할을 하는 부품으로, 전자석을 이용하여 회로를 열거나 닫는다.</p>
+<p><img src="/img/bidrum/relay.jpg" alt="아두이노 릴레이 모듈 사진"></p>
+<p>매우 직관적이고 만들기 쉬워서 처음에 릴레이를 시도했었다. 그러나 문제가 있었다. 릴레이는 딜레이가 너무 크고(5ms) 결정적으로 딱따구리 같은 소음이 난다. 위 알고리즘을 빠르게 무한반복해야 하는 특성상 릴레이 열고닫기를 반복하니 전자석 딱딱거리는 소리가 무한히 들리는 것이었다.</p>
+<h3 id="트랜지스터">트랜지스터</h3>
+<p>그래서 주변 분들의 조언을 받아 트랜지스터를 이용했다. 주변 분께 딜레이가 1ms이하인 릴레이가 있나고 여쭤보니, 그 분께서 그런 릴레이는 없으니 트랜지스터를 쓰라고 답변해주신 것이 큰 도움이 됐다. 트랜지스터는 라디오 만들 때나(증폭) 쓰는 건 줄 알았는데 검색해보니 트랜지스터도 스위치처럼 쓸 수 있음을 알게 됐다.</p>
+<p>NPN 트랜지스터와 저항으로 약간의 시행착오를 겪으니 잘 인식됐다. 트랜지스터를 이용한 회로는 아래와 같다.</p>
+<p><img src="/img/bidrum/janggu_prototype_circuit_1.png" alt="트랜지스터를 이용한 아두이노 컨트롤러 회로"></p>
+<p>위 회로에서 궁채, 열채, 북편, 채편 기호는 각각의 부위에 붙은 전도체를 의미한다.</p>
+<h2 id="전도체">전도체</h2>
+<p>전기가 흘려야 하니 채와 접촉면에는 전도체 물질을 부착해야 한다. 뭘 붙일까 고민하다가 <a href="https://blog.naver.com/b4crazy1/221481730264">펌프 발판을 수작업으로 제작할 때 은박지를 이용했다는 글</a>이 생각났다. 그래서 다이소에서 쿠킹호일을 사다가 붙였다. 내구성은 썩 좋은 것 같진 않았지만 꽤 잘 인식됐다.</p>
+<p><img src="/img/bidrum/janggu_prototype_1.jpg" alt="장구 컨트롤러 프토토타입 사진"></p>
+<p>사진은 위와 같다. 사진에는 보이지 않지만, 장구의 면에도 은박지가 부착되어 있다.</p>
+<h1 id="결론">결론</h1>
+<p>쿠킹호일과 NPN 트랜지스터, 저항, 그리고 아두이노를 이용해 장구 컨트롤러를 만들었다. 내구성은 썩 좋지 않았지만 인식은 잘 됐다. 2023년 겨울방학의 일이었다.</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[PPTX 파일 모든 슬라이드 숨김 해제하고 PDF 변환 일괄 작업하기]]></title>
         <id>show_all_slides_of_pptx_and_convert_to_pdf_batch_operation</id>
@@ -102,7 +252,7 @@ slide_xml_filename_pattern = re.<span class="hljs-built_in">compile</span>(<span
 </ol>
 <p>-arto</p>
 <hr>
-<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#108;&#x69;&#116;&#101;&#x68;&#101;&#108;&#x6c;&#64;&#108;&#105;&#x74;&#x65;&#104;&#x65;&#x6c;&#108;&#46;&#105;&#x6e;&#x66;&#x6f;">&#108;&#x69;&#116;&#101;&#x68;&#101;&#108;&#x6c;&#64;&#108;&#105;&#x74;&#x65;&#104;&#x65;&#x6c;&#108;&#46;&#105;&#x6e;&#x66;&#x6f;</a> wrote ---</p>
+<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#108;&#x69;&#116;&#x65;&#x68;&#x65;&#108;&#x6c;&#x40;&#108;&#x69;&#x74;&#x65;&#104;&#101;&#108;&#108;&#46;&#105;&#110;&#102;&#x6f;">&#108;&#x69;&#116;&#x65;&#x68;&#x65;&#108;&#x6c;&#x40;&#108;&#x69;&#x74;&#x65;&#104;&#101;&#108;&#108;&#46;&#105;&#110;&#102;&#x6f;</a> wrote ---</p>
 <blockquote>
 <p>Dear artomizer:</p>
 <p>I’m Yeonjin Shin, an user of SketchDaily reference site.</p>
@@ -115,7 +265,7 @@ Yeonjin Shin</p>
 CSE Student; Rookie software engineer</p>
 <p>Homepage: <a href="https://litehell.info">https://litehell.info</a><br>
 GitHub: <a href="https://github.com/litehell">https://github.com/litehell</a><br>
-Email: <a href="mailto:&#108;&#x69;&#x74;&#101;&#104;&#101;&#108;&#108;&#64;&#108;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x2e;&#x69;&#x6e;&#102;&#x6f;">&#108;&#x69;&#x74;&#101;&#104;&#101;&#108;&#108;&#64;&#108;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x2e;&#x69;&#x6e;&#102;&#x6f;</a></p>
+Email: <a href="mailto:&#108;&#105;&#x74;&#x65;&#x68;&#101;&#x6c;&#x6c;&#x40;&#108;&#105;&#x74;&#101;&#104;&#101;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;">&#108;&#105;&#x74;&#x65;&#x68;&#101;&#x6c;&#x6c;&#x40;&#108;&#105;&#x74;&#101;&#104;&#101;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;</a></p>
 </blockquote>
 </blockquote>
 <p>2022년 12월 1일에 위와 같이 허락을 받고 개발을 시작했다. 그리고 2022년 6월 중에 개발을 마무리하고 그 다음 달에 첫 프로덕션 버전을 배포했다.</p>
@@ -1255,28 +1405,6 @@ RAILS_ENV=production ./bin/tootctl preview_cards remove --days=0</code></pre>
         heapCount = <span class="hljs-number">0</span>;
     }
 }</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[삼성 노트북(950XBE) 우분투에서 소리 안 들리는 버그 고치기]]></title>
-        <id>how_to_fix_no_sound_issue_in_samsung_laptop_ubuntu</id>
-        <link href="https://blog.litehell.info/post/how_to_fix_no_sound_issue_in_samsung_laptop_ubuntu"/>
-        <updated>2023-03-18T10:21:27.090Z</updated>
-        <summary type="html"><![CDATA[한 줄로 고치는 버그]]></summary>
-        <content type="html"><![CDATA[<p>나는 삼성 노트북 9 Always(모델명: NT950XBE)를 이용한다. 꽤 괜찮은 노트북인데, 대학에서 운영체제 수업을 듣다보니 우분투를 깔 필요를 느껴서 듀얼부팅으로 설치했다.</p>
-<p>우분투를 설치하고 이용하는 데엔 큰 문제가 없었다, Wine으로 설치한 카카오톡도 잘 작동했다. 그러나 문제는 다른 데 있었다, 소리가 안 들렸다.</p>
-<h1 id="어떻게-안-들리나요">어떻게 안 들리나요?</h1>
-<p>이 소리가 안 들리는 증상을 자세히 서술하면 다음과 같았다.</p>
-<ul>
-<li>노트북 내부 스피커: 아예 작동하지 않음.</li>
-<li>노트북 이어폰 잭: pauvcontrol로 볼륨을 150%까지 올리면 들리긴 하는데 소리가 지지직거린다. 150%까지 안 올리면 들리지도 않는다.</li>
-</ul>
-<p>이어폰 잭은 그래도 <code>sudo hda-verb /dev/snd/hwC0D0 0x1a SET_PIN_WIDGET_CONTROL 0x5</code>명령어를 실행하면 정상적으로 작동은 하는 데 이조차도 영구적인 해결책이 아니었고, 잠시 소리가 idle이 되면 바로 원상복구된다는 한계가 있었다. 영구적으로 해결할 수 있는 방법이 없을까?</p>
-<h2 id="생각보다-간단했던-해결방법">생각보다 간단했던 해결방법</h2>
-<p><a href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1851518?comments=all">찾아보니 이미 커널 버그로 보고된 문제였다.</a> 이 버그 보고를 읽다가 문득 &#39;<code>/etc/modprobe.d/alsa-base.conf</code> 파일 맨 밑에 다음 줄을 추가하면 되지 않을까?&#39;라는 생각이 들었다. 그래서 추가했고, 재부팅했다.</p>
-<pre><code># audio fix
-options snd-hda-intel model=alc298-samsung-amp</code></pre>
-<p>결과는? 해결됐다. 이어폰도 스피커도 매우 잘 작동한다. 커널 버그라서 복잡하게 해결할 줄 알았는데 문제가 손쉽게 해결되서 다행이었다, 메데타시 메데타시.</p>
 ]]></content>
     </entry>
 </feed>
