@@ -11,6 +11,12 @@ export default function Document() {
         />
 
         <script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5916984077364289'
+          crossOrigin='anonymous'
+        />
+
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
