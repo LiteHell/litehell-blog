@@ -6,6 +6,7 @@ date: '2023-10-25T14:49:49.041Z'
 category: 'Dev'
 tags:
     - 'Docker'
+last_modified_at: '2024-12-27T13:05:23.710Z'
 ---
 # 들어가는 글
 필자는 중앙대학교 공지사항을 [RSS](https://rss.puang.network)로 만들어서 구독한다. RSS로 만든 후 메신지 봇을 붙이면 알아서 알려주니 편하다.
@@ -45,7 +46,7 @@ ADD src package.json package-lock.json tsconfig.json .
 RUN npm i
 RUN npm bulid
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]
 ```
 
 Typescript 프로젝트를 위한 간단한 Dockerfile이다. 이를 다음과 같이 여러개의 단계(stage)로 쪼갤 수 있다.
@@ -61,8 +62,8 @@ RUN npm i
 FROM deps AS build
 RUN npm bulid
 
-FROM build As deployment
-CMD ["yarn", "start"]
+FROM build AS deployment
+CMD ["npm", "run", "start"]
 
 ```
 
@@ -83,17 +84,17 @@ RUN npm i
 FROM deps AS build
 RUN npm bulid
 
-FROM build As english
+FROM build AS english
 COPY english .
 
-FROM english As deployment-international
-CMD ["yarn", "start", "--lang=english"]
+FROM english AS deployment-international
+CMD ["npm", "run", "start", "--lang=english"]
 
-FROM build As korean
+FROM build AS korean
 COPY korean .
 
 FROM korean AS deployment-domestic
-CMD ["yarn", "start", "--lang=korean"]
+CMD ["npm", "run", "start", "--lang=korean"]
 ```
 
 위 Dockerfile의 경우 build 스테이지에서 english 스테이지와 korean 스테이지로 분기한다.
@@ -111,17 +112,17 @@ RUN npm i
 FROM deps AS build
 RUN npm bulid
 
-FROM build As english
+FROM build AS english
 COPY english .
 
-FROM english As deployment-international
-CMD ["yarn", "start", "--lang=english"]
+FROM english AS deployment-international
+CMD ["npm", "run", "start", "--lang=english"]
 
-FROM build As korean
+FROM build AS korean
 COPY korean .
 
 FROM korean AS deployment-domestic
-CMD ["yarn", "start", "--lang=korean"]
+CMD ["npm", "run", "start", "--lang=korean"]
 ```
 
 위 Dockerfile을 가지고 아래 명령어를 실행한다고 가정해보자.
@@ -140,7 +141,7 @@ DOCKER_BUILDKIT=1 docker build --target deployment-domestic
 ## Multi-stage 빌드를 이용한 테스트
 이제 Docker를 이용해 테스트를 하는 방법에 대해 알아보자. 다음은 [cau-rss 레포](https://github.com/LiteHell/cau-rss)의 Dockerfile 내용을 약간 수정한 예시이다.
 ```Dockerfile
-FROM golang:alpine as base
+FROM golang:alpine AS base
 WORKDIR /app
 
 COPY go.mod go.sum ./
@@ -158,11 +159,11 @@ COPY html ./html
 
 COPY *.go ./
 
-FROM base as build
+FROM base AS build
 RUN go build -v -o ./app ./
 CMD ["/app/app"]
 
-FROM base as test
+FROM base AS test
 RUN ["go", "test" ,"-v", "./..."]
 
 ```
