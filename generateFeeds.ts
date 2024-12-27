@@ -18,7 +18,7 @@ const func = async () => {
     link: 'https://blog.litehell.info',
     language: 'ko-KR',
     image: 'https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1',
-    copyright: 'All rights reserved 2020 © Yeonjin Shin',
+    copyright: 'All rights reserved 2020 ~ 2024 © Yeonjin Shin',
     updated: new Date(articles[0].metadata.date ?? ''),
     feedLinks: {
       json: 'https://blog.litehell.info/feed/json',

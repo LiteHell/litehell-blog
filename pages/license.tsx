@@ -41,13 +41,13 @@ export default function Home() {
             </a>
             에 따라 배포되며,&nbsp;
             <a href='https://github.com/litehell/litehell-blog'>GitHub</a>에서
-            소스코드를 확인하실 수 있습니다. 라이선스 전문은 소스 코드 디렉토리
+            소스 코드를 확인하실 수 있습니다. 라이선스 전문은 소스 코드 디렉토리
             내의 COPYING 파일을 확인해주세요.
           </p>
           <pre>
             LiteHell's Blog
             <br />
-            Copyright (C) 2020 ~ 2023 Yeonjin Shin
+            Copyright (C) 2020 ~ 2024 Yeonjin Shin
             <br />
             <br />
             This program is free software: you can redistribute it and/or modify

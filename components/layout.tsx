@@ -109,7 +109,7 @@ export default function Layout(props: propTypes) {
             />
           </a>
           <br />
-          Copyrights (C) 2020 LiteHell, All rights reserved.
+          Copyrights (C) 2020 ~ 2024 LiteHell, All rights reserved.
           <br />
           <div className={styles.visibleOnPrintOnly}>
             LiteHell&apos;s Blog -&nbsp;
