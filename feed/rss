@@ -530,7 +530,7 @@ slide_xml_filename_pattern = re.<span class="hljs-built_in">compile</span>(<span
 </ol>
 <p>-arto</p>
 <hr>
-<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#x6c;&#105;&#116;&#x65;&#x68;&#x65;&#108;&#108;&#x40;&#x6c;&#105;&#116;&#x65;&#x68;&#x65;&#x6c;&#108;&#x2e;&#x69;&#110;&#102;&#111;">&#x6c;&#105;&#116;&#x65;&#x68;&#x65;&#108;&#108;&#x40;&#x6c;&#105;&#116;&#x65;&#x68;&#x65;&#x6c;&#108;&#x2e;&#x69;&#110;&#102;&#111;</a> wrote ---</p>
+<p>---- On Wed, 30 Nov 2022 07:46:30 -0700 LiteHell <a href="mailto:&#x6c;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x40;&#108;&#x69;&#x74;&#101;&#104;&#101;&#x6c;&#x6c;&#46;&#x69;&#x6e;&#102;&#111;">&#x6c;&#105;&#116;&#101;&#x68;&#101;&#108;&#108;&#x40;&#108;&#x69;&#x74;&#101;&#104;&#101;&#x6c;&#x6c;&#46;&#x69;&#x6e;&#102;&#111;</a> wrote ---</p>
 <blockquote>
 <p>Dear artomizer:</p>
 <p>I’m Yeonjin Shin, an user of SketchDaily reference site.</p>
@@ -543,7 +543,7 @@ Yeonjin Shin</p>
 CSE Student; Rookie software engineer</p>
 <p>Homepage: <a href="https://litehell.info">https://litehell.info</a><br>
 GitHub: <a href="https://github.com/litehell">https://github.com/litehell</a><br>
-Email: <a href="mailto:&#108;&#x69;&#x74;&#101;&#104;&#x65;&#108;&#x6c;&#64;&#108;&#105;&#116;&#x65;&#x68;&#x65;&#x6c;&#108;&#46;&#x69;&#x6e;&#102;&#x6f;">&#108;&#x69;&#x74;&#101;&#104;&#x65;&#108;&#x6c;&#64;&#108;&#105;&#116;&#x65;&#x68;&#x65;&#x6c;&#108;&#46;&#x69;&#x6e;&#102;&#x6f;</a></p>
+Email: <a href="mailto:&#108;&#105;&#116;&#101;&#x68;&#101;&#x6c;&#x6c;&#64;&#108;&#x69;&#x74;&#101;&#x68;&#101;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;">&#108;&#105;&#116;&#101;&#x68;&#101;&#x6c;&#x6c;&#64;&#108;&#x69;&#x74;&#101;&#x68;&#101;&#108;&#x6c;&#46;&#x69;&#110;&#102;&#x6f;</a></p>
 </blockquote>
 </blockquote>
 <p>2022년 12월 1일에 위와 같이 허락을 받고 개발을 시작했다. 그리고 2022년 6월 중에 개발을 마무리하고 그 다음 달에 첫 프로덕션 버전을 배포했다.</p>
@@ -581,7 +581,7 @@ Email: <a href="mailto:&#108;&#x69;&#x74;&#101;&#104;&#x65;&#108;&#x6c;&#64;&#10
 <h2 id="수업">수업</h2>
 <p>컴퓨터그래픽스 수업에서는 행렬을 이용해 3D 객체가 어떻게 2D 화면에 투영되는지, 3D 공간에서의 변형(회전, 이동 등)이 행렬을 이용하여 어떻게 이루어지는 지부터 시작하여 OpenGL을 이용한 쉐이더와 기법들, 빛과 그림자, 이를 이용한 실제 OpenGL 프로그램 제작까지 했다. 컴퓨터그래픽스에 대해 무지했던더라 수업이 굉장히 재밌었고, Vertex shader와 Geometry shader를 활용한 Phong shading 등의 기법과 그림자 및 빛의 구현을 처음으로 배웠다.</p>
 <p>컴퓨터통신 수업에서는 물리 레이어부터 시작해 4계층 직전까지를 다룬다. Bottom-Up 방식으로 진행되어 컴퓨터통신 구조에 대한 전체적인 통찰을 얻기에 훌륭한 강의였다. 지금까지 기껏해봐야 추상화된 TCP/IP 소켓 API만 이용해보았기에 이더넷, Wi-Fi, IP 프로토콜의 작동 원리를 배울 수 있는 컴퓨터통신 수업에서 많은 걸 얻을 수 있었다. 비록 수업은 힘들었지만, 상위 레이어가 하위 레이어를 이용하고, Peer와 Peer 간에는 프로토콜(메세지 포맷)이 동일하다는 원칙 하에서 인터넷이 어떻게 동작하는 지 알 수 있었다.</p>
-<p>리눅스 시스템 응용설계에서는 리눅스 커널의 소스코드를 살펴보며 리눅스의 Mutex와 같은 동시성(Concurrency) 매카니즘과 프로세스 관리, 스케쥴링이 어떻게 이루어지는 지를 배웠다. 교수님께서 리눅스에 대해 진심이라는 것을 느꼈고, 리눅스의 CFS Scheduler의 동작 원리를 배울 수 있어 좋았다.</p>
+<p>리눅스 시스템 응용설계에서는 리눅스 커널의 소스코드를 살펴보며 리눅스의 Mutex와 같은 동시성(Concurrency) 매카니즘과 프로세스 관리, 스케쥴링이 어떻게 이루어지는 지를 배웠다. 교수님께서 리눅스에 대해 진심이라는 것을 느꼈고, 리눅스 CFS의 동작 원리를 배울 수 있어 좋았다.</p>
 <p>머신러닝프로젝트와 패턴인식 과목에서는 머신러닝과 패턴인식에 대한 이론을 기초적인 수학에 기반하여 배웠다. 서로 다른 과목이긴 한데 교수님이 똑같으서셔 내용이 비슷했다. 머신러닝과 패턴인식이 무엇인지 몰랐던 필자에게 &quot;머신러닝과 패턴인식은 단순히 어떠한 데이터(점)이 어떠한 구역(분류)에 해당되는 지를 선/평면(퍼셉트론)이나 통계적 방법론(패턴인식)을 이용하여 찾아내는 것이다.&quot;라는 거대한 통찰을 제시하고 이러한 통찰 하에 머신러닝과 패턴인식에 필요한 기초적인 수학과 이에 기반한 이론(퍼셉트론, 다층 퍼셉트론, 딥러닝)을 간략하게 가르치셨다. 필자는 인공지능에 대해 아무것도 몰랐기에 수업이 매우 보람찼다.</p>
 <p>코딩부트캠프는 코딩테스트 보는 과목이다. 코딩테스트가 너무 쉬웠기에 그냥 졸입필수과목이라서 수강했다라는 말 외에는 딱히 쓸 말이 없다.</p>
 <h1 id="2023년-소감">2023년 소감</h1>
@@ -801,7 +801,7 @@ With cycle
 <span class="hljs-keyword">RUN</span><span class="bash"> npm i</span>
 <span class="hljs-keyword">RUN</span><span class="bash"> npm bulid</span>
 
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span></code></pre>
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span></code></pre>
 <p>Typescript 프로젝트를 위한 간단한 Dockerfile이다. 이를 다음과 같이 여러개의 단계(stage)로 쪼갤 수 있다.</p>
 <pre><code class="hljs language-Dockerfile"><span class="hljs-keyword">FROM</span> node AS base
 <span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span>
@@ -813,8 +813,8 @@ With cycle
 <span class="hljs-keyword">FROM</span> deps AS build
 <span class="hljs-keyword">RUN</span><span class="bash"> npm bulid</span>
 
-<span class="hljs-keyword">FROM</span> build As deployment
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span>
+<span class="hljs-keyword">FROM</span> build AS deployment
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span>
 </code></pre>
 <p>위와 같은 Dockerfile을 이용하면 Docker 빌드시 특정 스테이지까지만 빌드할 수 있다. 예를 들어 아래 명령어는 deps 스테이지까지만 빌드한다.</p>
 <pre><code class="hljs language-bash">docker build --target deps</code></pre>
@@ -829,17 +829,17 @@ With cycle
 <span class="hljs-keyword">FROM</span> deps AS build
 <span class="hljs-keyword">RUN</span><span class="bash"> npm bulid</span>
 
-<span class="hljs-keyword">FROM</span> build As english
+<span class="hljs-keyword">FROM</span> build AS english
 <span class="hljs-keyword">COPY</span><span class="bash"> english .</span>
 
-<span class="hljs-keyword">FROM</span> english As deployment-international
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=english&quot;</span>]</span>
+<span class="hljs-keyword">FROM</span> english AS deployment-international
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=english&quot;</span>]</span>
 
-<span class="hljs-keyword">FROM</span> build As korean
+<span class="hljs-keyword">FROM</span> build AS korean
 <span class="hljs-keyword">COPY</span><span class="bash"> korean .</span>
 
 <span class="hljs-keyword">FROM</span> korean AS deployment-domestic
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=korean&quot;</span>]</span></code></pre>
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=korean&quot;</span>]</span></code></pre>
 <p>위 Dockerfile의 경우 build 스테이지에서 english 스테이지와 korean 스테이지로 분기한다.</p>
 <h3 id="buildkit">BuildKit</h3>
 <pre><code class="hljs language-Dockerfile"><span class="hljs-keyword">FROM</span> node AS base
@@ -852,17 +852,17 @@ With cycle
 <span class="hljs-keyword">FROM</span> deps AS build
 <span class="hljs-keyword">RUN</span><span class="bash"> npm bulid</span>
 
-<span class="hljs-keyword">FROM</span> build As english
+<span class="hljs-keyword">FROM</span> build AS english
 <span class="hljs-keyword">COPY</span><span class="bash"> english .</span>
 
-<span class="hljs-keyword">FROM</span> english As deployment-international
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=english&quot;</span>]</span>
+<span class="hljs-keyword">FROM</span> english AS deployment-international
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=english&quot;</span>]</span>
 
-<span class="hljs-keyword">FROM</span> build As korean
+<span class="hljs-keyword">FROM</span> build AS korean
 <span class="hljs-keyword">COPY</span><span class="bash"> korean .</span>
 
 <span class="hljs-keyword">FROM</span> korean AS deployment-domestic
-<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;yarn&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=korean&quot;</span>]</span></code></pre>
+<span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;run&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-string">&quot;--lang=korean&quot;</span>]</span></code></pre>
 <p>위 Dockerfile을 가지고 아래 명령어를 실행한다고 가정해보자.</p>
 <pre><code class="hljs language-bash">docker build --target deployment-domestic</code></pre>
 <p>위 경우 빌드에 필요한 스테이지는 <code>base</code>, <code>deps</code>, <code>build</code>, <code>korean</code>, <code>deployment-domestic</code>이다. 그러나 실제로 위 명령어를 실행해보면 불필요한 <code>english</code>, <code>deployment-international</code> 스테이지도 빌드하는 것을 확인할 수 있다.</p>
@@ -870,7 +870,7 @@ With cycle
 <pre><code class="hljs language-bash">DOCKER_BUILDKIT=1 docker build --target deployment-domestic</code></pre>
 <h2 id="multi-stage-빌드를-이용한-테스트">Multi-stage 빌드를 이용한 테스트</h2>
 <p>이제 Docker를 이용해 테스트를 하는 방법에 대해 알아보자. 다음은 <a href="https://github.com/LiteHell/cau-rss">cau-rss 레포</a>의 Dockerfile 내용을 약간 수정한 예시이다.</p>
-<pre><code class="hljs language-Dockerfile"><span class="hljs-keyword">FROM</span> golang:alpine as base
+<pre><code class="hljs language-Dockerfile"><span class="hljs-keyword">FROM</span> golang:alpine AS base
 <span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span>
 
 <span class="hljs-keyword">COPY</span><span class="bash"> go.mod go.sum ./</span>
@@ -888,11 +888,11 @@ With cycle
 
 <span class="hljs-keyword">COPY</span><span class="bash"> *.go ./</span>
 
-<span class="hljs-keyword">FROM</span> base as build
+<span class="hljs-keyword">FROM</span> base AS build
 <span class="hljs-keyword">RUN</span><span class="bash"> go build -v -o ./app ./</span>
 <span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;/app/app&quot;</span>]</span>
 
-<span class="hljs-keyword">FROM</span> base as test
+<span class="hljs-keyword">FROM</span> base AS test
 <span class="hljs-keyword">RUN</span><span class="bash"> [<span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-string">&quot;test&quot;</span> ,<span class="hljs-string">&quot;-v&quot;</span>, <span class="hljs-string">&quot;./...&quot;</span>]</span>
 </code></pre>
 <p><code>base</code> 스테이지에서 의존성을 설치한 뒤 각종 필요한 파일들을 복사하고 TLS 인증서 오류 해결을 위한 CA 인증서를 복사한다. <code>test</code> 스테이지는 <code>base</code> 스테이지에서 테스트 명령어를 실행하는 스테이지이며, <code>build</code> 스테이지는 <code>base</code> 스테이지를 바탕으로 도커 이미지를 빌드하는 스테이지이다.</p>
