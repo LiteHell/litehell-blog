@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { BlogPostMetadata } from '../modules/blog';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '../styles/ArticleList.module.scss';
 
 export type BlogPost = { metadata: BlogPostMetadata; name: string };
@@ -12,9 +13,34 @@ type propTypes = {
   posts: BlogPost[];
 };
 
+function usePageParamater(): [number, (number) => void] {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const page = useMemo(() => {
+    const page = parseInt(searchParams.get('page') ?? '1');
+    if (isNaN(page) || !isFinite(page)) {
+      return 1;
+    } else {
+      return page;
+    }
+  }, [searchParams]);
+  const setPage = (newPage) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const url = new URL(location.href);
+    params.set('page', newPage);
+    url.search = params.toString();
+
+    router.push(url.href);
+  };
+
+  return [page, setPage];
+}
+
 export default function PostList(props: propTypes) {
   const postPerPageCount = 10;
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = usePageParamater();
+
   const previousPage: number | null = page !== 1 ? page - 1 : null;
   const nextPage: number | null =
     page * postPerPageCount < props.posts.length ? page + 1 : null;
