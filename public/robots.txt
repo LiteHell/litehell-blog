@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /category/
+Disallow: /tag/
+
+Sitemap: https://blog.litehell.info/sitemap.xml

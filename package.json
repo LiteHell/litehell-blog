@@ -1,0 +1,57 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-builder": "esbuild --bundle ./src/index.ts --packages=external --outdir=dist --platform=neutral --loader:.ejs=text",
+    "build": "pnpm build-builder; node ./dist --build",
+    "watch": "pnpm build-builder; node ./dist --watch",
+    "format": "prettier -w src"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.5.2",
+  "devDependencies": {
+    "@types/finalhandler": "^1.2.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/mustache": "^4.2.5",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/serve-static": "^1.15.7",
+    "esbuild": "0.25.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "finalhandler": "^2.1.0",
+    "find-free-ports": "^3.1.1",
+    "fs-extra": "^11.3.0",
+    "js-yaml": "^4.1.0",
+    "mustache": "^4.2.0",
+    "path-to-regexp": "^8.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.1",
+    "serve-static": "^1.16.2",
+    "unified": "^11.0.5",
+    "zustand": "^5.0.3"
+  }
+}
