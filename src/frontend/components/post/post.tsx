@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { BlogPost } from "../../../blog/getPosts";
+import Comments from "./comments";
 import { Article, Header, PostNav, SeriesNav } from "./styled";
 
 export type PostProp = {
@@ -79,6 +80,7 @@ export default function Post({
         </SeriesNav>
       )}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
+      <Comments />
       <PostNav>
         {previous ? (
           <a

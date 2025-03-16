@@ -37,6 +37,12 @@ export const Header = styled.div`
   }
 `;
 
+export const Comments = styled.div`
+  .utterances {
+    max-width: 100% !important;
+  }
+`;
+
 export const Article = styled.article`
   padding: 10px 10px;
   font-size: 1rem;

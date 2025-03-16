@@ -71,7 +71,7 @@ function getHtmlHeadData(data: BlogPageProp): Partial<HTMLHeadTemplateData> {
     case "post":
       return {
         title: `LiteHell의 블로그 - ${data.post.current.content.metadata.title}`,
-        og_title: `LiteHell의 블로그 - ${data.post.current.content.metadata.title}`,
+        og_title: data.post.current.content.metadata.title,
         og_description:
           data.post.current.content.metadata.subtitle ??
           "LiteHell의 블로그 글입니다.",
