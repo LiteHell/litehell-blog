@@ -122,12 +122,6 @@ export const Article = styled.article`
     padding: 10px 50px;
     border-left: 5px solid rgb(78, 78, 78);
   }
-  code:not(:global(.hljs)) {
-    background: rgb(241, 241, 241);
-    padding: 2px 4px;
-    display: inline-block;
-    border-radius: 4px;
-  }
   ul,
   ol {
     li {
