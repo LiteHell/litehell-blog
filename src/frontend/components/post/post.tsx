@@ -111,7 +111,7 @@ export default function Post({
             </div>
           </a>
         ) : (
-          <div className="noop">맞미가 게시글입니다.</div>
+          <div className="noop">마지막 게시글입니다.</div>
         )}
       </PostNav>
     </div>
