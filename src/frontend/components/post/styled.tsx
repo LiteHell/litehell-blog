@@ -163,12 +163,17 @@ export const PostNav = styled.nav`
 
     .title {
       font-size: 1.3em;
+      line-height: 1.3rem;
     }
     .subtitle {
+      margin-top: 0.2rem;
+      font-size: 1rem;
+      line-height: 1rem;
       font-weight: 200;
     }
     .date {
       font-size: 0.8em;
+      line-height: 0.8rem;
       font-weight: 200;
     }
   }
