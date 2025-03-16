@@ -1,7 +1,8 @@
-import BlogPage, { BlogPageProp } from "./pages";
-import { renderToStaticMarkup } from "react-dom/server";
-import React from "react";
+import minfiyHtml from "@minify-html/node";
 import mustache from "mustache";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import BlogPage, { BlogPageProp } from "./pages";
 import template from "./template.ejs";
 
 export type HTMLHeadTemplateData = {
@@ -22,12 +23,22 @@ const defaultHeadTemplateData: HTMLHeadTemplateData = {
 };
 
 export default async function renderBlogPage(
-  data: BlogPageProp & Partial<HTMLHeadTemplateData>,
+  data: BlogPageProp & Partial<HTMLHeadTemplateData>
 ) {
   const body = renderToStaticMarkup(<BlogPage {...data} />);
-  return mustache.render(template, {
-    ...defaultHeadTemplateData,
-    ...data,
-    body,
-  });
+  return minfiyHtml
+    .minify(
+      Buffer.from(
+        mustache.render(template, {
+          ...defaultHeadTemplateData,
+          ...data,
+          body,
+        })
+      ),
+      {
+        minify_css: true,
+        minify_js: true,
+      }
+    )
+    .toString("utf-8");
 }
