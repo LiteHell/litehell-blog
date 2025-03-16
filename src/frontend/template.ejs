@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="icon"
+      href="https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1"
+    />
+    <link rel="canonical" href="{{ canonicalUrl }}" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS 2.0 Feed for blog.litehell.info"
+      href="https://blog.litehell.info/feed/rss"
+    />
+    <link
+      rel="alternate"
+      type="	application/atom+xml"
+      title="Atom 1.0 Feed for blog.litehell.info"
+      href="https://blog.litehell.info/feed/atom"
+    />
+    <link
+      rel="alternate"
+      type="application/feed+json"
+      title="Json 1.0 Feed for blog.litehell.info"
+      href="https://blog.litehell.info/feed/json"
+    />
+    
+    <link rel="stylesheet" href="https://esm.sh/@wooorm/starry-night@3/style/both">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="{{ og_title }}" />
+    <meta property="og:description" content="{{ og_description }}" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:type" content="{{ og_type }}" />
+    <meta property="og:site_name" content="LiteHell의 블로그" />
+    <meta property="og:url" content="{{ canonicalUrl }}" />
+    <meta property="og:image" content="{{ canonicalImage }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+    </style>
+
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {{{ body }}}
+  </body>
+</html>

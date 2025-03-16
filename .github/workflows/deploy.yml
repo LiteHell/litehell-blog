@@ -12,21 +12,18 @@ jobs:
       - name: Install Node 🔧
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
+    
+      - name: Install pnpm 🔧
+        uses: pnpm/action-setup@v4
 
       - name: Install Dependencies 🔧
         run: |
-          yarn install
-
-      - name: Genereate Feeds 🔧
-        run: |
-          yarn build-scripts
-          yarn generateFeeds
-          yarn generateSitemap
+          pnpm i
 
       - name: Build blog 🔧
         run: |
-          yarn build
+          pnpm build
       
       - name: Create .nojekyll file 📝
         run: |
