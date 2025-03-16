@@ -136,6 +136,23 @@ export const Article = styled.article`
   }
 `;
 
+export const SeriesNav = styled.nav`
+  border: 1px solid #666666;
+  border-radius: 4px 4px;
+  background: #dddddd;
+  padding: 1em;
+
+  .title {
+    font-weight: 600;
+  }
+  .active {
+    font-weight: 600;
+  }
+  ul {
+    margin: 1em 0px 0px 0px;
+  }
+`;
+
 export const PostNav = styled.nav`
   display: flex;
   flex-direction: row;

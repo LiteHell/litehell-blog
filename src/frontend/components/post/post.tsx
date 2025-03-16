@@ -1,19 +1,36 @@
 import React, { ReactNode } from "react";
 import { BlogPost } from "../../../blog/getPosts";
-import { Article, Header, PostNav } from "./styled";
+import { Article, Header, PostNav, SeriesNav } from "./styled";
 
 export type PostProp = {
   current: BlogPost;
   previous?: BlogPost;
   next?: BlogPost;
+  series?: {
+    name: string;
+    posts: BlogPost[];
+  };
 };
 
-export default function Post({ current: post, previous, next }: PostProp) {
+export default function Post({
+  current: post,
+  previous,
+  next,
+  series,
+}: PostProp) {
   const dateTime = post.content.metadata.last_modified_at
     ? `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 편집하고 ${new Date(post.content.metadata.last_modified_at).toLocaleString("ko-KR")}에 수정함.`
     : `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 편집함.`;
   const hasLinks =
     !!post.content.metadata.category || !!post.content.metadata.tags;
+  const tagLinks = post.content.metadata.tags
+    ?.map((tag) => <a href={`/tag/${tag}`}>{tag}</a>)
+    .reduce((pv, cv, idx, arr) => {
+      pv.push(cv);
+      if (idx !== arr.length - 1) pv.push(<>, </>);
+
+      return pv;
+    }, [] as ReactNode[]);
 
   return (
     <div>
@@ -38,19 +55,29 @@ export default function Post({ current: post, previous, next }: PostProp) {
             {post.content.metadata.tags && (
               <div className="link">
                 <span className="description">테그: </span>
-                {post.content.metadata.tags
-                  .map((tag) => <a href={`/tag/${tag}`}>{tag}</a>)
-                  .reduce((pv, cv, idx, arr) => {
-                    pv.push(cv);
-                    if (idx !== arr.length - 1) pv.push(<>, </>);
-
-                    return pv;
-                  }, [] as ReactNode[])}
+                {tagLinks}
               </div>
             )}
           </div>
         )}
       </Header>
+      {series && (
+        <SeriesNav>
+          <div className="title">(시리즈) {series.name}</div>
+          <ul>
+            {series.posts.map((i) => (
+              <li>
+                <a
+                  href={`/post/${encodeURIComponent(i.name)}`}
+                  className={i.name === post.name ? "active" : undefined}
+                >
+                  {i.content.metadata.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </SeriesNav>
+      )}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
       <PostNav>
         {previous ? (
