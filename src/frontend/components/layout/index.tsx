@@ -32,8 +32,10 @@ export default function Layout({ children }: PropsWithChildren) {
           Copyright (C) 2020 ~ 2025 Yeonjin Shin (a.k.a. LiteHell), All rights
           reserved.
           <br />
-          This blog is free software; For source code and more informations on
-          license and copyrights, Click here.
+          <a href="/license">
+            This blog is free software; For source code and more informations on
+            license and copyrights, Click here.
+          </a>
         </p>
         <div className="badges">
           <a

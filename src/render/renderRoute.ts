@@ -3,6 +3,7 @@ import tryRenderAllCategories from "./routes/allCategories";
 import tryRenderAllPosts from "./routes/allPosts";
 import tryRenderAllTags from "./routes/allTags";
 import tryRenderCategoriedPosts from "./routes/categoriedPosts";
+import tryRenderLicense from "./routes/license";
 import tryRenderPost from "./routes/post";
 import tryRenderTaggedPosts from "./routes/taggedPosts";
 
@@ -19,7 +20,8 @@ async function renderRoute(route: string, posts: BlogPost[]) {
           tryRenderCategoriedPosts,
           tryRenderTaggedPosts,
           tryRenderPost,
-        ].map((i) => i(route, posts)),
+          tryRenderLicense,
+        ].map((i) => i(route, posts))
       )
     ).filter((i) => !!i)[0] ?? null;
 

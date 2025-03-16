@@ -3,6 +3,7 @@ import AllCategories, { AllCategoriesProp } from "./pages/allCategories";
 import AllPosts, { AllPostsProp } from "./pages/allPosts";
 import AllTags, { AllTagsProp } from "./pages/allTags";
 import CategoriedPosts, { CategoriedPostsProp } from "./pages/categoriedPosts";
+import License from "./pages/license";
 import Post, { PostProp } from "./pages/post";
 import TaggedPosts, { TaggedPostsProp } from "./pages/taggedPosts";
 
@@ -12,7 +13,8 @@ type BlogPageType =
   | "tagged_posts"
   | "post"
   | "tags"
-  | "categories";
+  | "categories"
+  | "license";
 
 type BlogPagePropWithProps<PN extends BlogPageType, T> = {
   pageName: PN;
@@ -27,6 +29,7 @@ export type BlogPageProp = {
   | BlogPagePropWithProps<"tagged_posts", TaggedPostsProp>
   | BlogPagePropWithProps<"categoried_posts", CategoriedPostsProp>
   | BlogPagePropWithProps<"post", PostProp>
+  | BlogPagePropWithProps<"license", {}>
 );
 
 export default function BlogPage(props: BlogPageProp) {
@@ -43,6 +46,8 @@ export default function BlogPage(props: BlogPageProp) {
       return <TaggedPosts {...props} />;
     case "post":
       return <Post {...props} />;
+    case "license":
+      return <License />;
     default:
       throw new Error("undefined pageName");
   }

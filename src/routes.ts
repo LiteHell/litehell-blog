@@ -13,12 +13,12 @@ function getTagRoutes(posts: BlogPost[]) {
   for (const tag of tags) {
     const totalPages = Math.ceil(
       contents.filter((i) => i.metadata.tags?.includes(tag)).length /
-        postCountPerPage,
+        postCountPerPage
     );
     result = result.concat([
       `/tag/${encodeURIComponent(tag)}`,
       ...range(1, totalPages).map(
-        (i) => `/tag/${encodeURIComponent(tag)}/page/${i}`,
+        (i) => `/tag/${encodeURIComponent(tag)}/page/${i}`
       ),
     ]);
   }
@@ -31,19 +31,19 @@ function getCategoryRoutes(posts: BlogPost[]) {
   const categories = unique(
     contents
       .filter((i) => !!i.metadata.category)
-      .map((i) => i.metadata.category),
+      .map((i) => i.metadata.category)
   ) as string[];
   let result: string[] = [];
 
   for (const category of categories) {
     const totalPages = Math.ceil(
       contents.filter((i) => i.metadata.category?.includes(category)).length /
-        postCountPerPage,
+        postCountPerPage
     );
     result = result.concat([
       `/category/${encodeURIComponent(category)}`,
       ...range(1, totalPages).map(
-        (i) => `/category/${encodeURIComponent(category)}/page/${i}`,
+        (i) => `/category/${encodeURIComponent(category)}/page/${i}`
       ),
     ]);
   }
@@ -58,6 +58,7 @@ export default async function getRoutes(posts: BlogPost[]) {
     "/",
     "/tags",
     "/categories",
+    "/license",
     ...range(1, totalPages).map((i) => `/page/${i}`),
     ...posts.map((i) => i.name).map((i) => `/post/${encodeURIComponent(i)}`),
     ...getTagRoutes(posts),
