@@ -4,12 +4,13 @@ import path from "path";
 import getPosts from "../blog/getPosts";
 import createRouteRenderer from "../render/renderRoute";
 import getRoutes from "../routes";
+import generateFeeds from "./feed";
 
 export default async function build(outDir: string, { quite = false } = {}) {
   const posts = (await getPosts({ includeDrafts: false })).sort(
     (a, b) =>
       Date.parse(b.content.metadata.date ?? "") -
-      Date.parse(a.content.metadata.date ?? ""),
+      Date.parse(a.content.metadata.date ?? "")
   );
   const routes = await getRoutes(posts);
 
@@ -23,7 +24,7 @@ export default async function build(outDir: string, { quite = false } = {}) {
 
   if (!quite)
     console.log(
-      "Routes to be rendered: \n" + routes.map((i) => `   ${i}`).join("\n"),
+      "Routes to be rendered: \n" + routes.map((i) => `   ${i}`).join("\n")
     );
 
   await Promise.all(
@@ -32,12 +33,15 @@ export default async function build(outDir: string, { quite = false } = {}) {
       const fileName = path.join(
         outDir,
         decodeURIComponent(route),
-        "index.html",
+        "index.html"
       );
       const dirName = path.dirname(fileName);
 
       await mkdir(dirName, { recursive: true });
       await fsExtra.writeFile(fileName, rendered);
-    }),
+    })
   );
+
+  if (!quite) console.log("Generating feeds");
+  await generateFeeds(outDir, posts);
 }

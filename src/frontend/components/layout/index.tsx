@@ -37,6 +37,10 @@ export default function Layout({ children }: PropsWithChildren) {
             license and copyrights, Click here.
           </a>
         </p>
+        <p>
+          Feeds: <a href="/feed/rss">RSS 2.0</a>, <a href="/feed/atom">Atom</a>,{" "}
+          <a href="/feed/json">JSON</a>
+        </p>
         <div className="badges">
           <a
             rel="license"
