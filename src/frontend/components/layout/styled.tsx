@@ -36,13 +36,19 @@ export const Header = styled.header`
   align-items: center;
   gap: 2rem;
 
-  .rounded img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 4rem 4rem;
-    box-shadow:
-      0 3px 6px rgba(0, 0, 0, 0.16),
-      0 3px 6px rgba(0, 0, 0, 0.23);
+  .profileImg {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 4rem 4rem;
+      box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.16),
+        0 3px 6px rgba(0, 0, 0, 0.23);
+    }
   }
 
   .title h1 {
@@ -88,8 +94,14 @@ export const Footer = styled.footer`
   }
 
   .badges {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+
     img {
       border-width: 0px;
+      height: 3em;
+      width: auto;
     }
   }
 `;

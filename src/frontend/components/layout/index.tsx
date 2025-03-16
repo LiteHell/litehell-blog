@@ -5,11 +5,13 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <LayoutContainer>
       <Header>
-        <div className="rounded">
-          <img
-            src="https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1"
-            alt="LiteHell의 Gravatar 아이콘"
-          ></img>
+        <div className="profileImg">
+          <a href="/">
+            <img
+              src="https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1"
+              alt="LiteHell의 Gravatar 아이콘"
+            ></img>
+          </a>
         </div>
         <div className="title">
           <h1>
@@ -42,6 +44,12 @@ export default function Layout({ children }: PropsWithChildren) {
               alt="Creative Commons License"
               src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
             />
+            <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">
+              <img
+                alt="GNU Affero General License Version 3"
+                src="https://www.gnu.org/graphics/agplv3-with-text-100x42.png"
+              />
+            </a>
           </a>
         </div>
       </Footer>
