@@ -6,7 +6,8 @@
   "scripts": {
     "build-builder": "esbuild --bundle ./src/index.ts --packages=external --outdir=dist --platform=neutral --loader:.ejs=text",
     "build": "pnpm build-builder; node ./dist --build",
-    "watch": "pnpm build-builder; node ./dist --watch",
+    "watch-posts": "pnpm build-builder; node ./dist --watch",
+    "watch": "nodemon --watch src -e ts,tsx,js,jsx,json,ejs --exec pnpm watch-posts",
     "format": "prettier -w src"
   },
   "type": "module",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^19.0.4",
     "@types/serve-static": "^1.15.7",
     "esbuild": "0.25.1",
+    "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2"
   },
