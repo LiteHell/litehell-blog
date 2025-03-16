@@ -35,6 +35,7 @@ export const Header = styled.header`
   flex-direction: row;
   align-items: center;
   gap: 2rem;
+  padding-bottom: 1.5rem;
 
   .profileImg {
     a {

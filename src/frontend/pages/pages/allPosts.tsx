@@ -1,7 +1,7 @@
 import React from "react";
 import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
-import PostList from "../../components/postList";
+import PostList from "../../components/postList/postList";
 
 export type AllPostsProp = {
   posts: BlogPost[];

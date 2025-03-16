@@ -1,25 +1,17 @@
 import React from "react";
-import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
+import PostContent, {
+  PostProp as PostContentProp,
+} from "../../components/post/post";
 
 export type PostProp = {
-  post: {
-    current: BlogPost;
-    previous?: BlogPost;
-    next?: BlogPost;
-  };
+  post: PostContentProp;
 };
 
-export default function Post({ post }: PostProp) {
+export default function Post(props: PostProp) {
   return (
     <Layout>
-      <div>
-        <h2>{post.current.content.metadata.title}</h2>
-        <article
-          dangerouslySetInnerHTML={{ __html: post.current.content.parsed }}
-        ></article>
-        <nav></nav>
-      </div>
+      <PostContent {...props.post} />
     </Layout>
   );
 }
