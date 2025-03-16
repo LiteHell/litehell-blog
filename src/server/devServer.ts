@@ -1,6 +1,5 @@
 import finalhandler from "finalhandler";
 import { watch } from "fs";
-import { mkdtemp } from "fs/promises";
 import http from "http";
 import { tmpdir } from "os";
 import path from "path";
@@ -9,8 +8,8 @@ import build from "../builder";
 
 export default async function startDevServer(port: number) {
   const [blueDir, greenDir] = [
-    await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
-    await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
+    path.join(tmpdir(), "litehell-blog-blue"), //await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
+    path.join(tmpdir(), "litehell-blog-green"), //await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
   ];
   let servingNow: "blue" | "green" = "blue";
 
