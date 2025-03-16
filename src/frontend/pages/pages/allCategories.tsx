@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/layout";
-import TagList from "../../components/tagList";
+import TagList from "../../components/tagList/tagList";
 
 export type AllCategoriesProp = {
   categories: { name: string; count: number }[];

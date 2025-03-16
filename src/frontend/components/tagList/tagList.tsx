@@ -1,4 +1,5 @@
 import React from "react";
+import { Tag, Tags, Title } from "./styled";
 
 export type TagListProp = {
   tags: { name: string; href: string; count: number }[];
@@ -8,16 +9,16 @@ export type TagListProp = {
 export default function TagList({ tags, title }: TagListProp) {
   return (
     <div>
-      <h2>{title ?? "태그 목록"}</h2>
-      <ul>
+      <Title>{title ?? "태그 목록"}</Title>
+      <Tags>
         {tags.map((tag) => (
-          <li>
+          <Tag>
             <a href={tag.href}>
-              {tag.name} ({tag.count})
+              {tag.name} <span className="count">({tag.count})</span>
             </a>
-          </li>
+          </Tag>
         ))}
-      </ul>
+      </Tags>
     </div>
   );
 }
