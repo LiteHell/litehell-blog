@@ -1,7 +1,7 @@
-import { readdir, lstat } from "fs/promises";
+import { lstat, readdir } from "fs/promises";
 import path from "path";
 
-async function scanDirectoryForArticles(dir: string) {
+async function scanDirectoryForPosts(dir: string) {
   const dirEntries = await readdir(dir, { encoding: "utf8" });
   const subDirectories = (
     await Promise.all(
@@ -16,16 +16,16 @@ async function scanDirectoryForArticles(dir: string) {
 
   const subDirectoriesWithMarkdownFile = (
     await Promise.all(
-      subDirectories.map(async (articleName) => {
-        const articleDir = path.join(dir, articleName);
-        const files = await readdir(articleDir);
+      subDirectories.map(async (postName) => {
+        const postDir = path.join(dir, postName);
+        const files = await readdir(postDir);
         const stats = await Promise.all(
           files
-            .map((j) => path.join(articleDir, j))
+            .map((j) => path.join(postDir, j))
             .map(async (i) => ({ stats: await lstat(i), name: i })),
         );
         if (stats.some((i) => i.stats.isFile() && i.name.endsWith(".md")))
-          return articleName;
+          return postName;
         else return null;
       }),
     )
@@ -34,8 +34,6 @@ async function scanDirectoryForArticles(dir: string) {
   return subDirectoriesWithMarkdownFile;
 }
 
-export default function getArticleNames(type: "published" | "drafts") {
-  return scanDirectoryForArticles(
-    type === "published" ? "./posts" : "./drafts",
-  );
+export default function getPostNames(type: "published" | "drafts") {
+  return scanDirectoryForPosts(type === "published" ? "./posts" : "./drafts");
 }

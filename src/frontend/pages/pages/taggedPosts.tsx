@@ -1,17 +1,22 @@
 import React from "react";
-import { BlogArticle } from "../../../blog/getArticles";
-import PostList from "../../components/postList";
+import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
+import PostList from "../../components/postList";
 
-export type AllArticlesProp = {
-  posts: BlogArticle[];
+export type TaggedPostsProp = {
+  posts: BlogPost[];
   navigation: {
     current: number;
     total: number;
   };
+  tag: string;
 };
 
-export default function AllArticles({ posts, navigation }: AllArticlesProp) {
+export default function TaggedPosts({
+  posts,
+  navigation,
+  tag,
+}: TaggedPostsProp) {
   return (
     <Layout>
       <PostList
@@ -19,19 +24,23 @@ export default function AllArticles({ posts, navigation }: AllArticlesProp) {
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}
-        title="모든 글"
+        title={`${tag} 태그가 달린 글`}
+        backLink={{
+          href: "/",
+          label: "모든 글 목록으로",
+        }}
         navigation={{
           next:
             navigation.current !== navigation.total
               ? {
-                  href: `/page/${navigation.current + 1}`,
+                  href: `/tag/${encodeURIComponent(tag)}/page/${navigation.current + 1}`,
                   page: navigation.current + 1,
                 }
               : undefined,
           prev:
             navigation.current !== 1
               ? {
-                  href: `/page/${navigation.current - 1}`,
+                  href: `/tag/${encodeURIComponent(tag)}/page/${navigation.current - 1}`,
                   page: navigation.current - 1,
                 }
               : undefined,

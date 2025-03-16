@@ -1,6 +1,4 @@
 import React from "react";
-import { BlogArticle } from "../../../blog/getArticles";
-import PostList from "../../components/postList";
 import Layout from "../../components/layout";
 import TagList from "../../components/tagList";
 

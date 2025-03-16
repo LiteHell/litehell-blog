@@ -1,5 +1,5 @@
 import React from "react";
-import { BlogPostMetadata } from "../../blog/parseArticleMetadata";
+import { BlogPostMetadata } from "../../blog/parsePostMetadata";
 
 type PostListProp = {
   title: string;

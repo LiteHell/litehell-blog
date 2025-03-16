@@ -1,17 +1,17 @@
-import { BlogArticle } from "../blog/getArticles";
-import getArticleCountPerPage from "../config/getArticleCountPerPage";
+import { BlogPost } from "../blog/getPosts";
+import getPostCountPerPage from "../config/getPostCountPerPage";
 
-const articleCountPerPage = getArticleCountPerPage();
+const postCountPerPage = getPostCountPerPage();
 
-export function getTotalPages(posts: BlogArticle[]) {
-  return Math.ceil(posts.length / articleCountPerPage);
+export function getTotalPages(posts: BlogPost[]) {
+  return Math.ceil(posts.length / postCountPerPage);
 }
 
-export default function getPostsForPage(posts: BlogArticle[], page: number) {
+export default function getPostsForPage(posts: BlogPost[], page: number) {
   const totalPages = getTotalPages(posts);
   const postsForPage = posts.slice(
-    articleCountPerPage * (page - 1),
-    articleCountPerPage * page,
+    postCountPerPage * (page - 1),
+    postCountPerPage * page,
   );
   return {
     posts: postsForPage,

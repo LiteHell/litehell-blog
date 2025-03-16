@@ -1,13 +1,10 @@
 import { match } from "path-to-regexp";
-import { BlogArticle } from "../../blog/getArticles";
+import { BlogPost } from "../../blog/getPosts";
 import renderBlogPage from "../../frontend/renderPage";
 
 const matchPost = match("/post/:post_id");
 
-export default async function tryRenderPost(
-  route: string,
-  posts: BlogArticle[],
-) {
+export default async function tryRenderPost(route: string, posts: BlogPost[]) {
   const postMatch = matchPost(route);
   if (postMatch) {
     const postId = postMatch.params.post_id as string;

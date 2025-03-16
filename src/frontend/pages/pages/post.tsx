@@ -1,12 +1,12 @@
 import React from "react";
-import { BlogArticle } from "../../../blog/getArticles";
+import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
 
 export type PostProp = {
   post: {
-    current: BlogArticle;
-    previous?: BlogArticle;
-    next?: BlogArticle;
+    current: BlogPost;
+    previous?: BlogPost;
+    next?: BlogPost;
   };
 };
 

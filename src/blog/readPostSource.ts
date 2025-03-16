@@ -1,7 +1,7 @@
 import { lstat, readdir, readFile } from "fs/promises";
 import path from "path";
 
-export default async function readArticleSource({
+export default async function readPostSource({
   name,
   draft,
 }: {
@@ -18,5 +18,5 @@ export default async function readArticleSource({
     }
   }
 
-  throw new Error("article not found");
+  throw new Error("post not found");
 }

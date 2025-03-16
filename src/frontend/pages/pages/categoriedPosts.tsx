@@ -1,22 +1,22 @@
 import React from "react";
-import { BlogArticle } from "../../../blog/getArticles";
-import PostList from "../../components/postList";
+import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
+import PostList from "../../components/postList";
 
-export type TaggedArticlesProp = {
-  posts: BlogArticle[];
+export type CategoriedPostsProp = {
+  posts: BlogPost[];
   navigation: {
     current: number;
     total: number;
   };
-  tag: string;
+  category: string;
 };
 
-export default function TaggedArticles({
+export default function CategoriedPosts({
   posts,
   navigation,
-  tag,
-}: TaggedArticlesProp) {
+  category,
+}: CategoriedPostsProp) {
   return (
     <Layout>
       <PostList
@@ -24,7 +24,7 @@ export default function TaggedArticles({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}
-        title={`${tag} 태그가 달린 글`}
+        title={`${category} 카테고리의 글`}
         backLink={{
           href: "/",
           label: "모든 글 목록으로",
@@ -33,14 +33,14 @@ export default function TaggedArticles({
           next:
             navigation.current !== navigation.total
               ? {
-                  href: `/tag/${encodeURIComponent(tag)}/page/${navigation.current + 1}`,
+                  href: `/category/${encodeURIComponent(category)}/page/${navigation.current + 1}`,
                   page: navigation.current + 1,
                 }
               : undefined,
           prev:
             navigation.current !== 1
               ? {
-                  href: `/tag/${encodeURIComponent(tag)}/page/${navigation.current - 1}`,
+                  href: `/category/${encodeURIComponent(category)}/page/${navigation.current - 1}`,
                   page: navigation.current - 1,
                 }
               : undefined,

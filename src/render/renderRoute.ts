@@ -1,32 +1,23 @@
-import { match } from "path-to-regexp";
-import { BlogArticle } from "../blog/getArticles";
-import getArticleCountPerPage from "../config/getArticleCountPerPage";
-import tryRenderAllArticles from "./routes/allArticles";
+import { BlogPost } from "../blog/getPosts";
 import tryRenderAllCategories from "./routes/allCategories";
+import tryRenderAllPosts from "./routes/allPosts";
 import tryRenderAllTags from "./routes/allTags";
-import tryRenderCategoriedArticles from "./routes/categoriedArticles";
+import tryRenderCategoriedPosts from "./routes/categoriedPosts";
 import tryRenderPost from "./routes/post";
-import tryRenderTaggedArticles from "./routes/taggedArticles";
+import tryRenderTaggedPosts from "./routes/taggedPosts";
 
-const matchPost = match("/post/:post_id");
-const macthPage = match("/page/:page");
-const matchCategory = match("/category/:category{/page/:page}");
-const matchTag = match("/tag/:tag{/page/:page}");
-
-const articleCountPerPage = getArticleCountPerPage();
-
-async function renderRoute(route: string, posts: BlogArticle[]) {
+async function renderRoute(route: string, posts: BlogPost[]) {
   if (route === "/") return renderRoute("/page/1", posts);
 
   const rendered =
     (
       await Promise.all(
         [
-          tryRenderAllArticles,
+          tryRenderAllPosts,
           tryRenderAllTags,
           tryRenderAllCategories,
-          tryRenderCategoriedArticles,
-          tryRenderTaggedArticles,
+          tryRenderCategoriedPosts,
+          tryRenderTaggedPosts,
           tryRenderPost,
         ].map((i) => i(route, posts)),
       )
@@ -36,6 +27,6 @@ async function renderRoute(route: string, posts: BlogArticle[]) {
   else return rendered;
 }
 
-export default function createRouteRenderer(posts: BlogArticle[]) {
+export default function createRouteRenderer(posts: BlogPost[]) {
   return (route: string) => renderRoute(route, posts);
 }

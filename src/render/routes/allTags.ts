@@ -1,10 +1,10 @@
-import { BlogArticle } from "../../blog/getArticles";
+import { BlogPost } from "../../blog/getPosts";
 import renderBlogPage from "../../frontend/renderPage";
 import concat from "../../utils/concat";
 
 export default async function tryRenderAllTags(
   route: string,
-  posts: BlogArticle[],
+  posts: BlogPost[],
 ) {
   if (route === "/tags") {
     const tags = concat(posts.map((i) => i.content.metadata.tags ?? [])).reduce(

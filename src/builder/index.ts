@@ -1,12 +1,12 @@
 import fsExtra from "fs-extra";
 import { mkdir } from "fs/promises";
 import path from "path";
-import getArticles from "../blog/getArticles";
+import getPosts from "../blog/getPosts";
 import createRouteRenderer from "../render/renderRoute";
 import getRoutes from "../routes";
 
 export default async function build(outDir: string, { quite = false } = {}) {
-  const posts = (await getArticles({ includeDrafts: false })).sort(
+  const posts = (await getPosts({ includeDrafts: false })).sort(
     (a, b) =>
       Date.parse(b.content.metadata.date ?? "") -
       Date.parse(a.content.metadata.date ?? ""),

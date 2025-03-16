@@ -1,9 +1,9 @@
-import { BlogArticle } from "../../blog/getArticles";
+import { BlogPost } from "../../blog/getPosts";
 import renderBlogPage from "../../frontend/renderPage";
 
 export default async function tryRenderAllCategories(
   route: string,
-  posts: BlogArticle[],
+  posts: BlogPost[],
 ) {
   if (route === "/categories") {
     const tags = posts

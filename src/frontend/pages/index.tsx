@@ -1,17 +1,15 @@
 import React from "react";
-import AllArticles, { AllArticlesProp } from "./pages/allArticles";
 import AllCategories, { AllCategoriesProp } from "./pages/allCategories";
+import AllPosts, { AllPostsProp } from "./pages/allPosts";
 import AllTags, { AllTagsProp } from "./pages/allTags";
-import CategoriedArticles, {
-  CategoriedArticlesProp,
-} from "./pages/categoriedArticles";
+import CategoriedPosts, { CategoriedPostsProp } from "./pages/categoriedPosts";
 import Post, { PostProp } from "./pages/post";
-import TaggedArticles, { TaggedArticlesProp } from "./pages/taggedArticles";
+import TaggedPosts, { TaggedPostsProp } from "./pages/taggedPosts";
 
 type BlogPageType =
-  | "all_articles"
-  | "categoried_articles"
-  | "tagged_articles"
+  | "all_posts"
+  | "categoried_posts"
+  | "tagged_posts"
   | "post"
   | "tags"
   | "categories";
@@ -23,26 +21,26 @@ type BlogPagePropWithProps<PN extends BlogPageType, T> = {
 export type BlogPageProp = {
   pageName: BlogPageType;
 } & (
-  | BlogPagePropWithProps<"all_articles", AllArticlesProp>
+  | BlogPagePropWithProps<"all_posts", AllPostsProp>
   | BlogPagePropWithProps<"tags", AllTagsProp>
   | BlogPagePropWithProps<"categories", AllCategoriesProp>
-  | BlogPagePropWithProps<"tagged_articles", TaggedArticlesProp>
-  | BlogPagePropWithProps<"categoried_articles", CategoriedArticlesProp>
+  | BlogPagePropWithProps<"tagged_posts", TaggedPostsProp>
+  | BlogPagePropWithProps<"categoried_posts", CategoriedPostsProp>
   | BlogPagePropWithProps<"post", PostProp>
 );
 
 export default function BlogPage(props: BlogPageProp) {
   switch (props.pageName) {
-    case "all_articles":
-      return <AllArticles {...props}></AllArticles>;
+    case "all_posts":
+      return <AllPosts {...props}></AllPosts>;
     case "tags":
       return <AllTags {...props} />;
     case "categories":
       return <AllCategories {...props} />;
-    case "categoried_articles":
-      return <CategoriedArticles {...props} />;
-    case "tagged_articles":
-      return <TaggedArticles {...props} />;
+    case "categoried_posts":
+      return <CategoriedPosts {...props} />;
+    case "tagged_posts":
+      return <TaggedPosts {...props} />;
     case "post":
       return <Post {...props} />;
     default:

@@ -1,11 +1,11 @@
-import { BlogArticle, BlogArticleContent } from "./blog/getArticles";
-import getArticleCountPerPage from "./config/getArticleCountPerPage";
-import range from "./utils/range";
+import { BlogPost } from "./blog/getPosts";
+import getPostCountPerPage from "./config/getPostCountPerPage";
 import concat from "./utils/concat";
+import range from "./utils/range";
 import unique from "./utils/unique";
 
-const articleCountPerPage = getArticleCountPerPage();
-function getTagRoutes(posts: BlogArticle[]) {
+const postCountPerPage = getPostCountPerPage();
+function getTagRoutes(posts: BlogPost[]) {
   const contents = posts.map((i) => i.content);
   const tags = unique(concat(contents.map((i) => i.metadata.tags ?? [])));
   let result: string[] = [];
@@ -13,7 +13,7 @@ function getTagRoutes(posts: BlogArticle[]) {
   for (const tag of tags) {
     const totalPages = Math.ceil(
       contents.filter((i) => i.metadata.tags?.includes(tag)).length /
-        articleCountPerPage,
+        postCountPerPage,
     );
     result = result.concat([
       `/tag/${encodeURIComponent(tag)}`,
@@ -26,7 +26,7 @@ function getTagRoutes(posts: BlogArticle[]) {
   return result;
 }
 
-function getCategoryRoutes(posts: BlogArticle[]) {
+function getCategoryRoutes(posts: BlogPost[]) {
   const contents = posts.map((i) => i.content);
   const categories = unique(
     contents
@@ -38,7 +38,7 @@ function getCategoryRoutes(posts: BlogArticle[]) {
   for (const category of categories) {
     const totalPages = Math.ceil(
       contents.filter((i) => i.metadata.category?.includes(category)).length /
-        articleCountPerPage,
+        postCountPerPage,
     );
     result = result.concat([
       `/category/${encodeURIComponent(category)}`,
@@ -51,8 +51,8 @@ function getCategoryRoutes(posts: BlogArticle[]) {
   return result;
 }
 
-export default async function getRoutes(posts: BlogArticle[]) {
-  const totalPages = Math.ceil(posts.length / articleCountPerPage);
+export default async function getRoutes(posts: BlogPost[]) {
+  const totalPages = Math.ceil(posts.length / postCountPerPage);
 
   return [
     "/",

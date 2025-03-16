@@ -1,34 +1,33 @@
-import getArticleNames from "./getArticleNames";
+import getPostNames from "./getPostNames";
 import parseMarkdown from "./parseMarkdown";
-import parseArticleMetadata, {
+import parsePostMetadata, {
   BlogMarkdownSourceAndMetadata,
-} from "./parseArticleMetadata";
-import readArticleSource from "./readArticleSource";
+} from "./parsePostMetadata";
+import readPostSource from "./readPostSource";
 
-export type BlogArticleContent = {
+export type BlogPostContent = {
   parsed: string;
 } & BlogMarkdownSourceAndMetadata;
 
-export type BlogArticle = {
+export type BlogPost = {
   draft: boolean;
   name: string;
-  content: BlogArticleContent;
+  content: BlogPostContent;
 };
 
-export default async function getArticles({
-  includeDrafts = false,
-} = {}): Promise<BlogArticle[]> {
+export default async function getPosts({ includeDrafts = false } = {}): Promise<
+  BlogPost[]
+> {
   const drafts = includeDrafts
-    ? await getArticleNames("drafts")
+    ? await getPostNames("drafts")
     : ([] as string[]);
-  const published = await getArticleNames("published");
+  const published = await getPostNames("published");
 
   const parse = async (names: string[], draft: boolean) =>
     await Promise.all(
       names.map(async (name) => {
-        const sourceWithMetadata = await readArticleSource({ name, draft });
-        const metadataAndSource =
-          await parseArticleMetadata(sourceWithMetadata);
+        const sourceWithMetadata = await readPostSource({ name, draft });
+        const metadataAndSource = await parsePostMetadata(sourceWithMetadata);
         return {
           content: {
             ...metadataAndSource,

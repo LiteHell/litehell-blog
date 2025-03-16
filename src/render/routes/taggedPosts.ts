@@ -1,16 +1,13 @@
 import { match } from "path-to-regexp";
-import { BlogArticle } from "../../blog/getArticles";
-import getArticleCountPerPage from "../../config/getArticleCountPerPage";
+import { BlogPost } from "../../blog/getPosts";
 import renderBlogPage from "../../frontend/renderPage";
 import getPostsForPage from "../getPostsForPage";
 
 const matchTag = match("/tag/:tag{/page/:page}");
 
-const articleCountPerPage = getArticleCountPerPage();
-
-export default async function tryRenderTaggedArticles(
+export default async function tryRenderTaggedPosts(
   route: string,
-  posts: BlogArticle[],
+  posts: BlogPost[],
 ) {
   const tagPageMatch = matchTag(route);
   if (tagPageMatch) {
@@ -22,7 +19,7 @@ export default async function tryRenderTaggedArticles(
     const viewData = getPostsForPage(taggedPosts, page);
 
     return renderBlogPage({
-      pageName: "tagged_articles",
+      pageName: "tagged_posts",
       ...viewData,
       tag,
     });

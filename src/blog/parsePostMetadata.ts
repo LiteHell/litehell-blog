@@ -17,7 +17,7 @@ export type BlogMarkdownSourceAndMetadata = {
   sourceWithoutMetadata: string;
 };
 
-export default function parseArticleMetadata(
+export default function parsePostMetadata(
   source: string,
 ): BlogMarkdownSourceAndMetadata {
   if (!source.startsWith("---\n")) {
