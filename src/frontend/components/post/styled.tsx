@@ -54,6 +54,9 @@ export const Article = styled.article`
     padding: 0.5em 1em;
     border-radius: 6px 6px;
   }
+  code {
+    font-family: monoscape;
+  }
   h1 {
     font-size: 1.8rem;
     margin: 1.8rem 0px;
