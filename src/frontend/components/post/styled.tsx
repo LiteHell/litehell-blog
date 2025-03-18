@@ -50,6 +50,9 @@ export const Article = styled.article`
 
   pre {
     overflow-x: auto;
+    background: #f0f0f0;
+    padding: 0.5em 1em;
+    border-radius: 6px 6px;
   }
   h1 {
     font-size: 1.8rem;
