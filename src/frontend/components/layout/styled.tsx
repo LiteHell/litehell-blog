@@ -33,6 +33,11 @@ export const LayoutContainer = styled.div`
 export const Header = styled.header`
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 25rem) {
+    flex-direction: column;
+  }
+
   align-items: center;
   gap: 2rem;
   padding-bottom: 1.5rem;
@@ -57,6 +62,7 @@ export const Header = styled.header`
     line-height: 2.5rem;
     margin: 0rem 0rem 0.5rem 0rem;
     padding: 0rem;
+    word-break: keep-all;
 
     a {
       color: inherit;
