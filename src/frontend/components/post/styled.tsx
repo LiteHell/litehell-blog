@@ -156,6 +156,8 @@ export const SeriesNav = styled.nav`
 export const PostNav = styled.nav`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em 0.5em;
   justify-content: space-between;
   width: 100%;
 
@@ -184,13 +186,23 @@ export const PostNav = styled.nav`
     }
   }
 
-  .next::after {
-    content: " ❯";
-    font-size: 1.25em;
-  }
+  .next, .previous {
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
 
-  .previous::before {
-    content: "❮ ";
-    font-size: 1.25em;
+    &.next{
+      text-align: right;
+      margin-left: auto;
+    }
+
+    &.previous{
+      text-align: left;
+    }
+
+    .inner {
+      flex: 1;
+    }
   }
 `;

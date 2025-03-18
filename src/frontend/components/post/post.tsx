@@ -87,6 +87,9 @@ export default function Post({
             href={`/post/${encodeURIComponent(previous.name)}`}
             className="previous"
           >
+            <div className="arrow">
+            ❮
+            </div>
             <div className="inner">
               <div className="title">{previous.content.metadata.title}</div>
               <div className="subtitle">
@@ -110,6 +113,9 @@ export default function Post({
               <div className="date">
                 {new Date(next.content.metadata.date!).toLocaleString("ko-KR")}
               </div>
+            </div>
+            <div className="arrow">
+            ❯
             </div>
           </a>
         ) : (
