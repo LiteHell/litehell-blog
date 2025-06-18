@@ -20,6 +20,11 @@ jobs:
       - name: Install Dependencies 🔧
         run: |
           pnpm i
+          
+      - name: Set timezone 🕑
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Seoul"
 
       - name: Build blog 🔧
         run: |
