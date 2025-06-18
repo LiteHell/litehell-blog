@@ -5,7 +5,8 @@ author: 'LiteHell'
 date: '2025-06-18T13:04:30.989Z'
 category: 'Dev'
 tags:
-    - 'Python'
+    - 'Frontend'
+    - 'React'
 ---
 
 # 개론
