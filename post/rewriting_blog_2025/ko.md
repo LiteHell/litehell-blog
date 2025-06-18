@@ -4,6 +4,9 @@ subtitle: '튜닝의 끝은 순정'
 author: 'LiteHell'
 date: '2025-06-18T13:04:30.989Z'
 category: 'Dev'
+tags:
+    - 'Frontend'
+    - 'React'
 ---
 
 # 개론
