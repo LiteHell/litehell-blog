@@ -43,7 +43,20 @@ export default async function startDevServer(port: number) {
   watch("./drafts", { recursive: true }, reloadPost);
 
   const app = express();
-  app.get('/__dev__server__', (_req, res) => {
+  app.get('/__dev__server__', (req, _res, next) => {
+    const cur = parseInt(req.query.cur as string ?? '0');
+    if (cur !== 0) {
+      let delayResponseUntilReload = () => {
+        if (cur === reloadedTime)
+          setTimeout(delayResponseUntilReload, 100);
+        else
+          next();
+      }
+      delayResponseUntilReload();
+    } else {
+      next();
+    }
+  }, (_req, res) => {
     res.type('application/json').end(JSON.stringify(reloadedTime))
   });
   app.use(express.static('./public'))
@@ -60,16 +73,19 @@ export default async function startDevServer(port: number) {
       res.end(rendered + `<script>
         (function(){
           let __dev_time=${reloadedTime};
-          setInterval(async function() {
+          const checkNextBuild = (async function() {
             try {
-              const newTimeRes = await fetch('/__dev__server__');
+              const newTimeRes = await fetch('/__dev__server__?cur=' + __dev_time);
               const newTime = await newTimeRes.json();
               if (newTime !== __dev_time)
                 location.reload();
             } catch (err) {
               // Do nothing
+            } finally {
+              setTimeout(checkNextBuild, 50);
             }
-          }, 500);
+          });
+          checkNextBuild();
         })();
         </script>`);
     }).catch(err => {
