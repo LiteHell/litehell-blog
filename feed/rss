@@ -4,7 +4,7 @@
         <title>LiteHell의 블로그</title>
         <link>https://blog.litehell.info</link>
         <description>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</description>
-        <lastBuildDate>Wed, 18 Jun 2025 13:04:30 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 21 Jun 2025 14:27:49 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko-KR</language>
@@ -75,8 +75,9 @@
 <p>Javascript가 이전보다 많이 줄어든(사실상 없는) HTML이긴 하지만 댓글을 작성하려면 Javascript를 활성화해야 한다. 이는 GitHub Site를 이용하여 호스팅하는 이상 어쩔 수 없다.</p>
 <p>어쨌든 해피엔딩~</p>
 <h1>TO-DO</h1>
-<p>devServer를 똑바로 만들어야 한다. 지금은 만들다가 말아서... 나중에 시간 날때 완성해야 한다.</p>
-<p>지금 코드는 Blue-Green 전략으로 수정이 생기면 재빌드하는 그런 코드로 짜다가 말았는데 지금 생각해보니 헛짓거리 같다. 다시 만들어야지...</p>]]></content:encoded>
+<p><del>devServer를 똑바로 만들어야 한다. 지금은 만들다가 말아서... 나중에 시간 날때 완성해야 한다.</del></p>
+<p><del>지금 코드는 Blue-Green 전략으로 수정이 생기면 재빌드하는 그런 코드로 짜다가 말았는데 지금 생각해보니 헛짓거리 같다. 다시 만들어야지...</del></p>
+<p>dev-server도 완성했다. 잘 된다. --2025. 06. 21.</p>]]></content:encoded>
             <enclosure url="https://blog.litehell.info/asis.png" length="0" type="image/png"/>
         </item>
         <item>
