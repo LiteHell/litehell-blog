@@ -20,8 +20,8 @@ export default function Post({
   series,
 }: PostProp) {
   const dateTime = post.content.metadata.last_modified_at
-    ? `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 편집하고 ${new Date(post.content.metadata.last_modified_at).toLocaleString("ko-KR")}에 수정함.`
-    : `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 편집함.`;
+    ? `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 작성하고 ${new Date(post.content.metadata.last_modified_at).toLocaleString("ko-KR")}에 수정함.`
+    : `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 작성함.`;
   const hasLinks =
     !!post.content.metadata.category || !!post.content.metadata.tags;
   const tagLinks = post.content.metadata.tags
