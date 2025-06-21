@@ -10,6 +10,7 @@
     "watch-posts": "pnpm build-builder; node ./dist --watch",
     "watch": "nodemon --watch src -e ts,tsx,js,jsx,json,ejs --exec pnpm watch-posts",
     "format": "prettier -w src",
+    "check": "prettier -c src",
     "tool": "node ./dist/tool"
   },
   "type": "module",
