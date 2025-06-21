@@ -1,60 +1,86 @@
-import finalhandler from "finalhandler";
 import { watch } from "fs";
-import http from "http";
-import { tmpdir } from "os";
-import path from "path";
-import serveStatic from "serve-static";
-import build from "../builder";
+import express from 'express';
+import createRouteRenderer, { RouteRenderer, UnknownRouteError } from "../render/renderRoute";
+import getPosts from "../blog/getPosts";
+
+async function getPostsWithDraft() {
+  return (await getPosts({ includeDrafts: true })).sort(
+    (a, b) =>
+      Date.parse(b.content.metadata.date ?? "") -
+      Date.parse(a.content.metadata.date ?? "")
+  );
+}
+
+function createReloadPost(onRendererCreate: (renderer: RouteRenderer) => void) {
+  let timeoutId: NodeJS.Timeout | null = null;
+
+  return () => {
+    if (timeoutId !== null)
+      clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      console.log('Reloading posts....');
+      getPostsWithDraft().then(posts => onRendererCreate(
+        createRouteRenderer(posts)
+      ))
+      console.log('Done reloading posts');
+    }, 500);
+  };
+}
 
 export default async function startDevServer(port: number) {
-  const [blueDir, greenDir] = [
-    path.join(tmpdir(), "litehell-blog-blue"), //await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
-    path.join(tmpdir(), "litehell-blog-green"), //await mkdtemp(path.join(tmpdir(), "litehell-blog-")),
-  ];
-  let servingNow: "blue" | "green" = "blue";
+  console.log('NOTE: dev sever doesn\'t work on feed routes')
+  console.log('Creating renderer....');
+  let renderRoute: RouteRenderer = createRouteRenderer(await getPostsWithDraft());
+  console.log('Created')
+  let reloadedTime = Date.now();
+  const reloadPost = createReloadPost((newRenderer) => {
+    reloadedTime = Date.now();
+    renderRoute = newRenderer;
+  })
 
-  const serveBlue = serveStatic(blueDir, {
-    index: ["index.html"],
+  watch("./posts", { recursive: true }, reloadPost);
+  watch("./drafts", { recursive: true }, reloadPost);
+
+  const app = express();
+  app.get('/__dev__server__', (_req, res) => {
+    res.type('application/json').end(JSON.stringify(reloadedTime))
   });
-  const serveGreen = serveStatic(greenDir, {
-    index: ["index.html"],
-  });
+  app.use(express.static('./public'))
+  app.use('/post', express.static('./posts'))
+  app.use('/post', express.static('./drafts'))
 
-  console.log("Initially building...");
-  await Promise.all([
-    build(blueDir, { quite: true }),
-    build(greenDir, { quite: true }),
-  ]);
-  console.log("Preparing watchers...");
+  app.use((req, res, next) => {
+    renderRoute(req.path).then(rendered => {
+      if (!req.path.endsWith('/')) {
+        return res.redirect(301, req.path + '/');
+      }
 
-  const switchBlueGreen = async () => {
-    switch (servingNow) {
-      case "blue":
-        await build(greenDir, { quite: true });
-        servingNow = "green";
-        break;
-      case "green":
-        await build(blueDir, { quite: true });
-        servingNow = "blue";
-    }
-    console.log(`Built at ${new Date().toLocaleString()}`);
-  };
-
-  watch("./posts", { recursive: true }, switchBlueGreen);
-  watch("./drafts", { recursive: true }, switchBlueGreen);
-
-  console.log("Watchers prepared");
-
-  const server = http.createServer(function onRequest(req, res) {
-    switch (servingNow) {
-      case "blue":
-        serveBlue(req, res, finalhandler(req, res));
-        break;
-      case "green":
-        serveGreen(req, res, finalhandler(req, res));
-    }
-  });
-  server.listen(port);
+      res.type('text/html');
+      res.end(rendered + `<script>
+        (function(){
+          let __dev_time=${reloadedTime};
+          setInterval(async function() {
+            try {
+              const newTimeRes = await fetch('/__dev__server__');
+              const newTime = await newTimeRes.json();
+              if (newTime !== __dev_time)
+                location.reload();
+            } catch (err) {
+              // Do nothing
+            }
+          }, 500);
+        })();
+        </script>`);
+    }).catch(err => {
+      if (err instanceof UnknownRouteError) {
+        next();
+      } else {
+        next(err);
+      }
+    })
+  })
+  app.listen(port);
 
   console.log(`Listening on ${port}`);
 }

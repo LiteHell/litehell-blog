@@ -18,6 +18,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.5.2",
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "@types/finalhandler": "^1.2.3",
     "@types/fs-extra": "^11.0.4",
     "@types/js-yaml": "^4.0.9",
@@ -45,6 +46,7 @@
     "@minify-html/node": "^0.15.0",
     "cheerio": "^1.0.0",
     "commander": "^14.0.0",
+    "express": "^5.1.0",
     "feed": "^4.2.2",
     "finalhandler": "^2.1.0",
     "find-free-ports": "^3.1.1",
@@ -61,7 +63,6 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
-    "serve-static": "^1.16.2",
     "unified": "^11.0.5",
     "zustand": "^5.0.3"
   }

@@ -7,6 +7,8 @@ import tryRenderLicense from "./routes/license";
 import tryRenderPost from "./routes/post";
 import tryRenderTaggedPosts from "./routes/taggedPosts";
 
+export class UnknownRouteError extends Error {}
+
 async function renderRoute(route: string, posts: BlogPost[]) {
   if (route === "/") return renderRoute("/page/1", posts);
 
@@ -25,10 +27,12 @@ async function renderRoute(route: string, posts: BlogPost[]) {
       )
     ).filter((i) => !!i)[0] ?? null;
 
-  if (rendered === null) throw new Error(`Unknown route: ${route}`);
+  if (rendered === null) throw new UnknownRouteError(`Unknown route: ${route}`);
   else return rendered;
 }
 
-export default function createRouteRenderer(posts: BlogPost[]) {
+export type RouteRenderer = (route: string) => Promise<string>;
+
+export default function createRouteRenderer(posts: BlogPost[]): RouteRenderer {
   return (route: string) => renderRoute(route, posts);
 }
