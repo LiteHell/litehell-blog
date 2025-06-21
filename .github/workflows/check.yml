@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Check prettier
 on: [push]
 jobs:
   build-and-deploy:
@@ -16,6 +16,10 @@ jobs:
     
       - name: Install pnpm 🔧
         uses: pnpm/action-setup@v4
+
+      - name: Install Dependencies 🔧
+        run: |
+          pnpm i
 
       - name: Check prettier 🔧
         run: |
