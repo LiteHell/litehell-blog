@@ -23,9 +23,9 @@ async function renderRoute(route: string, posts: BlogPost[]) {
           tryRenderTaggedPosts,
           tryRenderPost,
           tryRenderLicense,
-        ].map((i) => i(route, posts))
+        ].map(i => i(route, posts)),
       )
-    ).filter((i) => !!i)[0] ?? null;
+    ).filter(i => !!i)[0] ?? null;
 
   if (rendered === null) throw new UnknownRouteError(`Unknown route: ${route}`);
   else return rendered;

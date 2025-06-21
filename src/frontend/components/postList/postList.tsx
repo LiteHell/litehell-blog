@@ -39,7 +39,7 @@ export default function PostList({
         </div>
       </Title>
       <PostListUl>
-        {posts.map((post) => (
+        {posts.map(post => (
           <li>
             <a href={post.link}>
               <div className="title">{post.metadata.title}</div>

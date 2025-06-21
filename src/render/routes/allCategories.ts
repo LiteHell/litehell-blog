@@ -7,8 +7,8 @@ export default async function tryRenderAllCategories(
 ) {
   if (route === "/categories") {
     const tags = posts
-      .map((i) => i.content.metadata.category ?? null)
-      .filter((i) => i !== null)
+      .map(i => i.content.metadata.category ?? null)
+      .filter(i => i !== null)
       .reduce(
         (pv, cv) => {
           if (!(cv in pv)) pv[cv] = 1;

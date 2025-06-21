@@ -15,7 +15,7 @@ export default function AllPosts({ posts, navigation }: AllPostsProp) {
   return (
     <Layout>
       <PostList
-        posts={posts.map((i) => ({
+        posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}

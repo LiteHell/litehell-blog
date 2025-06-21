@@ -20,7 +20,7 @@ export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
     updated: new Date(
       posts[0].content.metadata.last_modified_at ??
         posts[0].content.metadata.date ??
-        ""
+        "",
     ),
     feedLinks: {
       json: "https://blog.litehell.info/feed/json",

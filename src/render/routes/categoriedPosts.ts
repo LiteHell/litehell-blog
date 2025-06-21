@@ -13,7 +13,7 @@ export default async function tryRenderCategoriedPosts(
   if (categoryPageMatch) {
     const category = categoryPageMatch.params.category as string;
     const categoriedPosts = posts.filter(
-      (i) => i.content.metadata.category === category,
+      i => i.content.metadata.category === category,
     );
     const page = parseInt((categoryPageMatch.params.page as string) ?? "1");
     const viewData = getPostsForPage(categoriedPosts, page);

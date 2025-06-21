@@ -20,7 +20,7 @@ export default function CategoriedPosts({
   return (
     <Layout>
       <PostList
-        posts={posts.map((i) => ({
+        posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}

@@ -7,7 +7,7 @@ export default async function tryRenderAllTags(
   posts: BlogPost[],
 ) {
   if (route === "/tags") {
-    const tags = concat(posts.map((i) => i.content.metadata.tags ?? [])).reduce(
+    const tags = concat(posts.map(i => i.content.metadata.tags ?? [])).reduce(
       (pv, cv) => {
         if (!(cv in pv)) pv[cv] = 1;
         else pv[cv] += 1;

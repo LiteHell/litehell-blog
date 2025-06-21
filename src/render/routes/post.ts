@@ -8,7 +8,7 @@ export default async function tryRenderPost(route: string, posts: BlogPost[]) {
   const postMatch = matchPost(route);
   if (postMatch) {
     const postId = postMatch.params.post_id as string;
-    const postIndex = posts.findIndex((i) => i.name === postId);
+    const postIndex = posts.findIndex(i => i.name === postId);
     const post = posts[postIndex],
       prevPostIndex = postIndex !== 0 ? postIndex - 1 : undefined,
       nextPostIndex =
@@ -18,11 +18,11 @@ export default async function tryRenderPost(route: string, posts: BlogPost[]) {
     if (post.content.metadata.series) {
       const seriesId = post.content.metadata.series;
       const postsInSeries = posts.filter(
-        (i) => i.content.metadata.series === seriesId
+        i => i.content.metadata.series === seriesId,
       );
       const seriesName = postsInSeries
-        .map((i) => i.content.metadata.seriesName)
-        .filter((i) => !!i)[0]!;
+        .map(i => i.content.metadata.seriesName)
+        .filter(i => !!i)[0]!;
 
       series = {
         name: seriesName,

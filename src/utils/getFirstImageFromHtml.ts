@@ -2,7 +2,7 @@ import * as cheerio from "cheerio";
 
 export default function (
   html: string,
-  baseUrl = "https://blog.litehell.info"
+  baseUrl = "https://blog.litehell.info",
 ): string | null {
   const $ = cheerio.load(html);
 

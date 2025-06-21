@@ -10,7 +10,7 @@ export default function AllTags({ tags }: AllTagsProp) {
   return (
     <Layout>
       <TagList
-        tags={tags.map((i) => ({
+        tags={tags.map(i => ({
           ...i,
           href: `/tag/${encodeURIComponent(i.name)}`,
         }))}

@@ -25,7 +25,7 @@ export default function Post({
   const hasLinks =
     !!post.content.metadata.category || !!post.content.metadata.tags;
   const tagLinks = post.content.metadata.tags
-    ?.map((tag) => <a href={`/tag/${tag}`}>{tag}</a>)
+    ?.map(tag => <a href={`/tag/${tag}`}>{tag}</a>)
     .reduce((pv, cv, idx, arr) => {
       pv.push(cv);
       if (idx !== arr.length - 1) pv.push(<>, </>);
@@ -66,7 +66,7 @@ export default function Post({
         <SeriesNav>
           <div className="title">(시리즈) {series.name}</div>
           <ul>
-            {series.posts.map((i) => (
+            {series.posts.map(i => (
               <li>
                 <a
                   href={`/post/${encodeURIComponent(i.name)}`}
@@ -87,9 +87,7 @@ export default function Post({
             href={`/post/${encodeURIComponent(previous.name)}`}
             className="previous"
           >
-            <div className="arrow">
-            ❮
-            </div>
+            <div className="arrow">❮</div>
             <div className="inner">
               <div className="title">{previous.content.metadata.title}</div>
               <div className="subtitle">
@@ -97,7 +95,7 @@ export default function Post({
               </div>
               <div className="date">
                 {new Date(previous.content.metadata.date!).toLocaleString(
-                  "ko-KR"
+                  "ko-KR",
                 )}
               </div>
             </div>
@@ -114,9 +112,7 @@ export default function Post({
                 {new Date(next.content.metadata.date!).toLocaleString("ko-KR")}
               </div>
             </div>
-            <div className="arrow">
-            ❯
-            </div>
+            <div className="arrow">❯</div>
           </a>
         ) : (
           <div className="noop">마지막 게시글입니다.</div>

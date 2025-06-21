@@ -11,7 +11,7 @@ export default function AllCategories({ categories }: AllCategoriesProp) {
     <Layout>
       <TagList
         title="카테고리 목록"
-        tags={categories.map((i) => ({
+        tags={categories.map(i => ({
           ...i,
           href: `/category/${encodeURIComponent(i.name)}`,
         }))}

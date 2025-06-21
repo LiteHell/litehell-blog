@@ -20,7 +20,7 @@ export default function TaggedPosts({
   return (
     <Layout>
       <PostList
-        posts={posts.map((i) => ({
+        posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}

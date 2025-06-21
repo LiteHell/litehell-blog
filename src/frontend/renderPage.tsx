@@ -98,12 +98,12 @@ export default async function renderBlogPage(data: BlogPageProp) {
           ...getHtmlHeadData(data),
           ...data,
           body,
-        })
+        }),
       ),
       {
         minify_css: true,
         minify_js: true,
-      }
+      },
     )
     .toString("utf-8");
 }

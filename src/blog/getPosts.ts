@@ -25,7 +25,7 @@ export default async function getPosts({ includeDrafts = false } = {}): Promise<
 
   const parse = async (names: string[], draft: boolean) =>
     await Promise.all(
-      names.map(async (name) => {
+      names.map(async name => {
         const sourceWithMetadata = await readPostSource({ name, draft });
         const metadataAndSource = await parsePostMetadata(sourceWithMetadata);
         return {

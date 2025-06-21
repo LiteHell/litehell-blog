@@ -12,7 +12,7 @@ export default async function tryRenderTaggedPosts(
   const tagPageMatch = matchTag(route);
   if (tagPageMatch) {
     const tag = tagPageMatch.params.tag as string;
-    const taggedPosts = posts.filter((i) =>
+    const taggedPosts = posts.filter(i =>
       i.content.metadata.tags?.includes(tag),
     );
     const page = parseInt((tagPageMatch.params.page as string) ?? "1");

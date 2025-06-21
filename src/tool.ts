@@ -22,7 +22,7 @@ program
   .action(async (id, { noTags, ...options }) => {
     if (/[^a-zA-Z0-9_]/.test(id)) {
       console.error(
-        "Invalid id. post id should be alphabet/number/underscore."
+        "Invalid id. post id should be alphabet/number/underscore.",
       );
       return;
     }
@@ -45,19 +45,15 @@ program
   .argument("[id]", "id")
   .option(
     "--touch-type [touchType]",
-    'specify what to touch, can be "date" or "last_modified_at"'
+    'specify what to touch, can be "date" or "last_modified_at"',
   )
-  .option(
-    "--language <language>",
-    "language",
-    "ko"
-  )
+  .option("--language <language>", "language", "ko")
   .action(async (selectedPost, { language, touchType }) => {
     const draftDirectory = "./drafts";
     const postDirectory = "./posts";
     const { drafts, posts } = await readPostAndDraftNames();
 
-    if (typeof selectedPost === 'undefined') {
+    if (typeof selectedPost === "undefined") {
       selectedPost = (
         await inquirer.prompt([
           {
@@ -71,7 +67,7 @@ program
       ).id;
     }
 
-    if (touchType !== 'date' && touchType !== 'last_modified_at') {
+    if (touchType !== "date" && touchType !== "last_modified_at") {
       touchType = (
         await inquirer.prompt([
           {
@@ -91,18 +87,16 @@ program
     const isDraftSelected = drafts.includes(selectedPost);
     const postDir = path.join(
       isDraftSelected ? draftDirectory : postDirectory,
-      selectedPost,)
-    const postPath = path.join(
-      postDir,
-      `${language}.md`
+      selectedPost,
     );
+    const postPath = path.join(postDir, `${language}.md`);
     const post = await readFile(postPath, {
       encoding: "utf8",
     });
     const touchedPost = await updateOrCreateFrontMatter(
       post,
       touchType,
-      new Date().toISOString()
+      new Date().toISOString(),
     );
 
     await writeFile(postPath, touchedPost, { encoding: "utf8" });

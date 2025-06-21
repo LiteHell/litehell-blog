@@ -192,18 +192,19 @@ export const PostNav = styled.nav`
     }
   }
 
-  .next, .previous {
+  .next,
+  .previous {
     width: max-content;
     display: flex;
     flex-direction: row;
     gap: 0.5em;
 
-    &.next{
+    &.next {
       text-align: right;
       margin-left: auto;
     }
 
-    &.previous{
+    &.previous {
       text-align: left;
     }
 
