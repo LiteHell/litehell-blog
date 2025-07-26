@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+export const Note = styled.p`
+  font-size: 75%;
+  color: #5e5e5e;
+`;
+
 export const LayoutContainer = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { Footer, Header, LayoutContainer } from "./styled";
+import { Footer, Header, LayoutContainer, Note } from "./styled";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
@@ -24,6 +24,10 @@ export default function Layout({ children }: PropsWithChildren) {
             내부고리: <a href="/categories">카테고리</a>,{" "}
             <a href="/tags">태그</a>
           </p>
+          <Note>
+            글 쓸 때는 AI를 안 씁니다. 전부 직접 씁니다. 만약 오탈자나 어색한
+            문장이 있다면 퇴고를 대충해서 그런거니 양해 부탁드립니다.
+          </Note>
         </div>
       </Header>
       <main>{children}</main>
