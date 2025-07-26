@@ -19,7 +19,7 @@
         <id>xabelfish_and_pipewire</id>
         <link href="https://blog.litehell.info/post/xabelfish_and_pipewire"/>
         <updated>2025-07-26T13:29:15.607Z</updated>
-        <summary type="html"><![CDATA[리눅스에서 화면 녹화하기]]></summary>
+        <summary type="html"><![CDATA[리눅스에서 게임 번역기 개발하기]]></summary>
         <content type="html"><![CDATA[<h1>들어가는 글</h1>
 <p>일본어를 모르면서 일본 게임을 하려면 번역기를 써야한다. 요즘 번역기가 잘 되어 있긴 한데 너무 불편하다. 이런 사람들을 위한 게임 번역 프로그램이 있다. 대표적으로 윈도우에서는 <a href="https://blog.naver.com/killkimno/223907695562">Mort</a>나 <a href="https://github.com/sokcuri/anemone">아네모네</a>+후커 조합이 있다. 근데 리눅스에는 비슷한 게 없다.</p>
 <p>없으면... 만들면 되잖아? 그래서 만들어 보았다.</p>

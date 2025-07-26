@@ -1,6 +1,6 @@
 ---
 title: 'XabelFish 개발기 - Pipewire와 XDG Screencast'
-subtitle: '리눅스에서 화면 녹화하기'
+subtitle: '리눅스에서 게임 번역기 개발하기'
 author: 'LiteHell'
 date: '2025-07-26T13:29:15.607Z'
 category: 'Dev'
