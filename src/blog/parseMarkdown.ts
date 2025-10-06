@@ -9,7 +9,7 @@ export default async function parseMarkdown(source: string) {
   const parsed = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true, footnoteLabel: '주석' })
+    .use(remarkRehype, { allowDangerousHtml: true, footnoteLabel: "주석" })
     .use(rehypeStarryNight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(source);
