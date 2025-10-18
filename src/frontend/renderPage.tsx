@@ -89,7 +89,9 @@ function getHtmlHeadData(data: BlogPageProp): Partial<HTMLHeadTemplateData> {
 }
 
 export default async function renderBlogPage(data: BlogPageProp) {
-  const body = renderToStaticMarkup(<BlogPage {...data} />);
+  const BLOG_LANG = process.env.BLOG_LANG ?? 'ko';
+
+  const body = renderToStaticMarkup(<BlogPage {...data} lang={BLOG_LANG} />);
   return minfiyHtml
     .minify(
       Buffer.from(

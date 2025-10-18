@@ -58,6 +58,7 @@
     "path-to-regexp": "^8.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-intl": "^7.1.14",
     "rehype-starry-night": "^2.2.0",
     "rehype-starry-night~": "link:\u001b[200~@microflash/rehype-starry-night~",
     "rehype-stringify": "^10.0.1",
