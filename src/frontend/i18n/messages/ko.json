@@ -26,6 +26,7 @@
   "layout.internalLinks": "내부고리",
   "layout.internalLinks.category": "카테고리",
   "layout.internalLinks.tags": "태그",
+  "layout.otherLanguages": "다른 언어",
   "layout.note": "글 쓸 때는 AI를 안 씁니다. 전부 직접 씁니다. 만약 오탈자나 어색한 문장이 있다면 퇴고를 대충해서 그런거니 양해 부탁드립니다.",
   "post.dateTime": "{date}에 {author}이(가) 작성함.",
   "post.dateTime.with_last_modificated_at": "{date}에 {author}이(가) 작성하고 {last_modified_at}에 수정함.",

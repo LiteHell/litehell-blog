@@ -2,9 +2,13 @@ import React, { PropsWithChildren } from "react";
 import { Footer, Header, LayoutContainer, Note } from "./styled";
 import useFormatMessage from "../../i18n/useFormatMessage";
 import { FormattedMessage } from "react-intl";
+import useCurrentLang from "../../i18n/useCurrentLang";
+import getSupportedLangs from "../../i18n/getSupportedLangs";
 
 export default function Layout({ children }: PropsWithChildren) {
   const formatMessage = useFormatMessage();
+  const currentLang = useCurrentLang();
+  const supportedLangs = getSupportedLangs();
 
   return (
     <LayoutContainer>
@@ -31,6 +35,27 @@ export default function Layout({ children }: PropsWithChildren) {
               {formatMessage("layout.internalLinks.category")}
             </a>
             , <a href="/tags">{formatMessage("layout.internalLinks.tags")}</a>
+            <br />
+            {formatMessage("layout.otherLanguages")}:{" "}
+            {supportedLangs
+              .filter(lang => lang !== currentLang)
+              .map(lang => {
+                const url =
+                  lang === "ko"
+                    ? "https://blog.litehell.info"
+                    : `https://blog-${lang}.litehell.info`;
+
+                return (
+                  <a href={url}>
+                    {new Intl.DisplayNames(currentLang, {
+                      type: "language",
+                    }).of(lang)}{" "}
+                    (
+                    {new Intl.DisplayNames(lang, { type: "language" }).of(lang)}
+                    )
+                  </a>
+                );
+              })}
           </p>
           <Note>
             <FormattedMessage id="layout.note" />
