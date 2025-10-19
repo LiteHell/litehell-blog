@@ -40,5 +40,8 @@
   "postList.goToNthPage": "{page} 페이지로",
   "postList.firstPage": "첫 페이지",
   "postList.lastPage": "마지막 페이지",
-  "tagList.defaultTitle": "태그 목록"
+  "tagList.defaultTitle": "태그 목록",
+  "feed.title": "LiteHell의 블로그",
+  "feed.description": "LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.",
+  "feed.untitled": "무제"
 }

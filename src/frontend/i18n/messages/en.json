@@ -40,5 +40,8 @@
   "postList.goToNthPage": "To {page} page",
   "postList.firstPage": "First page",
   "postList.lastPage": "Last page",
-  "tagList.defaultTitle": "All tags"
+  "tagList.defaultTitle": "All tags",
+  "feed.title": "LiteHell's blog",
+  "feed.description": "LiteHell's personal blog with articles related to my life, software engineers, and computers",
+  "feed.untitled": "Untitled"
 }
