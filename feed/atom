@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.litehell.info</id>
     <title>LiteHell의 블로그</title>
-    <updated>2025-10-06T03:12:04.274Z</updated>
+    <updated>2025-10-19T09:20:54.590Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Yeonjin Shin</name>
@@ -14,6 +14,74 @@
     <subtitle>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</subtitle>
     <logo>https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1</logo>
     <rights>All rights reserved 2020 ~ 2025 © Yeonjin Shin</rights>
+    <entry>
+        <title type="html"><![CDATA[WiVRn로 리눅스에서 非Steam VR 게임 실행하기]]></title>
+        <id>wivrn_for_non_steam_windows_games</id>
+        <link href="https://blog.litehell.info/post/wivrn_for_non_steam_windows_games"/>
+        <updated>2025-10-19T09:20:54.590Z</updated>
+        <summary type="html"><![CDATA[umu launcher와 함께하는 삽질]]></summary>
+        <content type="html"><![CDATA[<h1>입문</h1>
+<p>필자는 리눅스를 쓴다. 리눅스에서 VR 게임을 하기 위해 <a href="https://social.silicon.moe/@perillamint">깻잎</a>님의 추천을 받아 <a href="https://github.com/WiVRn/WiVRn">WiVRn</a>와 <a href="https://gitlab.com/znixian/OpenOVR/">OpenComposite</a><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>를 설치했다.</p>
+<p>깔고 설정해본 결과 리눅스 네이티브 VR 프로그램(예시: <a href="https://gitlab.freedesktop.org/monado/demos/xrgears">xrgears</a>)과 스팀 게임들은 잘 작동했다.</p>
+<p>그러나 문제가 있었다. 非<a href="https://store.steampowered.com/">스팀</a> 윈도우 게임들은 작동하지 않았다.</p>
+<h2>첫시도</h2>
+<p>스팀 게임들은 VR이 잘 작동한다. 스팀은 Proton을 쓴다. 그러면 非스팀 게임들에서도 Proton을 써보면 되겠네?</p>
+<h3>umu-launcher</h3>
+<p>그래서 <a href="https://github.com/Open-Wine-Components/umu-launcher">umu-launcher</a>를 시도해보았다. 스팀에 없는 게임을 <a href="https://github.com/ValveSoftware/Proton">Proton</a>으로 실행하고 싶을 때 이용하는 프로그램이다. (다만 정확히는 Value의 Proton이 아닌 <a href="https://github.com/GloriousEggroll/proton-ge-custom">Proton GE</a>를 이용하긴 하지만... 이 글에서는 중요하지 않다.)</p>
+<p>Proton은 OpenXR/VR 지원이 내장되어 있다. 그래서 <a href="https://github.com/WiVRn/WiVRn/blob/master/docs/steamvr.md">WiVRn의 SteamVR 문서</a>에 따라 아래 환경변수만 설정하고 실행하면 되리라 예상했는데 안 됐다.</p>
+<pre><code class="language-env">PRESSURE_VESSEL_FILESYSTEMS_RW=/run/user/1000/wivrn/comp_ipc
+XR_RUNTIME_JSON=/run/host/usr/share/openxr/1/openxr_wivrn.json
+</code></pre>
+<p>왜일까?</p>
+<h4>원인</h4>
+<p>열심히 검색을 해보니 <a href="https://github.com/ValveSoftware/Proton/issues/8256">Proton에서 OpenVR/XR를 쓰려면 Steam이 실행되어야 하고</a>, <a href="https://github.com/GloriousEggroll/proton-ge-custom/issues/214#issuecomment-3230936706">umu launcher는 Steam을 기본적으로 실행하지 않기 때문이다</a>.</p>
+<p>이걸 어떻게 하면 최소한의 수정으로 해결할 수 있을까?</p>
+<h2>해결책: 그러면 Steam을 실행하면 되잖아?</h2>
+<p>간단하다. 그냥 Steam을 실행하면 된다.</p>
+<p>일단 Proton이 어디 있는 지 확인해야 한다. 다음 명령어를 실행해서 디버그 로그를 확인하자. (뒤에 <code>/tmp/2q3ef32t</code> 부분은 아무렇게나 치면 된다.)</p>
+<pre><code class="language-bash">UMU_LOG=debug umu-run /tmp/2q3ef32t
+</code></pre>
+<p>그러면 다음과 같이 콘솔 로그에서 proton 위치를 확인할 수 있다. (예시: <code>/home/foo/.local/share/Steam/compatibilitytools.d/UMU-Proton-9.0-4e/proton</code>)</p>
+<pre><code>[umu.umu_run:887] DEBUG: (PosixPath('/home/foo/.local/share/umu/steamrt3/umu'), '--verb', 'waitforexitandrun', '--', PosixPath('/home/foo/.local/share/umu/steamrt3/umu-shim'), PosixPath('/home/foo/.local/share/Steam/compatibilitytools.d/UMU-Proton-9.0-4e/proton'), 'waitforexitandrun', './asdf')
+</code></pre>
+<p>해당 <code>proton</code> 파일을 에디터로 열면 다음 코드를 확인할 수 있다.</p>
+<pre><code class="language-python">        <span class="pl-c"># CoD: Black Ops 3 workaround</span>
+        <span class="pl-k">if</span> os.environ.get(<span class="pl-s"><span class="pl-pds">"</span>SteamGameId<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span>) <span class="pl-k">in</span> [
+                    <span class="pl-s"><span class="pl-pds">"</span>311210<span class="pl-pds">"</span></span>,   <span class="pl-c"># CoD: Black Ops 3</span>
+                    <span class="pl-s"><span class="pl-pds">"</span>1549250<span class="pl-pds">"</span></span>,  <span class="pl-c"># Undecember</span>
+                ]:
+            argv <span class="pl-k">=</span> [g_proton.wine_bin, <span class="pl-s"><span class="pl-pds">"</span>c:<span class="pl-cce">\\</span>Program Files (x86)<span class="pl-cce">\\</span>Steam<span class="pl-cce">\\</span>steam.exe<span class="pl-pds">"</span></span>]
+</code></pre>
+<p>이걸 다음과 같이 수정한다.</p>
+<pre><code class="language-python">        <span class="pl-k">if</span> os.environ.get(<span class="pl-s"><span class="pl-pds">"</span>UMU_RUN_STEAM<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span>) <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>:
+            argv <span class="pl-k">=</span> [g_proton.wine64_bin, <span class="pl-s"><span class="pl-pds">"</span>c:<span class="pl-cce">\\</span>windows<span class="pl-cce">\\</span>system32<span class="pl-cce">\\</span>steam.exe<span class="pl-pds">"</span></span>]
+        <span class="pl-c"># CoD: Black Ops 3 workaround</span>
+        <span class="pl-k">elif</span> os.environ.get(<span class="pl-s"><span class="pl-pds">"</span>SteamGameId<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span>) <span class="pl-k">in</span> [
+                    <span class="pl-s"><span class="pl-pds">"</span>311210<span class="pl-pds">"</span></span>,   <span class="pl-c"># CoD: Black Ops 3</span>
+                    <span class="pl-s"><span class="pl-pds">"</span>1549250<span class="pl-pds">"</span></span>,  <span class="pl-c"># Undecember</span>
+                ]:
+            argv <span class="pl-k">=</span> [g_proton.wine_bin, <span class="pl-s"><span class="pl-pds">"</span>c:<span class="pl-cce">\\</span>Program Files (x86)<span class="pl-cce">\\</span>Steam<span class="pl-cce">\\</span>steam.exe<span class="pl-pds">"</span></span>]
+</code></pre>
+<p>그리고 <code>UMU_RUN_STEAM</code> 환경변수와 WiVRn 환경변수를 설정하여 umu launcher로 게임을 실행한다. 다음 스크립트를 참고하자.</p>
+<pre><code class="language-bash"><span class="pl-c">#!/bin/sh</span>
+<span class="pl-k">export</span> UMU_RUN_STEAM=1 
+<span class="pl-k">export</span> PRESSURE_VESSEL_FILESYSTEMS_RW=/run/user/1000/wivrn/comp_ipc
+<span class="pl-k">export</span> XR_RUNTIME_JSON=/run/host/usr/share/openxr/1/openxr_wivrn.json
+<span class="pl-k">export</span> PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES=1
+umu-run ./Game.exe
+</code></pre>
+<p>그러면 잘 된다.</p>
+<h1>소감</h1>
+<p>근본적인 해결책은 아니지만 일단 간단히 해결할 수 있는 방법이다. 다른 분들에게 도움이 됐으면 좋겠다...</p>
+<hr>
+<section data-footnotes class="footnotes"><h2 class="sr-only" id="footnote-label">주석</h2>
+<ol>
+<li id="user-content-fn-1">
+<p><a href="https://github.com/ValveSoftware/openvr">OpenVR</a>을 이용한 게임이 <a href="https://www.khronos.org/openxr/">OpenXR</a> API로 작동할 수 있도록 하는 프로그램이다. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Linux에서 OneDrive 이용하기]]></title>
         <id>onedrive_on_linux</id>
