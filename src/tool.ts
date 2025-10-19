@@ -45,7 +45,7 @@ program
   .argument("[id]", "id")
   .option(
     "--touch-type [touchType]",
-    'specify what to touch, can be "date" or "last_modified_at"',
+    'specify what to touch, can be "date" or "last_modified_at" or "translated_at"',
   )
   .option("--language <language>", "language", "ko")
   .action(async (selectedPost, { language, touchType }) => {
@@ -67,7 +67,11 @@ program
       ).id;
     }
 
-    if (touchType !== "date" && touchType !== "last_modified_at") {
+    if (
+      touchType !== "date" &&
+      touchType !== "last_modified_at" &&
+      touchType !== "translated_at"
+    ) {
       touchType = (
         await inquirer.prompt([
           {
@@ -77,6 +81,7 @@ program
             choices: [
               { value: "date", name: "Creation date" },
               { value: "last_modified_at", name: "Last updated at" },
+              { value: "translated_at", name: "Translated at" },
             ],
             loop: true,
           },
