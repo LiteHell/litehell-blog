@@ -32,6 +32,14 @@ jobs:
       - uses: bissolli/gh-action-persist-workspace@v2
         with:
           action: retrieve
+
+      - name: Install Node 🔧
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+    
+      - name: Install pnpm 🔧
+        uses: pnpm/action-setup@v4
       
       - name: Set timezone 🕑
         uses: szenius/set-timezone@v2.0
@@ -70,6 +78,14 @@ jobs:
         with:
           action: retrieve
       
+      - name: Install Node 🔧
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+    
+      - name: Install pnpm 🔧
+        uses: pnpm/action-setup@v4
+
       - name: Set timezone 🕑
         uses: szenius/set-timezone@v2.0
         with:
