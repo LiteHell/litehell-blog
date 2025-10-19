@@ -39,7 +39,7 @@ export const Header = styled.div`
 
 export const TranslationInfo = styled.p`
   padding: 0.5rem 1rem;
-  border: #f5ff9bff 3px dotted;
+  border: #c9b045ff 3px dotted;
   margin: 1rem 0rem;
 `;
 
