@@ -97,6 +97,16 @@ export default function Post({
         <TranslationInfo>
           {formatMessage("post.translation_info.untranslated_text")}
         </TranslationInfo>
+      ) : !!post.content.translated ? (
+        <TranslationInfo>
+          {post.content.metadata.translated_at
+            ? formatMessage("post.translation_info.translated_at", {
+                translated_at: new Date(
+                  post.content.metadata.translated_at!,
+                ).toLocaleString(currentLang),
+              })
+            : formatMessage("post.translation_info.translated_text")}
+        </TranslationInfo>
       ) : null}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
       <Comments />
