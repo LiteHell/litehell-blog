@@ -57,9 +57,7 @@ export default function Layout({ children }: PropsWithChildren) {
                 );
               })}
           </p>
-          <Note>
-            <FormattedMessage id="layout.note" />
-          </Note>
+          <Note>{formatMessage("layout.note", { br: <br /> })}</Note>
         </div>
       </Header>
       <main>{children}</main>
