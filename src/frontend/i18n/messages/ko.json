@@ -1,0 +1,13 @@
+{
+  "head.og.title": "LiteHell의 블로그",
+  "head.og.description": "LiteHell의 개인블로그",
+  "head.allPost.title": "LiteHell의 블로그",
+  "head.allPost.paginating.title": "LiteHell의 블로그 - {page}번째 페이지",
+  "head.tags.title": "LiteHell의 블로그 - 태그 목록",
+  "head.categories.title": "LiteHell의 블로그 - 카테고리 목록",
+  "head.taggedPosts.title": "LiteHell의 블로그 - {tag} 태그",
+  "head.categoriedPosts.title": "LiteHell의 블로그 - {category} 카테고리",
+  "head.post.title": "LiteHell의 블로그 - {title}",
+  "head.post.description": "LiteHell의 블로그 글입니다.",
+  "head.license.title": "LiteHell의 블로그 - 라이센스"
+}
