@@ -1,7 +1,7 @@
 import React from "react";
 import { Comments as CommentsContainer } from "./styled";
 
-export default function Comments() {
+export default function Comments({ term }: { term: string }) {
   const props = {};
 
   return (
@@ -11,7 +11,7 @@ export default function Comments() {
         <script 
         src="https://utteranc.es/client.js"
         repo="LiteHell/litehell-blog"
-        issue-term="og:title"
+        issue-term="${term}"
         label="blog comment"
         theme="github-light"
         crossorigin="anonymous"

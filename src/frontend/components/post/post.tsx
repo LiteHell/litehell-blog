@@ -109,7 +109,7 @@ export default function Post({
         </TranslationInfo>
       ) : null}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
-      <Comments />
+      <Comments term={post.name} />
       <PostNav>
         {previous ? (
           <a
