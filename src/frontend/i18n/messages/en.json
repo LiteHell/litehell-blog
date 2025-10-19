@@ -34,6 +34,7 @@
   "post.series": "(Series) {name}",
   "post.onFirstArticle": "This is first post.",
   "post.onLastArticle": "This is last post.",
+  "post.translation_info.untranslated_text": "Note: This post is not translated yet.",
   "postList.goToNthPage": "To {page} page",
   "postList.firstPage": "First page",
   "postList.lastPage": "Last page",

@@ -37,6 +37,12 @@ export const Header = styled.div`
   }
 `;
 
+export const TranslationInfo = styled.p`
+  padding: 0.5rem 1rem;
+  border: #ff9b9bff 3px dotted;
+  margin: 1rem 0rem;
+`;
+
 export const Comments = styled.div`
   .utterances {
     max-width: 100% !important;

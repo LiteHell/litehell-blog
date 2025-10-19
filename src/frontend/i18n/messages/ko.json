@@ -34,6 +34,7 @@
   "post.series": "(시리즈) {name}",
   "post.onFirstArticle": "첫 게시글입니다.",
   "post.onLastArticle": "마지막 게시글입니다.",
+  "post.translation_info.untranslated_text": "참고: 아직 번역되지 않은 게시글입니다.",
   "postList.goToNthPage": "{page} 페이지로",
   "postList.firstPage": "첫 페이지",
   "postList.lastPage": "마지막 페이지",

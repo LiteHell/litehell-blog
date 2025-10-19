@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { BlogPost } from "../../../blog/getPosts";
 import Comments from "./comments";
-import { Article, Header, PostNav, SeriesNav } from "./styled";
+import { Article, Header, PostNav, SeriesNav, TranslationInfo } from "./styled";
 import useFormatMessage from "../../i18n/useFormatMessage";
 import useCurrentLang from "../../i18n/useCurrentLang";
 
@@ -22,14 +22,14 @@ export default function Post({
   series,
 }: PostProp) {
   const formatMessage = useFormatMessage();
-  const lang = useCurrentLang();
+  const currentLang = useCurrentLang();
   const dateTime = formatMessage(
     post.content.metadata.last_modified_at
       ? "post.dateTime.with_last_modificated_at"
       : "post.dateTime",
     {
       ...post.content.metadata,
-      date: new Date(post.content.metadata.date!).toLocaleString(lang),
+      date: new Date(post.content.metadata.date!).toLocaleString(currentLang),
     },
   );
   const hasLinks =
@@ -93,6 +93,11 @@ export default function Post({
           </ul>
         </SeriesNav>
       )}
+      {post.content.lang !== currentLang && !post.content.translated ? (
+        <TranslationInfo>
+          {formatMessage("post.translation_info.untranslated_text")}
+        </TranslationInfo>
+      ) : null}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
       <Comments />
       <PostNav>
@@ -108,7 +113,9 @@ export default function Post({
                 {previous.content.metadata.subtitle}
               </div>
               <div className="date">
-                {new Date(previous.content.metadata.date!).toLocaleString(lang)}
+                {new Date(previous.content.metadata.date!).toLocaleString(
+                  currentLang,
+                )}
               </div>
             </div>
           </a>
@@ -121,7 +128,9 @@ export default function Post({
               <div className="title">{next.content.metadata.title}</div>
               <div className="subtitle">{next.content.metadata.subtitle}</div>
               <div className="date">
-                {new Date(next.content.metadata.date!).toLocaleString(lang)}
+                {new Date(next.content.metadata.date!).toLocaleString(
+                  currentLang,
+                )}
               </div>
             </div>
             <div className="arrow">❯</div>
