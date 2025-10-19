@@ -10,7 +10,7 @@ tags:
 last_modified_at: '2025-10-19T16:52:08.538Z'
 translated_at: '2025-10-19T16:52:05.437Z'
 ---
-# Itntroduction
+# Introduction
 I tried to run games, developed with RPG Maker MV, but it stucks at loading.
 
 # Solution
