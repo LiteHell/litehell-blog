@@ -8,7 +8,7 @@ tags:
     - 'Linux'
     - 'VR'
     - 'XR'
-translated_at: '2025-10-19T16:10:12.951Z'
+translated_at: '2025-10-19T17:28:23.271Z'
 ---
 # Introduction
 I use Linux for laptop. I installed [WiVRn](https://github.com/WiVRn/WiVRn) and [OpenComposite](https://gitlab.com/znixian/OpenOVR/)[^1] for VR gaming on Linux, as recommended by [perillamint](https://social.silicon.moe/@perillamint).
@@ -18,13 +18,13 @@ It works well for Linux native VR programs (e.g. [xrgears](https://gitlab.freede
 However, it had a problem that non-Steam Windows games don't work.
 
 ## First try
-Steam games works well for VR. Steam uses Proton. Then, Why don't I use Proton for non-Steam games?
+Steam games works well for VR. Steam uses Proton. Then,  How about using Proton for non-Steam games?
 
 
 ### umu-launcher
-Therefore, I tried [umu-launcher](https://github.com/Open-Wine-Components/umu-launcher), a program to run [Proton](https://github.com/ValveSoftware/Proton) for games not in Steam. (Actually, It uses [Proton GE](https://github.com/GloriousEggroll/proton-ge-custom), not Proton by Valve. But, it doesn't matter in this post.)
+I tried [umu-launcher](https://github.com/Open-Wine-Components/umu-launcher), a program to run [Proton](https://github.com/ValveSoftware/Proton) for games not in Steam. (Actually, It uses [Proton GE](https://github.com/GloriousEggroll/proton-ge-custom), not Proton by Valve. But, it doesn't matter in this post.)
 
-Proton includes OpenXR/VR support. So I expected it will work well if I set environment variables following [SteamVR documentation of WinVR](https://github.com/WiVRn/WiVRn/blob/master/docs/steamvr.md). But it didn't work.
+Proton includes OpenXR/VR support. So I expected that it will work well if I set environment variables following [SteamVR documentation of WinVR](https://github.com/WiVRn/WiVRn/blob/master/docs/steamvr.md). But it didn't work.
 ```env
 PRESSURE_VESSEL_FILESYSTEMS_RW=/run/user/1000/wivrn/comp_ipc
 XR_RUNTIME_JSON=/run/host/usr/share/openxr/1/openxr_wivrn.json
