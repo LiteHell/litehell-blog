@@ -46,7 +46,7 @@ export default function Layout({ children }: PropsWithChildren) {
                     : `https://blog-${lang}.litehell.info`;
 
                 return (
-                  <a href={url}>
+                  <a href={url} hrefLang={lang}>
                     {new Intl.DisplayNames(currentLang, {
                       type: "language",
                     }).of(lang)}{" "}
