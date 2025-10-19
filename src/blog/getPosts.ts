@@ -1,3 +1,4 @@
+import createNodeFormatMessage from "../frontend/i18n/createNodeFormatMessage";
 import getPostNames from "./getPostNames";
 import parseMarkdown from "./parseMarkdown";
 import parsePostMetadata, {
@@ -25,6 +26,9 @@ export default async function getPosts({
     ? await getPostNames("drafts")
     : ([] as string[]);
   const published = await getPostNames("published");
+  const formatMessage = await createNodeFormatMessage(
+    preferredLang ?? process.env.BLOG_LANG ?? "ko",
+  );
 
   const parse = async (names: string[], draft: boolean) =>
     await Promise.all(
@@ -64,6 +68,7 @@ export default async function getPosts({
             translated,
             parsed: await parseMarkdown(
               metadataAndSource.sourceWithoutMetadata,
+              { footnoteLabel: formatMessage("post.footnoteLabel") },
             ),
           },
           draft,

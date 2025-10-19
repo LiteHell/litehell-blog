@@ -38,6 +38,7 @@
   "post.translation_info.untranslated_text": "Note: This post is not translated yet.",
   "post.translation_info.translated_text": "Note: This post is translated text.",
   "post.translation_info.translated_at": "Note: This post is translated at {translated_at}.",
+  "post.footnoteLabel": "Footnotes",
   "postList.goToNthPage": "To {page} page",
   "postList.firstPage": "First page",
   "postList.lastPage": "Last page",

@@ -5,11 +5,18 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
-export default async function parseMarkdown(source: string) {
+export default async function parseMarkdown(
+  source: string,
+  extra: { footnoteLabel: string },
+) {
   const parsed = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype, { allowDangerousHtml: true, footnoteLabel: "주석" })
+    .use(remarkRehype, {
+      allowDangerousHtml: true,
+      footnoteLabel: extra.footnoteLabel,
+      footnoteLabelTagName: "h1",
+    })
     .use(rehypeStarryNight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(source);
