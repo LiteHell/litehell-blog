@@ -2,6 +2,7 @@ import React from "react";
 import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
 import PostList from "../../components/postList/postList";
+import useFormatMessage from "../../i18n/useFormatMessage";
 
 export type CategoriedPostsProp = {
   posts: BlogPost[];
@@ -17,6 +18,8 @@ export default function CategoriedPosts({
   navigation,
   category,
 }: CategoriedPostsProp) {
+  const formatMessage = useFormatMessage();
+
   return (
     <Layout>
       <PostList
@@ -24,10 +27,10 @@ export default function CategoriedPosts({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
         }))}
-        title={`${category} 카테고리의 글`}
+        title={formatMessage("page.categoriedPosts.title", { category })}
         backLink={{
           href: "/",
-          label: "모든 글 목록으로",
+          label: formatMessage("page.categoriedPosts.back"),
         }}
         navigation={{
           next:

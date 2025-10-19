@@ -1,9 +1,10 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { BlogPostMetadata } from "../../../blog/parsePostMetadata";
 import { Navigation, PostListUl, Title } from "./styled";
+import useFormatMessage from "../../i18n/useFormatMessage";
 
 type PostListProp = {
-  title: string;
+  title: ReactNode;
   backLink?: {
     label: string;
     href: string;
@@ -30,6 +31,8 @@ export default function PostList({
   navigation,
   posts,
 }: PostListProp) {
+  const formatMessage = useFormatMessage();
+
   return (
     <div>
       <Title>
@@ -54,14 +57,18 @@ export default function PostList({
       {(!!navigation?.prev || !!navigation?.next) && (
         <Navigation>
           {navigation?.prev ? (
-            <a href={navigation.prev.href}>{navigation.prev.page} 페이지로</a>
+            <a href={navigation.prev.href}>
+              {formatMessage("postList.goToNthPage", navigation.prev)}
+            </a>
           ) : (
-            <div>첫 페이지</div>
+            <div>{formatMessage("postList.firstPage")}</div>
           )}
           {navigation?.next ? (
-            <a href={navigation.next.href}>{navigation.next.page} 페이지로</a>
+            <a href={navigation.next.href}>
+              {formatMessage("postList.goToNthPage", navigation.next)}
+            </a>
           ) : (
-            <div>마지막 페이지</div>
+            <div>{formatMessage("postList.lastPage")}</div>
           )}
         </Navigation>
       )}

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Tag, Tags, Title } from "./styled";
+import useFormatMessage from "../../i18n/useFormatMessage";
 
 export type TagListProp = {
   tags: { name: string; href: string; count: number }[];
-  title?: string;
+  title?: ReactNode;
 };
 
 export default function TagList({ tags, title }: TagListProp) {
+  const formatMessage = useFormatMessage();
+
   return (
     <div>
-      <Title>{title ?? "태그 목록"}</Title>
+      <Title>{title ?? formatMessage("tagList.defaultTitle")}</Title>
       <Tags>
         {tags.map(tag => (
           <Tag>
