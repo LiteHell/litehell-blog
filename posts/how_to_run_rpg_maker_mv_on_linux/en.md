@@ -7,6 +7,7 @@ category: 'Linux'
 tags:
     - 'Game'
     - 'Wine'
+last_modified_at: '2025-10-19T16:52:08.538Z'
 translated_at: '2025-10-19T16:52:05.437Z'
 ---
 # Itntroduction
