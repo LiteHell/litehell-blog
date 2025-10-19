@@ -10,6 +10,7 @@ import createNodeFormatMessage, {
 } from "./i18n/createNodeFormatMessage";
 import getDefaultLang from "./i18n/getDefaultLang";
 import getLangData from "./i18n/getLangData";
+import getSupportedLangs from "./i18n/getSupportedLangs";
 
 export type HTMLHeadTemplateData = {
   canonicalUrl: string;
@@ -124,15 +125,27 @@ export default async function renderBlogPage(data: BlogPageProp) {
   const body = renderToStaticMarkup(
     <BlogPage {...data} lang={BLOG_LANG} langData={langData} />,
   );
+
+  const htmlHeadData = getHtmlHeadData(data, formatMessage, BLOG_LANG);
+
+  const langAlternativesMeta = getSupportedLangs()
+    .map(
+      lang =>
+        `<link rel="alternate" hreflang="${lang}" href="${htmlHeadData.canonicalUrl?.replace(/^https:\/\/blog(.+?)\.litehell\.info/, lang === "ko" ? "https://blog.litehell.info" : "https://blog-en.litehell.info")}" />`,
+    )
+    .join("\n");
+
   return minfiyHtml
     .minify(
       Buffer.from(
         mustache.render(template, {
           ...defaultHeadTemplateData,
-          ...getHtmlHeadData(data, formatMessage, BLOG_LANG),
+          ...htmlHeadData,
           ...data,
           body,
           urlLangSuffix: BLOG_LANG == "ko" ? "" : `-${BLOG_LANG}`,
+          langAlternativesMeta,
+          lang: BLOG_LANG,
         }),
       ),
       {
