@@ -1,7 +1,7 @@
 name: Build and Deploy
 on: [push]
 jobs:
-  build-and-deploy:
+  install-dependencies:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -20,13 +20,27 @@ jobs:
       - name: Install Dependencies 🔧
         run: |
           pnpm i
-          
+
+      - uses: bissolli/gh-action-persist-workspace@v2
+        with:
+          action: persist
+  
+  build-korean-and-deploy:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bissolli/gh-action-persist-workspace@v2
+        with:
+          action: retrieve
+      
       - name: Set timezone 🕑
         uses: szenius/set-timezone@v2.0
         with:
           timezoneLinux: "Asia/Seoul"
 
       - name: Build blog 🔧
+        env:
+          BLOG_LANG: ko
         run: |
           pnpm build
       
@@ -46,4 +60,43 @@ jobs:
           BRANCH: gh-pages
           SSH: true
           FOLDER: out
+          CLEAN: true
+
+  build-english-and-deploy:
+    needs: [install-dependencies]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bissolli/gh-action-persist-workspace@v2
+        with:
+          action: retrieve
+      
+      - name: Set timezone 🕑
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Seoul"
+
+      - name: Build blog 🔧
+        env:
+          BLOG_LANG: en
+        run: |
+          pnpm build
+      
+      - name: Create .nojekyll file 📝
+        run: |
+          touch out/.nojekyll
+
+      - name: Install SSH Client 🔑
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: |
+            ${{ secrets.BLOG_EN_DEPLOY_KEY }}
+
+      - name: Deploy to yeonjin.name
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          REPOSITORY_NAME: LiteHell/litehell-blog-en
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main
+          SSH: true
+          FOLDER: dist
           CLEAN: true
