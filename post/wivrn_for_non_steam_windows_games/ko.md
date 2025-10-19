@@ -8,8 +8,9 @@ tags:
     - 'Linux'
     - 'VR'
     - 'XR'
+last_modified_at: '2025-10-19T16:10:35.056Z'
 ---
-# 입문
+# 들어가는 글
 필자는 리눅스를 쓴다. 리눅스에서 VR 게임을 하기 위해 [깻잎](https://social.silicon.moe/@perillamint)님의 추천을 받아 [WiVRn](https://github.com/WiVRn/WiVRn)와 [OpenComposite](https://gitlab.com/znixian/OpenOVR/)[^1]를 설치했다.
 
 깔고 설정해본 결과 리눅스 네이티브 VR 프로그램(예시: [xrgears](https://gitlab.freedesktop.org/monado/demos/xrgears))과 스팀 게임들은 잘 작동했다.
@@ -42,7 +43,7 @@ XR_RUNTIME_JSON=/run/host/usr/share/openxr/1/openxr_wivrn.json
 UMU_LOG=debug umu-run /tmp/2q3ef32t
 ```
 
-그러면 다음과 같이 콘솔 로그에서 proton 위치를 확인할 수 있다. (예시: `/home/foo/.local/share/Steam/compatibilitytools.d/UMU-Proton-9.0-4e/proton`)
+그러면 다음과 같이 콘솔 로그에서 `proton` 위치를 확인할 수 있다. (예시: `/home/foo/.local/share/Steam/compatibilitytools.d/UMU-Proton-9.0-4e/proton`)
 
 ```
 [umu.umu_run:887] DEBUG: (PosixPath('/home/foo/.local/share/umu/steamrt3/umu'), '--verb', 'waitforexitandrun', '--', PosixPath('/home/foo/.local/share/umu/steamrt3/umu-shim'), PosixPath('/home/foo/.local/share/Steam/compatibilitytools.d/UMU-Proton-9.0-4e/proton'), 'waitforexitandrun', './asdf')
