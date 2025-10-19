@@ -11,7 +11,7 @@ last_modified_at: '2025-10-19T16:52:08.538Z'
 translated_at: '2025-10-19T16:52:05.437Z'
 ---
 # Introduction
-I tried to run games, developed with RPG Maker MV, but it stucks at loading.
+I tried to run games made with RPG Maker MV, but it stucks at loading.
 
 # Solution
 I thought installing Windows on VM, but I found `nwjs.dll` file. The structure of `package.json` in the `www` directory of the game is also similar with the one of nwjs applications.
