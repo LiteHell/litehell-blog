@@ -27,7 +27,7 @@
   "layout.internalLinks.category": "Categories",
   "layout.internalLinks.tags": "Tags",
   "layout.otherLanguages": "Other languages",
-  "layout.note": "I don't use AI for writing blog posts. I wrote them by myself. If there's any mistypo or weired sentences, that's because i didn't revise it carefully, so please understand.{br}All the time and dates in this blog are Korean Standard Time, regardless of the language.",
+  "layout.note": "I don't use AI for writing blog posts. I wrote them by myself. If there's any mistypo or weird sentences, that's because I didn't revise it carefully, so please understand.{br}All the time and dates in this blog are Korean Standard Time, regardless of the language.",
   "post.dateTime": "Wrote by {author} at {date}.",
   "post.dateTime.with_last_modificated_at": "Wrote by {author} at {date} and modified at {last_modified_at}에 수정함.",
   "post.categories": "Category: ",
