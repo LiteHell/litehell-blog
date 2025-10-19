@@ -107,12 +107,12 @@ jobs:
           ssh-private-key: |
             ${{ secrets.BLOG_EN_DEPLOY_KEY }}
 
-      - name: Deploy to yeonjin.name
+      - name: Deploy to blog-en.litehell.info 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           REPOSITORY_NAME: LiteHell/litehell-blog-en
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: main
           SSH: true
-          FOLDER: dist
+          FOLDER: out
           CLEAN: true
