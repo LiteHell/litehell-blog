@@ -7,7 +7,12 @@ import createRouteRenderer, {
 import getPosts from "../blog/getPosts";
 
 async function getPostsWithDraft() {
-  return (await getPosts({ includeDrafts: true })).sort(
+  return (
+    await getPosts({
+      includeDrafts: true,
+      preferredLang: process.env.BLOG_LANG,
+    })
+  ).sort(
     (a, b) =>
       Date.parse(b.content.metadata.date ?? "") -
       Date.parse(a.content.metadata.date ?? ""),

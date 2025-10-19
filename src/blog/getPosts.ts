@@ -3,10 +3,12 @@ import parseMarkdown from "./parseMarkdown";
 import parsePostMetadata, {
   BlogMarkdownSourceAndMetadata,
 } from "./parsePostMetadata";
-import readPostSource from "./readPostSource";
+import readPostSource, { PostSource } from "./readPostSource";
 
 export type BlogPostContent = {
   parsed: string;
+  translated?: boolean;
+  lang: string;
 } & BlogMarkdownSourceAndMetadata;
 
 export type BlogPost = {
@@ -15,9 +17,10 @@ export type BlogPost = {
   content: BlogPostContent;
 };
 
-export default async function getPosts({ includeDrafts = false } = {}): Promise<
-  BlogPost[]
-> {
+export default async function getPosts({
+  includeDrafts = false,
+  preferredLang = "ko",
+} = {}): Promise<BlogPost[]> {
   const drafts = includeDrafts
     ? await getPostNames("drafts")
     : ([] as string[]);
@@ -26,11 +29,39 @@ export default async function getPosts({ includeDrafts = false } = {}): Promise<
   const parse = async (names: string[], draft: boolean) =>
     await Promise.all(
       names.map(async name => {
-        const sourceWithMetadata = await readPostSource({ name, draft });
-        const metadataAndSource = await parsePostMetadata(sourceWithMetadata);
+        const rawSources = await readPostSource({ name, draft });
+        const listOfMetadataAndSource = await Promise.all(
+          rawSources.map(async i => ({
+            ...i,
+            ...(await parsePostMetadata(i.rawSource)),
+          })),
+        );
+
+        const metadataAndSource = ((preferredLang
+          ? listOfMetadataAndSource.find(i => i.lang === preferredLang)
+          : null) ??
+          listOfMetadataAndSource
+            .filter(i => !i.metadata.translated_at)
+            .reduce(
+              (pv, cv) => {
+                if (pv === null) return cv;
+                else if (
+                  Date.parse(pv.metadata.date!) > Date.parse(cv.metadata.date!)
+                )
+                  return cv;
+                else return pv;
+              },
+              null as null | (BlogMarkdownSourceAndMetadata & PostSource),
+            ))!;
+
+        const translated = preferredLang
+          ? !!metadataAndSource.metadata.translated_at
+          : false;
+
         return {
           content: {
             ...metadataAndSource,
+            translated,
             parsed: await parseMarkdown(
               metadataAndSource.sourceWithoutMetadata,
             ),

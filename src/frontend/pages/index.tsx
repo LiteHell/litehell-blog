@@ -6,6 +6,7 @@ import CategoriedPosts, { CategoriedPostsProp } from "./pages/categoriedPosts";
 import License from "./pages/license";
 import Post, { PostProp } from "./pages/post";
 import TaggedPosts, { TaggedPostsProp } from "./pages/taggedPosts";
+import { IntlProvider } from "react-intl";
 
 type BlogPageType =
   | "all_posts"
@@ -32,7 +33,7 @@ export type BlogPageProp = {
   | BlogPagePropWithProps<"license", {}>
 );
 
-export default function BlogPage(props: BlogPageProp) {
+function BlogPageInnerContent(props: BlogPageProp) {
   switch (props.pageName) {
     case "all_posts":
       return <AllPosts {...props}></AllPosts>;
@@ -51,4 +52,14 @@ export default function BlogPage(props: BlogPageProp) {
     default:
       throw new Error("undefined pageName");
   }
+}
+
+export default function BlogPage(
+  props: BlogPageProp & { lang: string; langData: Record<string, string> },
+) {
+  return (
+    <IntlProvider messages={props.langData} locale={props.lang}>
+      {<BlogPageInnerContent {...props} />}
+    </IntlProvider>
+  );
 }

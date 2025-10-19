@@ -7,7 +7,12 @@ import getRoutes from "../routes";
 import generateFeeds from "./feed";
 
 export default async function build(outDir: string, { quite = false } = {}) {
-  const posts = (await getPosts({ includeDrafts: false })).sort(
+  const posts = (
+    await getPosts({
+      includeDrafts: false,
+      preferredLang: process.env.BLOG_LANG!,
+    })
+  ).sort(
     (a, b) =>
       Date.parse(b.content.metadata.date ?? "") -
       Date.parse(a.content.metadata.date ?? ""),

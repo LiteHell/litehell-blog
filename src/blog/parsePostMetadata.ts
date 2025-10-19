@@ -10,6 +10,7 @@ export type BlogPostMetadata = Partial<{
   category: string;
   tags: string[];
   last_modified_at: string;
+  translated_at: string;
 }>;
 
 export type BlogMarkdownSourceAndMetadata = {

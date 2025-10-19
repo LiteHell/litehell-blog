@@ -26,6 +26,12 @@ export const PostListUl = styled.ul`
       font-weight: 200;
       font-size: 0.9em;
       color: #535353;
+
+      .untranslated {
+        display: inline-block;
+        color: #cc7c7cff;
+        margin-left: 0.5rem;
+      }
     }
   }
 `;

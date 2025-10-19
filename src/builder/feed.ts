@@ -3,18 +3,20 @@ import fs from "fs/promises";
 import path from "path";
 import { BlogPost } from "../blog/getPosts";
 import getFirstImageFromHtml from "../utils/getFirstImageFromHtml";
+import createNodeFormatMessage from "../frontend/i18n/createNodeFormatMessage";
 
 export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
-  const somePosts = posts.slice(0, 10);
+  const lang = process.env.BLOG_LANG ?? "ko";
+  const blogUrl = `https://blog${lang === "ko" ? "" : `-${lang}`}.litehell.info`;
+  const formatMessage = await createNodeFormatMessage(lang);
 
   // Create feed
   const feed = new Feed({
-    title: "LiteHell의 블로그",
-    description:
-      "LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.",
-    id: "https://blog.litehell.info",
-    link: "https://blog.litehell.info",
-    language: "ko-KR",
+    title: formatMessage("feed.title"),
+    description: formatMessage("feed.description"),
+    id: blogUrl,
+    link: blogUrl,
+    language: lang,
     image: "https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1",
     copyright: "All rights reserved 2020 ~ 2025 © Yeonjin Shin",
     updated: new Date(
@@ -23,8 +25,8 @@ export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
         "",
     ),
     feedLinks: {
-      json: "https://blog.litehell.info/feed/json",
-      atom: "https://blog.litehell.info/feed/atom",
+      json: blogUrl + "/feed/json",
+      atom: blogUrl + "/feed/atom",
     },
     author: {
       name: "Yeonjin Shin",
@@ -34,15 +36,17 @@ export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
   });
 
   // Add articles into feed
-  for (const post of posts) {
+  for (const post of posts.filter(i => i.content.lang === lang)) {
     const content = post.content.parsed;
     feed.addItem({
-      title: post.content.metadata.title || "무제",
+      title: post.content.metadata.title || formatMessage("feed.untitled"),
       id: post.name,
-      link: `https://blog.litehell.info/post/${encodeURIComponent(post.name)}`,
+      link: `${blogUrl}/post/${encodeURIComponent(post.name)}`,
       description: post.content.metadata.subtitle || "",
       content,
-      date: new Date(post.content.metadata.date ?? ""),
+      date: new Date(
+        post.content.metadata.translated_at ?? post.content.metadata.date ?? "",
+      ),
       image:
         getFirstImageFromHtml(content) ||
         "https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1",

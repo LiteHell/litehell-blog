@@ -1,7 +1,9 @@
 import React, { ReactNode } from "react";
 import { BlogPost } from "../../../blog/getPosts";
 import Comments from "./comments";
-import { Article, Header, PostNav, SeriesNav } from "./styled";
+import { Article, Header, PostNav, SeriesNav, TranslationInfo } from "./styled";
+import useFormatMessage from "../../i18n/useFormatMessage";
+import useCurrentLang from "../../i18n/useCurrentLang";
 
 export type PostProp = {
   current: BlogPost;
@@ -19,9 +21,17 @@ export default function Post({
   next,
   series,
 }: PostProp) {
-  const dateTime = post.content.metadata.last_modified_at
-    ? `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 작성하고 ${new Date(post.content.metadata.last_modified_at).toLocaleString("ko-KR")}에 수정함.`
-    : `${new Date(post.content.metadata.date!).toLocaleString("ko-KR")}에 ${post.content.metadata.author}이(가) 작성함.`;
+  const formatMessage = useFormatMessage();
+  const currentLang = useCurrentLang();
+  const dateTime = formatMessage(
+    post.content.metadata.last_modified_at
+      ? "post.dateTime.with_last_modificated_at"
+      : "post.dateTime",
+    {
+      ...post.content.metadata,
+      date: new Date(post.content.metadata.date!).toLocaleString(currentLang),
+    },
+  );
   const hasLinks =
     !!post.content.metadata.category || !!post.content.metadata.tags;
   const tagLinks = post.content.metadata.tags
@@ -47,7 +57,9 @@ export default function Post({
           <div className="links">
             {post.content.metadata.category && (
               <div className="link">
-                <span className="description">카테고리: </span>
+                <span className="description">
+                  {formatMessage("post.categories")}
+                </span>
                 <a href={`/category/${post.content.metadata.category}`}>
                   {post.content.metadata.category}
                 </a>
@@ -55,7 +67,9 @@ export default function Post({
             )}
             {post.content.metadata.tags && (
               <div className="link">
-                <span className="description">테그: </span>
+                <span className="description">
+                  {formatMessage("post.tags")}
+                </span>
                 {tagLinks}
               </div>
             )}
@@ -64,7 +78,7 @@ export default function Post({
       </Header>
       {series && (
         <SeriesNav>
-          <div className="title">(시리즈) {series.name}</div>
+          <div className="title">{formatMessage("post.series", series)}</div>
           <ul>
             {series.posts.map(i => (
               <li>
@@ -79,6 +93,21 @@ export default function Post({
           </ul>
         </SeriesNav>
       )}
+      {post.content.lang !== currentLang && !post.content.translated ? (
+        <TranslationInfo>
+          {formatMessage("post.translation_info.untranslated_text")}
+        </TranslationInfo>
+      ) : !!post.content.translated ? (
+        <TranslationInfo>
+          {post.content.metadata.translated_at
+            ? formatMessage("post.translation_info.translated_at", {
+                translated_at: new Date(
+                  post.content.metadata.translated_at!,
+                ).toLocaleString(currentLang),
+              })
+            : formatMessage("post.translation_info.translated_text")}
+        </TranslationInfo>
+      ) : null}
       <Article dangerouslySetInnerHTML={{ __html: post.content.parsed }} />
       <Comments />
       <PostNav>
@@ -95,13 +124,13 @@ export default function Post({
               </div>
               <div className="date">
                 {new Date(previous.content.metadata.date!).toLocaleString(
-                  "ko-KR",
+                  currentLang,
                 )}
               </div>
             </div>
           </a>
         ) : (
-          <div className="noop">첫 게시글입니다.</div>
+          <div className="noop">{formatMessage("post.onFirstArticle")}</div>
         )}
         {next ? (
           <a href={`/post/${encodeURIComponent(next.name)}`} className="next">
@@ -109,13 +138,15 @@ export default function Post({
               <div className="title">{next.content.metadata.title}</div>
               <div className="subtitle">{next.content.metadata.subtitle}</div>
               <div className="date">
-                {new Date(next.content.metadata.date!).toLocaleString("ko-KR")}
+                {new Date(next.content.metadata.date!).toLocaleString(
+                  currentLang,
+                )}
               </div>
             </div>
             <div className="arrow">❯</div>
           </a>
         ) : (
-          <div className="noop">마지막 게시글입니다.</div>
+          <div className="noop">{formatMessage("post.onLastArticle")}</div>
         )}
       </PostNav>
     </div>

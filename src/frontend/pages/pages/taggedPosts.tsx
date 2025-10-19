@@ -2,6 +2,7 @@ import React from "react";
 import { BlogPost } from "../../../blog/getPosts";
 import Layout from "../../components/layout";
 import PostList from "../../components/postList/postList";
+import useFormatMessage from "../../i18n/useFormatMessage";
 
 export type TaggedPostsProp = {
   posts: BlogPost[];
@@ -17,17 +18,20 @@ export default function TaggedPosts({
   navigation,
   tag,
 }: TaggedPostsProp) {
+  const formatMessage = useFormatMessage();
+
   return (
     <Layout>
       <PostList
         posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
+          lang: i.content.lang,
         }))}
-        title={`${tag} 태그가 달린 글`}
+        title={formatMessage("page.taggedPosts.title")}
         backLink={{
           href: "/",
-          label: "모든 글 목록으로",
+          label: formatMessage("page.taggedPosts.back"),
         }}
         navigation={{
           next:
