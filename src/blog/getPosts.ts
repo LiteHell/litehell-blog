@@ -55,7 +55,7 @@ export default async function getPosts({
             ))!;
 
         const translated = preferredLang
-          ? metadataAndSource.lang === preferredLang
+          ? !!metadataAndSource.metadata.translated_at
           : false;
 
         return {
