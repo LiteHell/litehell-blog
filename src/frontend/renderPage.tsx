@@ -9,6 +9,7 @@ import createNodeFormatMessage, {
   NodeFormatMessageFunction,
 } from "./i18n/createNodeFormatMessage";
 import getDefaultLang from "./i18n/getDefaultLang";
+import getLangData from "./i18n/getLangData";
 
 export type HTMLHeadTemplateData = {
   canonicalUrl: string;
@@ -109,9 +110,12 @@ function getHtmlHeadData(
 export default async function renderBlogPage(data: BlogPageProp) {
   const BLOG_LANG = process.env.BLOG_LANG ?? getDefaultLang();
   const formatMessage = await createNodeFormatMessage(BLOG_LANG);
+  const langData = await getLangData(BLOG_LANG);
   const defaultHeadTemplateData = createDefaultTemplateData(formatMessage);
 
-  const body = renderToStaticMarkup(<BlogPage {...data} lang={BLOG_LANG} />);
+  const body = renderToStaticMarkup(
+    <BlogPage {...data} lang={BLOG_LANG} langData={langData} />,
+  );
   return minfiyHtml
     .minify(
       Buffer.from(

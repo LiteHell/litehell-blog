@@ -54,9 +54,11 @@ function BlogPageInnerContent(props: BlogPageProp) {
   }
 }
 
-export default function BlogPage(props: BlogPageProp & { lang: string }) {
+export default function BlogPage(
+  props: BlogPageProp & { lang: string; langData: Record<string, string> },
+) {
   return (
-    <IntlProvider messages={{}} locale={props.lang}>
+    <IntlProvider messages={props.langData} locale={props.lang}>
       {<BlogPageInnerContent {...props} />}
     </IntlProvider>
   );
