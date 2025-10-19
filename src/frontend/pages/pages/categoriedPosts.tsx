@@ -26,6 +26,7 @@ export default function CategoriedPosts({
         posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
+          lang: i.content.lang,
         }))}
         title={formatMessage("page.categoriedPosts.title", { category })}
         backLink={{

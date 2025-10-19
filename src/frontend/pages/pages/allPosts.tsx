@@ -19,6 +19,7 @@ export default function AllPosts({ posts, navigation }: AllPostsProp) {
         posts={posts.map(i => ({
           metadata: i.content.metadata,
           link: `/post/${encodeURI(i.name)}`,
+          lang: i.content.lang,
         }))}
         title={<FormattedMessage id="page.allPosts.title" />}
         navigation={{

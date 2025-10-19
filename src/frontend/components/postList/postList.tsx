@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { BlogPostMetadata } from "../../../blog/parsePostMetadata";
 import { Navigation, PostListUl, Title } from "./styled";
 import useFormatMessage from "../../i18n/useFormatMessage";
+import useCurrentLang from "../../i18n/useCurrentLang";
 
 type PostListProp = {
   title: ReactNode;
@@ -22,6 +23,7 @@ type PostListProp = {
   posts: {
     metadata: BlogPostMetadata;
     link: string;
+    lang: string;
   }[];
 };
 
@@ -32,6 +34,7 @@ export default function PostList({
   posts,
 }: PostListProp) {
   const formatMessage = useFormatMessage();
+  const currentLang = useCurrentLang();
 
   return (
     <div>
@@ -49,6 +52,12 @@ export default function PostList({
               <div className="subtitle">{post.metadata.subtitle}</div>
               <div className="date">
                 {new Date(post.metadata.date!).toLocaleString()}
+
+                {post.lang !== currentLang ? (
+                  <div className="untranslated">
+                    {formatMessage("postList.untranslated")}
+                  </div>
+                ) : null}
               </div>
             </a>
           </li>
