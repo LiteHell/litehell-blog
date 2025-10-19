@@ -1,6 +1,6 @@
 ---
-title: 'Linux에서 RPG Maker MV로 제작된 게임 실행하기'
-subtitle: 'wine으로 실행이 잘 안 될 때'
+title: 'How to run RPG Maker MV games on Linux'
+subtitle: 'when it does not work well with wine'
 author: 'LiteHell'
 date: '2025-02-18T11:02:55.344Z'
 category: 'Linux'
