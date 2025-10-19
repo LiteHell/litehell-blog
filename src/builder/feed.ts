@@ -36,7 +36,7 @@ export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
   });
 
   // Add articles into feed
-  for (const post of posts) {
+  for (const post of posts.filter(i => i.content.lang === lang)) {
     const content = post.content.parsed;
     feed.addItem({
       title: post.content.metadata.title || formatMessage("feed.untitled"),
@@ -44,7 +44,9 @@ export default async function generateFeeds(outDir: string, posts: BlogPost[]) {
       link: `${blogUrl}/post/${encodeURIComponent(post.name)}`,
       description: post.content.metadata.subtitle || "",
       content,
-      date: new Date(post.content.metadata.date ?? ""),
+      date: new Date(
+        post.content.metadata.translated_at ?? post.content.metadata.date ?? "",
+      ),
       image:
         getFirstImageFromHtml(content) ||
         "https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1",
