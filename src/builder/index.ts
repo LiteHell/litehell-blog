@@ -12,11 +12,13 @@ export default async function build(outDir: string, { quite = false } = {}) {
       includeDrafts: false,
       preferredLang: process.env.BLOG_LANG!,
     })
-  ).sort(
-    (a, b) =>
-      Date.parse(b.content.metadata.date ?? "") -
-      Date.parse(a.content.metadata.date ?? ""),
-  );
+  )
+    .sort(
+      (a, b) =>
+        Date.parse(b.content.metadata.date ?? "") -
+        Date.parse(a.content.metadata.date ?? ""),
+    )
+    .filter(i => i.content.lang === (process.env.BLOG_LANG ?? "ko"));
   const routes = await getRoutes(posts);
 
   await mkdir(outDir, { recursive: true });
