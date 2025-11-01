@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.litehell.info</id>
     <title>LiteHell의 블로그</title>
-    <updated>2025-10-19T16:10:35.056Z</updated>
+    <updated>2025-11-01T13:28:27.541Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Yeonjin Shin</name>
@@ -14,6 +14,72 @@
     <subtitle>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</subtitle>
     <logo>https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1</logo>
     <rights>All rights reserved 2020 ~ 2025 © Yeonjin Shin</rights>
+    <entry>
+        <title type="html"><![CDATA[Tailscale을 이용한 두개 이상의 네트워크 만들기]]></title>
+        <id>multiple_tailnets_with_tailscale</id>
+        <link href="https://blog.litehell.info/post/multiple_tailnets_with_tailscale"/>
+        <updated>2025-11-01T13:28:27.541Z</updated>
+        <summary type="html"><![CDATA[계정 두개 만들 필요 X]]></summary>
+        <content type="html"><![CDATA[<h1>들어가는 글</h1>
+<p>필자는 <a href="https://tailscale.com/">Tailscale</a>을 쓴다. Tailscale은 <a href="https://www.wireguard.com/">Wireguard</a>에 기반한 VPN 서비스인데, 직접 VPN 서버를 구축하는 것보다<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> 훨씬 편리해서 애용하고 있다.</p>
+<p><a href="https://asianaonion.org">그러다가 최근에 Tor 릴레이를 본격적으로 시작하게 됐다.</a><sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> <a href="/post/retrospective_of_2024/">2024년의 회고</a> 글에 고대역폭 Tor 릴레이를 만들어보고 싶다고 적고 알아보다가 사정이 생겨서 일단 국내에 VPS 여러개를 만드는 식으로 시작했다.<sup><a href="#user-content-fn-2" id="user-content-fnref-2-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
+<p>알다시피, 외부에 노출되는 포트는 최소화하는 게 모범적이다. 특히 SSH 포트라면 더욱 그렇다. 이는 Tailscale로 내부망을 만들면 쉽게 해결된다.</p>
+<p>Tailscale을 이용하면 기본적으로 다음과 같은 내부망이 구축된다.</p>
+<p><img src="./single_tailnet.svg" alt="Tailscale을 이용한 네트워크"></p>
+<p>그러나 개인적으로는 Tor 릴레이들의 네트워크는 따로 두고 싶었다. 즉 다음 구성과 같이 네트워크를 구축하고 싶었다.</p>
+<p><img src="./target_network_struct.svg" alt="목표 네트워크 구성도"></p>
+<p>개인 네트워크와 Tor 네트워크 간에는 분리하되 개인 네트워크내 특정한 기기(이하 "터미널")는 Tor 릴레이에 SSH를 접속할 수 있어야 한다. 그러나 Tor 릴레이는 터미널을 포함한 개인 네트워크에 접속할 수 없어야 한다.</p>
+<p>Tailscale 계정 2개 만드는 거 말고 다른 방법이 없을까? <a href="https://www.reddit.com/r/Tailscale/comments/10q4ztn/comment/j6nx04c/?utm_source=share&#x26;utm_medium=web3x&#x26;utm_name=web3xcss&#x26;utm_term=1&#x26;utm_content=share_button">검색해보니 Tailscale의 ACL 기능을 이용하면 된다고 한다.</a> 한 번 해보자.</p>
+<h1>ACL을 이용한 분리된 네트워크 분리</h1>
+<p>네트워크를 분리하기 위해서는 서버에 태그를 추가한 뒤 태그를 기준으로 ACL 규칙을 추가해야 한다.
+일단 Tailscale에서 Access Control에 들어간다.</p>
+<p><img src="./ACL%20menu.png" alt="Tailscale Access Control 메뉴 위치"></p>
+<h2>태그 추가</h2>
+<p>Tags 페이지에서 Create tag 버튼을 눌러 태그를 추가한다.
+태그 이름이 바뀌면 노드에 태그 다는 작업을 다시 해야 하니 대충 짓지 말자.</p>
+<p><img src="./tags.png" alt="Tailscale 태그 목록"></p>
+<p>태그를 생성했다면 <code>Edit ACL tags</code> 기능으로 노드에 태그를 단다.
+모든 노드에 태그를 달도록 하자.</p>
+<p><img src="./Edit%20ACL%20tags.png" alt="Tailscale 노드 메뉴"></p>
+<p>설명을 위해 이 글에서는 태그 A와 B가 생성되었으며 모든 노드는 태그 A나 B 둘 중 하나에만 속한다고 가정한다.</p>
+<h2>ACL 규칙 추가</h2>
+<p>이제 <a href="https://login.tailscale.com/admin/acls/visual/general-access-rules">General Access rules</a> 탭에서 ACL 규칙을 추가하자. 처음 들어가면 다음 기본 ACL 규칙만 있을 것이다. 삭제하자.</p>
+<p><img src="./Default%20ACL.png" alt="기본 ACL 규칙"></p>
+<p>A 태그가 달린 노드 간의 통신을 무제한 허용하는 ACL 규칙을 추가한다.</p>
+<p><img src="./A%20tag%20acl.png" alt="A 태그 ACL 규칙"></p>
+<p>B 태그가 달린 노드간에도 똑같이 추가한다.</p>
+<p><img src="./B%20tag%20acl.png" alt="B 태그 ACL 규칙"></p>
+<p>그러면 다음과 같이 네트워크가 구성된다.</p>
+<p><img src="./network%20A%20and%20B.png" alt="네트워크 A와 B"></p>
+<p>A의 노드는 B 네트워크내 노드의 존재를 알 수 없으며 그 반대도 동일하다. 따라서 A 네트워크내의 노드와 B 네트워크 내의 노드 간에는 통신할 수 없다.</p>
+<h2>SSH 터미널 추가</h2>
+<p>약간만 더 응용하면 네트워크 A와 B 내의 노드로 SSH 접속을 할 수 있는 터미널을 추가할 수도 있다.
+SSH 터미널로 이용할 노드에 <code>terminal</code> 태그를 추가하고 다음 ACL 규칙을 추가한다. (Tailscale내에 <a href="https://login.tailscale.com/admin/acls/file">JSON editor</a>로 편집할 수 있다.)<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup></p>
+<pre><code class="language-json">    {
+        <span class="pl-ent">"src"</span>: [<span class="pl-s"><span class="pl-pds">"</span>tag:terminal<span class="pl-pds">"</span></span>],
+        <span class="pl-ent">"dst"</span>: [<span class="pl-s"><span class="pl-pds">"</span>tag:A<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>tag:B<span class="pl-pds">"</span></span>],
+        <span class="pl-ent">"ip"</span>:  [<span class="pl-s"><span class="pl-pds">"</span>tcp:22<span class="pl-pds">"</span></span>],
+    }
+</code></pre>
+<p>그러면 다음과 같은 네트워크를 구성할 수 있다. Terminal은 A나 B내의 노드로 SSH(TCP 22포트) 접속을 할 수 있다. 그러나 A나 B 내의 노드는 Terminal 노드로 연결할 수 없다.</p>
+<p><img src="./a%20and%20b%20and%20terminal.png" alt="A-B-Terminal 네트워크 구조도"></p>
+<h1>결론</h1>
+<p>이를 응용하면 들어가는 글에서 밝힌 네트워크 구조를 만들 수 있다. 괜히 귀찮게 Tailscale 계정을 2개 만들 필요가 없다. Tailscale이 참 잘 만들어졌다.</p>
+<hr>
+<section data-footnotes class="footnotes"><h1 class="sr-only" id="footnote-label">주석</h1>
+<ol>
+<li id="user-content-fn-1">
+<p>VPN 서버를 직접 구축할 시에는 <a href="https://www.softether.org/">SoftEther VPN</a>, <a href="https://openvpn.net/client/">OpenVPN</a>, <a href="https://www.wireguard.com/">Wireguard</a> 등의 선택지가 있는데 뭘 쓰던 간에 귀찮다는 건 똑같다. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p>외국의 경우 <a href="https://emeraldonion.org/">Emerald Onion</a>이나 <a href="https://www.menhera.org/">Menhera.org</a>와 같이 AS(Autonomous system)를 할당받아 Tor 릴레이를 운영하는 단체도 있다. 개인적으로도 이를 원했으나 이를 위해선 <a href="https://kinx.net">KINX</a>랑 소통을 해야하기도 하고, 무엇보다 견적이 개인적으로 감당할 수 없을 것 같단 예상이 들어 일단 VPS로 시작했다. <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-2-2" data-footnote-backref="" aria-label="Back to reference 2-2" class="data-footnote-backref">↩<sup>2</sup></a></p>
+</li>
+<li id="user-content-fn-3">
+<p>스크린샷 찍기 귀찮아져서 JSON으로 올렸다.ㅎ <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[WiVRn로 리눅스에서 非Steam VR 게임 실행하기]]></title>
         <id>wivrn_for_non_steam_windows_games</id>
