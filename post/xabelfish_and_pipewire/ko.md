@@ -7,6 +7,8 @@ category: 'Dev'
 tags:
     - 'Linux'
     - 'Rust'
+series: 'xabelfish'
+seriesName: 'XabelFish 개발기'
 ---
 # 들어가는 글
 일본어를 모르면서 일본 게임을 하려면 번역기를 써야한다. 요즘 번역기가 잘 되어 있긴 한데 너무 불편하다. 이런 사람들을 위한 게임 번역 프로그램이 있다. 대표적으로 윈도우에서는 [Mort](https://blog.naver.com/killkimno/223907695562)나 [아네모네](https://github.com/sokcuri/anemone)+후커 조합이 있다. 근데 리눅스에는 비슷한 게 없다.
