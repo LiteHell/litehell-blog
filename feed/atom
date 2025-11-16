@@ -19,7 +19,7 @@
         <id>xabelfish_into_multi_process_model</id>
         <link href="https://blog.litehell.info/post/xabelfish_into_multi_process_model"/>
         <updated>2025-11-16T11:58:29.745Z</updated>
-        <summary type="html"><![CDATA[우회할 수 있다면 우회하라]]></summary>
+        <summary type="html"><![CDATA[귀찮다면 돌아가라]]></summary>
         <content type="html"><![CDATA[<h1>들어가는 글</h1>
 <p><a href="/post/xabelfish_and_pipewire">지난 글</a>에서 딱 설정창까지만 만들었었는데 <a href="https://github.com/tesseract-ocr/tessdoc">Tesseract</a>의 인식률이 썩... 좋지가 않았다. 그래서 이걸 좀 사람이 쓸 수 있게 개발하려면 다른 OCR 엔진을 지원하도록 수정해야 할 필요가 있었다.</p>
 <p>그런데 Rust를 쓰다보니 쉽지 않았다. 객체지향 프로그래밍하듯 인터페이스를 만들어서 각각의 OCR 구현체가 그 인터페이스를 구현하는 구조를 만들려고 했다. 이를 구현하려면 <code>dyn</code> 키워드를 활용해야 했는데 문제는 관련 객체가 여러 곳에서 공유되는 상태라는 것이다. 그래서 코드를 어떻게든 수정하려 해도 Rust 컴파일러가 컴파일을 거부해서... 하다가 머리에 열올라서 나중으로 미뤘다.</p>
