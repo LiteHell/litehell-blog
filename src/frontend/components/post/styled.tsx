@@ -54,14 +54,27 @@ export const Article = styled.article`
   font-size: 1rem;
   line-height: 180%;
 
+  /* Fallback font for code */
+  @font-face {
+      font-family: 'D2Coding';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff') format('woff');
+      font-weight: normal;
+      font-display: swap;
+  }
+
   pre {
     overflow-x: auto;
     background: #f0f0f0;
     padding: 0.5em 1em;
     border-radius: 6px 6px;
+
+    @media (prefers-color-scheme: dark) {
+      background: #383838;
+      color: #ebebeb;
+    }
   }
   code {
-    font-family: monoscape;
+    font-family: "Fira Code", "Source Code Pro", "JetBrains Mono", "Roboto Mono", "DejaVu Sans Mono", "DejaVu Mono", "Inconsolata", "Monaco", "Consolas", "Hack", "Ubuntu Mono", "Red Hat Mono", "D2 coding", monospace
   }
   h1 {
     font-size: 1.8rem;
