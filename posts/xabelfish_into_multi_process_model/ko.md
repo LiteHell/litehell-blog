@@ -1,6 +1,6 @@
 ---
 title: 'XabelFish 개발기 - 멀티 프로세스 모델'
-subtitle: '우회할 수 있다면 우회하라'
+subtitle: '귀찮다면 돌아가라'
 author: 'LiteHell'
 date: '2025-11-16T11:58:29.745Z'
 category: 'Dev'
