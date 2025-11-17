@@ -5,7 +5,7 @@ export default async function tryRenderAllCategories(
   route: string,
   posts: BlogPost[],
 ) {
-  if (route === "/categories") {
+  if (/^\/categories\/?$/.test(route)) {
     const tags = posts
       .map(i => i.content.metadata.category ?? null)
       .filter(i => i !== null)
