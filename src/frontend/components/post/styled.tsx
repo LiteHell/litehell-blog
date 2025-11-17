@@ -145,6 +145,11 @@ export const Article = styled.article`
     }
     thead {
       background: rgb(216, 216, 216);
+
+      @media (prefers-color-scheme: dark) {
+        background: rgb(102, 102, 102);
+        color: white;
+      }
     }
   }
   blockquote {
@@ -152,6 +157,12 @@ export const Article = styled.article`
     margin: 25px 10px 25px 30px;
     padding: 10px 50px;
     border-left: 5px solid rgb(78, 78, 78);
+
+    @media (prefers-color-scheme: dark) {
+      border-left: 5px solid #cacacaff;
+      background: hsla(0, 0%, 31%, 1.00);
+      color: #ccccccff;
+    }
   }
   ul,
   ol {
@@ -166,6 +177,11 @@ export const SeriesNav = styled.nav`
   border-radius: 4px 4px;
   background: #dddddd;
   padding: 1em;
+
+  @media (prefers-color-scheme: dark) {
+    background: #2c2c2cff;
+    color: #ebebeb;
+  }
 
   .title {
     font-weight: 600;

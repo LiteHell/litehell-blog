@@ -2,10 +2,26 @@ import styled from "@emotion/styled";
 
 export const Note = styled.p`
   font-size: 75%;
-  color: #5e5e5e;
+  color: #374c64ff;
+  @media (prefers-color-scheme: dark) {
+    color: #999999ff;
+  }
 `;
 
 export const LayoutContainer = styled.div`
+  @media (prefers-color-scheme: dark) {
+    background: #1a1a1a;
+    color: #eeeeee;
+
+    a {
+      color: #af7428ff;
+
+      &:hover, &:active, &:focus {
+        color: #e98c13ff;
+      }
+    }
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;

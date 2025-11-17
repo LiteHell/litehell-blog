@@ -13,7 +13,7 @@ export default function Comments({ term }: { term: string }) {
         repo="LiteHell/litehell-blog"
         issue-term="${term}"
         label="blog comment"
-        theme="github-light"
+        theme="preferred-color-scheme"
         crossorigin="anonymous"
         async="async"></script>
     `,
