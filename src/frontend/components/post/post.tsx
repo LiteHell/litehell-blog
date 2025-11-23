@@ -29,6 +29,13 @@ export default function Post({
       : "post.dateTime",
     {
       ...post.content.metadata,
+      ...(post.content.metadata.last_modified_at
+        ? {
+            last_modified_at: new Date(
+              post.content.metadata.last_modified_at!,
+            ).toLocaleString(currentLang),
+          }
+        : {}),
       date: new Date(post.content.metadata.date!).toLocaleString(currentLang),
     },
   );
