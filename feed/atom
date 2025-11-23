@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.litehell.info</id>
     <title>LiteHell의 블로그</title>
-    <updated>2025-11-23T13:50:48.133Z</updated>
+    <updated>2025-11-23T14:30:52.492Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Yeonjin Shin</name>
@@ -33,6 +33,16 @@
 <p><img src="./tracking_link_mail.png" alt="추적 링크가 있는 메일"></p>
 <p>티셔츠가 USPS e-Packet? 아무튼 이런 걸로 오는 것 같은데 택배 추적이 정확하진 않다. 아무래도 한국 내까지 추적이 되진 않는 것 같다.</p>
 <p>저 메일 받고 며칠 지나면은 티셔츠가 우편함에 꽂혀있다. 일이 있어 집을 비웠던 관계로 정확히 언제 왔는 지는 모르겠다.</p>
+<h1>티셔츠</h1>
+<p>티셔츠 디자인은 <a href="https://gitlab.torproject.org/tpo/community/team/-/wikis/tshirts">여기서</a> 고를 수 있다. 이쁜 디자인이 많다.</p>
+<p><img src="./design1.png" alt="디자인 1"></p>
+<p>얘로 골랐다.</p>
+<p><img src="./design2.png" alt="디자인 2"></p>
+<p>얘도 이뻐서 고민 많이 했는데 결국 위에 거로 골랐다.</p>
+<p>실제로는 아래와 같이 왔다.</p>
+<p><img src="./front.jpg" alt="앞면"></p>
+<p>뒤에는 Tor재단 로고가 있다.</p>
+<p><img src="./back.jpg" alt="뒷면"></p>
 <h1>결론</h1>
 <p>암튼 티셔츠를 받았다. 메일에 2개 줄 수 있으면 2개 달라고 적었는데 1개만 준다. 좋았다. 끝~</p>]]></content>
     </entry>
