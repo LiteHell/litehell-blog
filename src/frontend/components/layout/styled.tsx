@@ -16,7 +16,9 @@ export const LayoutContainer = styled.div`
     a {
       color: #af7428ff;
 
-      &:hover, &:active, &:focus {
+      &:hover,
+      &:active,
+      &:focus {
         color: #e98c13ff;
       }
     }

@@ -28,7 +28,7 @@ export default function TaggedPosts({
           link: `/post/${encodeURI(i.name)}`,
           lang: i.content.lang,
         }))}
-        title={formatMessage("page.taggedPosts.title", {tag})}
+        title={formatMessage("page.taggedPosts.title", { tag })}
         backLink={{
           href: "/",
           label: formatMessage("page.taggedPosts.back"),

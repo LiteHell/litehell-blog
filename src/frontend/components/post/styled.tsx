@@ -56,10 +56,11 @@ export const Article = styled.article`
 
   /* Fallback font for code */
   @font-face {
-      font-family: 'D2Coding';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff') format('woff');
-      font-weight: normal;
-      font-display: swap;
+    font-family: "D2Coding";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff")
+      format("woff");
+    font-weight: normal;
+    font-display: swap;
   }
 
   pre {
@@ -74,7 +75,10 @@ export const Article = styled.article`
     }
   }
   code {
-    font-family: "Fira Code", "Source Code Pro", "JetBrains Mono", "Roboto Mono", "DejaVu Sans Mono", "DejaVu Mono", "Inconsolata", "Monaco", "Consolas", "Hack", "Ubuntu Mono", "Red Hat Mono", "D2 coding", monospace
+    font-family:
+      "Fira Code", "Source Code Pro", "JetBrains Mono", "Roboto Mono",
+      "DejaVu Sans Mono", "DejaVu Mono", "Inconsolata", "Monaco", "Consolas",
+      "Hack", "Ubuntu Mono", "Red Hat Mono", "D2 coding", monospace;
   }
   h1 {
     font-size: 1.8rem;
@@ -160,7 +164,7 @@ export const Article = styled.article`
 
     @media (prefers-color-scheme: dark) {
       border-left: 5px solid #cacacaff;
-      background: hsla(0, 0%, 31%, 1.00);
+      background: hsla(0, 0%, 31%, 1);
       color: #ccccccff;
     }
   }
