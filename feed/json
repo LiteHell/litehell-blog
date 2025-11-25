@@ -11,6 +11,15 @@
     },
     "items": [
         {
+            "id": "how_to_fix_libgl_error_on_64bit_fedora",
+            "content_html": "<h1>문제</h1>\n<p>64비트 페도라에서 umu-launcher나 wine으로 게임을 실행하면 다음과 같은 오류가 발생할 수 있다.</p>\n<pre><code>libGL error: MESA-LOADER: failed to open iris: /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri/iris_dri.so: wrong ELF class: ELFCLASS64 (search paths /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri)\nlibGL error: failed to load driver: iris\nlibGL error: MESA-LOADER: failed to open swrast: /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri/swrast_dri.so: wrong ELF class: ELFCLASS64 (search paths /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri)\nlibGL error: failed to load driver: swrast\nX Error of failed request:  GLXBadContext\n  Major opcode of failed request:  150 (GLX)\n  Minor opcode of failed request:  6 (X_GLXIsDirect)\n  Serial number of failed request:  537\n  Current serial number in output stream:  536\n\n</code></pre>\n<h1>해결방법</h1>\n<p>이거 그냥 32비트 라이브러리가 설치되어 있지 않아서 그렇다. 32비트 라이브러리를 설치하면 해결된다.</p>\n<pre><code class=\"language-bash\">sudo dnf install mesa-libGL.i686\n</code></pre>\n<p>끝</p>",
+            "url": "https://blog.litehell.info/post/how_to_fix_libgl_error_on_64bit_fedora",
+            "title": "64비트 페도라에서 libGL (MESA-LOADER) 오류 해결하는 방법",
+            "summary": "32비트 라이브러리가 없어서 생기는 문제",
+            "image": "https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1",
+            "date_modified": "2025-11-25T13:11:43.828Z"
+        },
+        {
             "id": "i_got_swag_from_tor",
             "content_html": "<h1>릴레이 운영</h1>\n<p><a href=\"torproject.org\">Tor</a> 릴레이를 <a href=\"https://asianaonion.org/\">운영하고 있다.</a> VPS 3개로 간단히 굴리고 있는데, Tor 재단 홈페이지를 뒤적이다가 <a href=\"https://community.torproject.org/relay/community-resources/swag/\">이런 게시글</a>을 발견했다.</p>\n<p><img src=\"./tor_swag_article.png\" alt=\"특정 조건 만족시 Tor 티셔츠를 받을 수 있다는 게시글\"></p>\n<p>최소 6개월 이상 Tor 릴레이를 운영하면 티셔츠를 받을 수 있다고 한다. 어? 이거 완전 나잖아.\n그래서 바로 메일을 보냈다.</p>\n<p><img src=\"./request_mail.png\" alt=\"요청 메일\"></p>\n<p>그리고 며칠 지나고 나서 자격이 된다는 메일이랑 곧 보내주겠다는 메일을 받았다.</p>\n<p><img src=\"./first_mail.png\" alt=\"첫번째 메일\"></p>\n<p><img src=\"./follow_up_mial.png\" alt=\"곧 보내주겠다는 메일\"></p>\n<p>그리고 잊을 때쯤 되면 추적 링크가 온다.</p>\n<p><img src=\"./tracking_link_mail.png\" alt=\"추적 링크가 있는 메일\"></p>\n<p>티셔츠가 USPS e-Packet? 아무튼 이런 걸로 오는 것 같은데 택배 추적이 정확하진 않다. 아무래도 한국 내까지 추적이 되진 않는 것 같다.</p>\n<p>저 메일 받고 며칠 지나면은 티셔츠가 우편함에 꽂혀있다. 일이 있어 집을 비웠던 관계로 정확히 언제 왔는 지는 모르겠다.</p>\n<h1>티셔츠</h1>\n<p>티셔츠 디자인은 <a href=\"https://gitlab.torproject.org/tpo/community/team/-/wikis/tshirts\">여기서</a> 고를 수 있다. 이쁜 디자인이 많다.</p>\n<p><img src=\"./design1.png\" alt=\"디자인 1\"></p>\n<p>얘로 골랐다.</p>\n<p><img src=\"./design2.png\" alt=\"디자인 2\"></p>\n<p>얘도 이뻐서 고민 많이 했는데 결국 위에 거로 골랐다.</p>\n<p>실제로는 아래와 같이 왔다.</p>\n<p><img src=\"./front.jpg\" alt=\"앞면\"></p>\n<p>뒤에는 Tor재단 로고가 있다.</p>\n<p><img src=\"./back.jpg\" alt=\"뒷면\"></p>\n<h1>결론</h1>\n<p>암튼 티셔츠를 받았다. 메일에 2개 줄 수 있으면 2개 달라고 적었는데 1개만 준다. 좋았다. 끝~</p>",
             "url": "https://blog.litehell.info/post/i_got_swag_from_tor",

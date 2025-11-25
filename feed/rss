@@ -4,7 +4,7 @@
         <title>LiteHell의 블로그</title>
         <link>https://blog.litehell.info</link>
         <description>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</description>
-        <lastBuildDate>Sun, 23 Nov 2025 14:30:52 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 25 Nov 2025 13:11:43 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
@@ -14,6 +14,32 @@
             <link>https://blog.litehell.info</link>
         </image>
         <copyright>All rights reserved 2020 ~ 2025 © Yeonjin Shin</copyright>
+        <item>
+            <title><![CDATA[64비트 페도라에서 libGL (MESA-LOADER) 오류 해결하는 방법]]></title>
+            <link>https://blog.litehell.info/post/how_to_fix_libgl_error_on_64bit_fedora</link>
+            <guid>how_to_fix_libgl_error_on_64bit_fedora</guid>
+            <pubDate>Tue, 25 Nov 2025 13:11:43 GMT</pubDate>
+            <description><![CDATA[32비트 라이브러리가 없어서 생기는 문제]]></description>
+            <content:encoded><![CDATA[<h1>문제</h1>
+<p>64비트 페도라에서 umu-launcher나 wine으로 게임을 실행하면 다음과 같은 오류가 발생할 수 있다.</p>
+<pre><code>libGL error: MESA-LOADER: failed to open iris: /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri/iris_dri.so: wrong ELF class: ELFCLASS64 (search paths /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri)
+libGL error: failed to load driver: iris
+libGL error: MESA-LOADER: failed to open swrast: /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri/swrast_dri.so: wrong ELF class: ELFCLASS64 (search paths /usr/lib/pressure-vessel/overrides/lib/x86_64-linux-gnu/dri)
+libGL error: failed to load driver: swrast
+X Error of failed request:  GLXBadContext
+  Major opcode of failed request:  150 (GLX)
+  Minor opcode of failed request:  6 (X_GLXIsDirect)
+  Serial number of failed request:  537
+  Current serial number in output stream:  536
+
+</code></pre>
+<h1>해결방법</h1>
+<p>이거 그냥 32비트 라이브러리가 설치되어 있지 않아서 그렇다. 32비트 라이브러리를 설치하면 해결된다.</p>
+<pre><code class="language-bash">sudo dnf install mesa-libGL.i686
+</code></pre>
+<p>끝</p>]]></content:encoded>
+            <enclosure url="https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1" length="0" type="image//avatar/837266b567b50fd59e72428220bf69b1"/>
+        </item>
         <item>
             <title><![CDATA[Tor 재단에서 티셔츠를 받았습니다]]></title>
             <link>https://blog.litehell.info/post/i_got_swag_from_tor</link>
