@@ -4,7 +4,7 @@
         <title>LiteHell의 블로그</title>
         <link>https://blog.litehell.info</link>
         <description>LiteHell의 개인블로그입니다. 프로그래밍이나 제 개인적인 일상에 관련된 글들이 올라옵니다.</description>
-        <lastBuildDate>Tue, 03 Mar 2026 10:53:26 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 29 Jun 2026 14:12:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>ko</language>
@@ -14,6 +14,24 @@
             <link>https://blog.litehell.info</link>
         </image>
         <copyright>All rights reserved 2020 ~ 2025 © Yeonjin Shin</copyright>
+        <item>
+            <title><![CDATA[Tor relay config 다시 로드하는 방법]]></title>
+            <link>https://blog.litehell.info/post/how_to_reload_tor_config</link>
+            <guid>how_to_reload_tor_config</guid>
+            <pubDate>Mon, 29 Jun 2026 14:12:12 GMT</pubDate>
+            <description><![CDATA[재시작 안하고 config만 다시 읽는 방법]]></description>
+            <content:encoded><![CDATA[<p>Tor 릴레이 config를 수정하고 tor를 재시작하면 수정된 config가 적용된다.</p>
+<p>너무 당연한 이야기긴 한데... 이게 가끔 재수없으면 Flag(Tor 릴레이는 Fast나 Stable과 같은 Flag가 붙는다)가 사라진다.</p>
+<p>그런 경우에는 tor 프로세스에 SIGHUP 시그널만 날리면 tor 재시작 없이 수정된 config 적용만 할 수 있다.</p>
+<pre><code class="language-bash"><span class="pl-c"># pkill 쓰는 방법</span>
+pkill --signal 1 tor
+<span class="pl-c"># kill 쓰는 방법</span>
+<span class="pl-c1">kill</span> -1 (tor pid)
+</code></pre>
+<p>명령어에서 1은 SIGHUP을 의미한다.</p>
+<p>끝</p>]]></content:encoded>
+            <enclosure url="https://gravatar.com/avatar/837266b567b50fd59e72428220bf69b1" length="0" type="image//avatar/837266b567b50fd59e72428220bf69b1"/>
+        </item>
         <item>
             <title><![CDATA[Tor Relay Family를 구성하는 새로운 방법]]></title>
             <link>https://blog.litehell.info/post/tor_happy_family</link>
